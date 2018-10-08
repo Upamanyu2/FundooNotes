@@ -1,0 +1,67 @@
+<div fxLayout="column" fxLayoutGap="10%">
+  <div><p>Header</p></div>  
+    <div fxLayout="row">
+          <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+          <div fxFlex="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%">
+              <mat-card>
+                <div fxLayoutAlign="center">
+                    <h1>
+                        <span class="B">F</span>
+                        <span class="R">N</span>
+                        <span class="Y">O</span>
+                        <span class="B">T</span>
+                        <span class="R">E</span>
+                        <span class="G">S</span>
+                   </h1>
+                  </div> 
+                  <div fxLayoutAlign="center">
+                      <p style="font-size:12px" >Create your account</p>
+                  </div>
+                  <div>
+                      <form class="container1">
+                          <div fxLayoutAlign="space-between">
+                              <mat-form-field class="container2-full-width">
+                                  <input matInput placeholder="First name">
+                              </mat-form-field>
+                              <mat-form-field class="container2-full-width">
+                                  <input matInput placeholder="Last name">
+                              </mat-form-field>
+                          </div>
+                          <br>
+                          <div>
+                            <mat-form-field class="container1">
+                              <input matInput placeholder="Username">
+                           </mat-form-field>
+                           <p>You can use letters or numbers.</p>
+                          </div>
+                          <br>
+                          <div fxLayoutAlign="space-between">
+                              <mat-form-field class="container2-full-width">
+                                  <input matInput placeholder="Password">
+                              </mat-form-field>
+                              <mat-form-field class="container2-full-width">
+                                  <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'">
+                                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                              </mat-form-field>
+                          </div>
+                          <div fxLayoutAlign="space-between"> 
+                              <a href="#" routerLink="/login">Sign in instead</a>
+                              <button mat-raised-button style="background-color:#0f5cd8; color: white">Next</button>
+                          </div>
+                          <br>
+                          <div fxLayoutAlign="space-between">
+                              <mat-card class="container3-full-width">
+                                  Basic
+                              </mat-card>
+                              <mat-card class="container4-full-width">
+                                  Advance
+                              </mat-card> 
+                          </div>
+                      </form>
+                  </div>  
+              </mat-card>  
+          </div>
+          <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+    </div>
+  <div><p>Footer</p></div>
+</div>

@@ -1,0 +1,32 @@
+.container1 {
+    display: flex;
+    flex-direction: column;
+    width: 100%
+  }
+  
+  /* .container1-full-width > * {
+    width: 100%;
+  } */
+  .container2-full-width{
+    width: 40%
+  }
+  .container3-full-width{
+    width: 35%;
+    background-color: bisque;
+  }
+  .container4-full-width{
+    width: 35%;
+    background-color: rgb(255, 255, 152);
+  }
+  .B{
+    color: #4285f4;
+  }
+  .R{
+    color: #EA4335;
+  }
+  .Y{
+    color: #EBBC05;
+  }
+  .G{
+    color: #34A853;
+  }

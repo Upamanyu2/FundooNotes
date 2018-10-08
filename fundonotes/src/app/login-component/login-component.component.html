@@ -1,0 +1,57 @@
+<div fxLayout="column" fxLayoutGap="10%">
+<div></div>
+      <div fxLayout="row">
+          <div fxFlex="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                <div fxFlex="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%" class="container">
+                        <div>
+                          <div>
+                              <mat-card> 
+                                  <div fxLayoutAlign="center">
+                                     <h1>
+                                      <span class="B">F</span>
+                                      <span class="R">N</span>
+                                      <span class="Y">O</span>
+                                      <span class="B">T</span>
+                                      <span class="R">E</span>
+                                      <span class="G">S</span>
+                                     </h1>
+                                  </div>
+                                  
+                                  <div fxLayoutAlign="center">
+                                      <p style="font-size:28px" >Sign in</p>
+                                      <br>
+                                  </div>
+                                  <form class="container">
+                                  <mat-form-field class="container-full-width">
+                                    <input matInput placeholder="Email">
+                                  </mat-form-field>
+                                  <mat-form-field class="container-full-width">
+                                      <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'">
+                                      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                  </mat-form-field>
+                                  </form>
+                                  <div>
+                                    <a href="#">Forgot email?</a>
+                                    <br>
+                                    <br>
+                                    <a href="#">Forgot password?</a>
+                                  </div> 
+                                
+                                <br>
+                                <br>
+                                <br>
+                                <div fxLayoutAlign="space-between"> 
+                                  <a href="#" routerLink="/register">Create account</a>
+                                  <button mat-raised-button style="background-color:#0f5cd8; color: white">Next</button>
+                                </div> 
+                              </mat-card>
+  
+                          </div>
+                        </div>
+                            
+                </div>   
+          <div fxFlex="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+      </div>
+<div></div>
+</div>
+
