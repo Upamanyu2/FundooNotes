@@ -1,30 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, state, transition, animate, style } from '@angular/animations';
+import { ServiceService } from '../service/http/service.service' 
 
 @Component({
   selector: 'app-signup-component',
   templateUrl: './signup-component.component.html',
-  styleUrls: ['./signup-component.component.css'],
-  // animations: [
-  //   trigger('changeState',[
-  //     state('state1',style({
-  //       backgroundColor: 'bisque',
-  //       transform: 'scale(1)'
-  //     })),
-  //     state('state2',style({
-  //       backgroundColor: 'rgb(255, 255, 152)',
-  //       transform: 'scale(1)'
-  //     })),
-  //     transition('*=>state1',animate('300ms')),
-  //     transition('*=>state2',animate('2000ms')),
-  //   ])
-  // ]
+  styleUrls: ['./signup-component.component.css']
 })
 export class SignupComponentComponent implements OnInit {
+  public show:boolean = true;
 
-  constructor() { }
-
-  ngOnInit() {
+  public cards=[];
+  constructor(private _service : ServiceService) {  }
+  
+  ngOnInit() { 
+    let obs=this._service.getData("user/service")
+  obs.subscribe((response) =>{
+    console.log(response);
+    var data = response["data"];
+    for(var i=0;i<data.data.length;i++){
+      this.cards.push(data.data[i]);
+    }
+    console.log("cards:", this.cards);
+  });
+   }
+  toggle(){
+    this.show = !this.show;
+    console.log("toggle");
+   
   }
 
 }

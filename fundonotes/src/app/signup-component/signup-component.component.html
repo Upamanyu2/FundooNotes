@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutGap="10%">
+<div fxLayout="column" fxLayoutGap.lg="10%" fxLayoutGap.md="0%" fxLayoutGap.sm="0%" fxLayoutGap.xs="0%">
   <div><p>Header</p></div>  
     <div fxLayout="row">
           <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
@@ -46,17 +46,22 @@
                           </div>
                           <div fxLayoutAlign="space-between"> 
                               <a href="#" routerLink="/login">Sign in instead</a>
-                              <button mat-raised-button style="background-color:#0f5cd8; color: white">Next</button>
+                              <button routerLink="/list" mat-raised-button style="background-color:#0f5cd8; color: white">Next</button>
                           </div>
                           <br>
-                          <div fxLayoutAlign="space-between">
-                              <mat-card class="container3-full-width">
-                                  Basic
-                              </mat-card>
-                              <mat-card class="container4-full-width">
-                                  Advance
-                              </mat-card> 
+                          <div fxLayout="row">
+                            <div  *ngFor="let data of cards" fxLayoutGap="50%">
+                                <mat-card  fxLayoutAlign="space-between" *ngIf="show"  class="container3-full-width">
+                                  {{data.name}}
+                                  {{data.description}}
+                                </mat-card>
+                                <!-- <mat-card fxLayoutAlign="space-between"   class="container4-full-width">
+                                    {{data.name}}
+                                    {{data.description}}
+                                </mat-card> -->
+                            </div>
                           </div>
+                          
                       </form>
                   </div>  
               </mat-card>  
