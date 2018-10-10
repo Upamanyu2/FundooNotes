@@ -13,6 +13,6 @@ export class ServiceService {
     return this.http.get(this.url+"/"+name);
   }
   public postData(name,body){
-    return this.http.post(this.url+"'/"+name,body);
+    return this.http.post(this.url+"/"+name,body);
   } 
 }

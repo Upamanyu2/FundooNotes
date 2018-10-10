@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
+import { ServiceService } from '../service/http/service.service' ;
 
 @Component({
   selector: 'app-login-component',
@@ -9,13 +10,19 @@ import {FormGroup, FormControl} from '@angular/forms';
 })
 export class LoginComponentComponent implements OnInit {
   
-  signupform : FormGroup;
-  constructor() { }
+  loginForm : FormGroup;
+  constructor(private _service : ServiceService) { }
  
   ngOnInit() {
-    this.signupform = new FormGroup({
-        Email : new FormControl()
+    this.loginForm = new FormGroup({
+        Email : new FormControl(),
+        Password : new FormControl()
     });
+    this._service.getData("user")
+       .subscribe((data)=>{
+         console.log(data);
+         
+       })
   }
 
 }

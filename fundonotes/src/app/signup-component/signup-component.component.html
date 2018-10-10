@@ -3,7 +3,7 @@
     <div fxLayout="row">
           <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
           <div fxFlex="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%">
-              <mat-card>
+              <mat-card style="width: 100%">
                 <div fxLayoutAlign="center">
                     <h1>
                         <span class="B">F</span>
@@ -15,53 +15,52 @@
                    </h1>
                   </div> 
                   <div fxLayoutAlign="center">
-                      <p style="font-size:12px" >Create your account</p>
+                      <p style="font-size:20px" >Create your account</p>
                   </div>
                   <div>
-                      <form class="container1">
+                      <form class="container1" [formGroup]="signupForm">
                           <div fxLayoutAlign="space-between">
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="First name">
+                                  <input matInput placeholder="First name" [(ngModel)]="model.fname" formControlName="Fname">
                               </mat-form-field>
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Last name">
+                                  <input matInput placeholder="Last name" [(ngModel)]="model.lname" formControlName="Lname">
                               </mat-form-field>
                           </div>
                           <br>
                           <div>
                             <mat-form-field class="container1">
-                              <input matInput placeholder="Username">
+                              <input matInput placeholder="Username" [(ngModel)]="model.uname" formControlName="Uname">
                            </mat-form-field>
                            <p>You can use letters or numbers.</p>
+                           <mat-form-field class="container1">
+                                <input matInput placeholder="Email" [(ngModel)]="model.uname" formControlName="Email">
+                             </mat-form-field>
                           </div>
                           <br>
                           <div fxLayoutAlign="space-between">
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Password">
+                                  <input matInput placeholder="Password" [(ngModel)]="model.pass" formControlName="Password">
                               </mat-form-field>
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'">
+                                  <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'" formControlName="ConfirmPassword">
                                   <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                               </mat-form-field>
                           </div>
                           <div fxLayoutAlign="space-between"> 
                               <a href="#" routerLink="/login">Sign in instead</a>
-                              <button routerLink="/list" mat-raised-button style="background-color:#0f5cd8; color: white">Next</button>
+                              <button  mat-raised-button style="background-color:#0f5cd8; color: white" (click)="signup()">Next</button>
                           </div>
                           <br>
-                          <div fxLayout="row">
-                            <div  *ngFor="let data of cards" fxLayoutGap="50%">
-                                <mat-card  fxLayoutAlign="space-between" *ngIf="show"  class="container3-full-width">
-                                  {{data.name}}
-                                  {{data.description}}
-                                </mat-card>
-                                <!-- <mat-card fxLayoutAlign="space-between"   class="container4-full-width">
-                                    {{data.name}}
-                                    {{data.description}}
-                                </mat-card> -->
+                            <div fxLayout="row" fxLayoutGap="5%" >
+                                
+                                        <mat-card (click)="toggle(datas)" *ngFor="let datas of cards"  [ngClass]="datas.select ? 'select' : 'deselect'">
+                                                <h3>{{datas.name}}</h3>
+                                                <hr>
+                                                <br>
+                                                {{datas.description}}
+                                        </mat-card>
                             </div>
-                          </div>
-                          
                       </form>
                   </div>  
               </mat-card>  

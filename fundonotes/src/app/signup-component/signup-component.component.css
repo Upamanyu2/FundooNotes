@@ -3,22 +3,20 @@
     flex-direction: column;
     width: 100%
   }
-  
-  /* .container1-full-width > * {
-    width: 100%;
-  } */
   .container2-full-width{
     width: 40%
   }
-  .container3-full-width{
-    height: 100%;
-    width:  70%;
-    background-color: bisque;
+    
+  .select{
+    width:  40%;
+    background-color: rgba(34, 34, 34, 0.548);
+    /* border: 2px solid rgb(32, 32, 32); */
+    color: white;
   }
-  .container4-full-width{
-    height: 50%;
-    width: 35%;
-    background-color: rgb(255, 255, 152);
+  
+  .deselect{
+    width:  40%;
+    background-color: rgba(255, 228, 196, 0.527);
   }
   
   .B{

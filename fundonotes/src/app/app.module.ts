@@ -15,7 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
-
+import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,9 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
     AppRoutingModule,
     MatIconModule,
     MatButtonToggleModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
