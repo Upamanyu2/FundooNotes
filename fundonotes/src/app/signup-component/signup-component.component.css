@@ -10,7 +10,6 @@
   .select{
     width:  40%;
     background-color: rgba(34, 34, 34, 0.548);
-    /* border: 2px solid rgb(32, 32, 32); */
     color: white;
   }
   
@@ -30,4 +29,14 @@
   }
   .G{
     color: #34A853;
+  }
+  .invalid-feedback{
+    width: 40%;
+    font-size: 13px;
+    color: black;
+    
+  }
+  .invalid-feedback >* {
+    font-size: 13px;
+    color: black;
   }

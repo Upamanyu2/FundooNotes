@@ -16,13 +16,15 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponentComponent,
     SignupComponentComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,11 @@ import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
     MatButtonToggleModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

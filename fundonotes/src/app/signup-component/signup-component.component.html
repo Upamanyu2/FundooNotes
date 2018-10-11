@@ -21,32 +21,67 @@
                       <form class="container1" [formGroup]="signupForm">
                           <div fxLayoutAlign="space-between">
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="First name" [(ngModel)]="model.fname" formControlName="Fname">
+                                  <input matInput placeholder="First name" [(ngModel)]="model.fname" formControlName="Fname" [ngClass]="{ 'is-invalid': submitted && f.Fname.errors }">
                               </mat-form-field>
+                              
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Last name" [(ngModel)]="model.lname" formControlName="Lname">
+                                  <input matInput placeholder="Last name" [(ngModel)]="model.lname" formControlName="Lname" [ngClass]="{ 'is-invalid': submitted && f.Lname.errors }">
                               </mat-form-field>
                           </div>
-                          <br>
+                          <div fxLayoutAlign="space-between">
+                                <div *ngIf="submitted && f.Fname.errors"  class="invalid-feedback">
+                                     <mat-error *ngIf="f.Fname.errors.required">First Name is required</mat-error>
+                                </div>
+                                <div *ngIf="submitted && f.Lname.errors" class="invalid-feedback">
+                                     <mat-error *ngIf="f.Lname.errors.required">Last Name is required</mat-error>
+                                </div>
+                          </div>
                           <div>
                             <mat-form-field class="container1">
-                              <input matInput placeholder="Username" [(ngModel)]="model.uname" formControlName="Uname">
-                           </mat-form-field>
-                           <p>You can use letters or numbers.</p>
-                           <mat-form-field class="container1">
-                                <input matInput placeholder="Email" [(ngModel)]="model.uname" formControlName="Email">
-                             </mat-form-field>
+                              <input matInput placeholder="Username" [(ngModel)]="model.uname" formControlName="Uname" [ngClass]="{ 'is-invalid': submitted && f.Uname.errors }">
+                            </mat-form-field>
                           </div>
+                            <div *ngIf="submitted && f.Uname.errors" class="invalid-feedback">
+                                <mat-error *ngIf="f.Uname.errors.required" >Username is required</mat-error>
+                            </div>
+                            <p>You can use letters or numbers.</p>
+                            <div>
+                                <mat-form-field class="container1">
+                                    <input matInput placeholder="Email" [(ngModel)]="model.uname" formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="submitted && f.Uname.errors" class="invalid-feedback">
+                                <mat-error *ngIf="f.Email.errors.required">Email is required</mat-error>
+                            </div>
+                            
+                          
                           <br>
                           <div fxLayoutAlign="space-between">
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Password" [(ngModel)]="model.pass" formControlName="Password">
+                                  <input matInput placeholder="Password" [(ngModel)]="model.pass" formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
                               </mat-form-field>
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Confirm password" [type]="hide ? 'password' : 'text'" formControlName="ConfirmPassword">
+                                  <input matInput placeholder="Confirm password" [(ngModel)]="model.Cpass" [type]="hide ? 'password' : 'text'" formControlName="ConfirmPassword" [ngClass]="{ 'is-invalid': submitted && f.ConfirmPassword.errors }">
                                   <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                               </mat-form-field>
                           </div>
+                          <div fxLayoutAlign="space-between">
+                                <div *ngIf="submitted && f.Password.errors"  class="invalid-feedback">
+                                     <mat-error *ngIf="f.Password.errors.required">Password required</mat-error>
+                                     <mat-error *ngIf="f.Password.errors.minlength">Passwords should be 6 characters</mat-error>
+                                </div>
+                                <div *ngIf="submitted && f.ConfirmPassword.errors" class="invalid-feedback">
+                                     <mat-error *ngIf="f.ConfirmPassword.errors.required">Confirm password required</mat-error> 
+                                     <mat-error *ngIf="f.ConfirmPassword.errors.minlength">Password should be 6 characters</mat-error> 
+                                     <mat-error *ngIf="f.ConfirmPassword.errors.passValidator">Both the password should match</mat-error> 
+                                </div>
+                                <!-- <div *ngIf="submitted && f.ConfirmPassword.errors">
+                                    <mat-error *ngIf="f.ConfirmPassword.errors.passValidator">Both the password should match</mat-error>
+                                </div> -->
+                                     
+                            </div>
+                          
+                          <br>
                           <div fxLayoutAlign="space-between"> 
                               <a href="#" routerLink="/login">Sign in instead</a>
                               <button  mat-raised-button style="background-color:#0f5cd8; color: white" (click)="signup()">Next</button>

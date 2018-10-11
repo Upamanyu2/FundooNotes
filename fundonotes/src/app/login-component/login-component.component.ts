@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ServiceService } from '../service/http/service.service' ;
 
 @Component({
@@ -11,18 +11,28 @@ import { ServiceService } from '../service/http/service.service' ;
 export class LoginComponentComponent implements OnInit {
   
   loginForm : FormGroup;
-  constructor(private _service : ServiceService) { }
+  constructor(private _service : ServiceService, private formBuilder : FormBuilder) { }
  
   ngOnInit() {
-    this.loginForm = new FormGroup({
-        Email : new FormControl(),
-        Password : new FormControl()
+    this.loginForm = this.formBuilder.group({
+        Email : ['', Validators.required],
+        Password : ['', [Validators.required, Validators.minLength(6)]],
     });
     this._service.getData("user")
        .subscribe((data)=>{
          console.log(data);
          
        })
+  }
+/*------------------------------------------------------------------------------------------------------------------------------------*/ 
+  get f() {                     // function returns all the controls of the input field.
+    return this.loginForm.controls;
+  }
+/*------------------------------------------------------------------------------------------------------------------------------------*/ 
+  login(){
+    if (this.loginForm.invalid) {
+      return;
+  }  
   }
 
 }
