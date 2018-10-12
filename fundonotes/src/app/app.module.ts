@@ -14,9 +14,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { HttpClientModule } from '@angular/common/http';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AppComponent,
     LoginComponentComponent,
     SignupComponentComponent,
-    EmployeeListComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +44,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
-    
-
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),    
   ],
   providers: [],
   bootstrap: [AppComponent]

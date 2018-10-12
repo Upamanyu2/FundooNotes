@@ -19,4 +19,12 @@
 .G{
   color: #34A853;
 }
+.invalid-feedback1{
+  font-size: 13px;
+  color: black;
+}
+.invalid-feedback1 >* {
+  font-size: 13px;
+  color: black;
+}
  

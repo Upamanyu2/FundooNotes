@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import { LoginComponentComponent } from './login-component/login-component.component';
 import { SignupComponentComponent } from './signup-component/signup-component.component';
-import { EmployeeListComponent } from './employee-list/employee-list.component'
-
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 const routes: Routes = [
   { path: 'register', component: SignupComponentComponent },
   { path: 'login', component: LoginComponentComponent },
-  { path: 'list', component: EmployeeListComponent},
+  { path: 'forgot-password', component:ForgotPasswordComponent },
+  { path: 'resetpassword/:token', component: ResetPasswordComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

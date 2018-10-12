@@ -1,10 +1,11 @@
 <div fxLayout="column" fxLayoutGap.lg="10%" fxLayoutGap.md="0%" fxLayoutGap.sm="0%" fxLayoutGap.xs="0%">
 <div></div>
       <div fxLayout="row">
-          <div fxFlex="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
-                <div fxFlex="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%" class="container">
+          <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+                <div fxFlex.lg="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%" class="container">
                         <div>
                           <div>
+                              <form class="container" [formGroup]="loginForm">
                               <mat-card> 
                                   <div fxLayoutAlign="center">
                                      <h1>
@@ -22,28 +23,31 @@
                                       <br>
                                   </div>
                                  
-                                  <form class="container" [formGroup]="loginForm">
-                                    <div>
-                                        <mat-form-field class="container-full-width">
-                                            <input matInput placeholder="Email" formControlName="Email" >
+                                  
+                                    <div class="container-full-width">
+                                        <mat-form-field>
+                                            <input matInput placeholder="Email" [(ngModel)]="model.email" formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
                                           </mat-form-field>
                                     </div>
-                                    <div>
-                                      <mat-error></mat-error>
+                                    <div *ngIf="submitted && f.Email.errors" class="invalid-feedback1">
+                                      <mat-error *ngIf="f.Email.errors.required" >Email is required</mat-error>
+                                      <mat-error *ngIf="f.Email.errors.email" >[Provide a valid email xyz@abc.com]</mat-error>
                                     </div>
-                                  <div>
-                                      <mat-form-field class="container-full-width">
-                                          <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'"  formControlName="Password">
+                                    <br>
+                                  <div class="container-full-width">
+                                      <mat-form-field>
+                                          <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'"  [(ngModel)]="model.password"  formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
                                           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                                       </mat-form-field>
                                   </div>
+                                  <div *ngIf="submitted && f.Password.errors" class="invalid-feedback1">
+                                    <mat-error *ngIf="f.Password.errors.required" >Password is required</mat-error>
+                                    <mat-error *ngIf="f.Password.errors.minlength" >Password should be minimum 6 characters</mat-error>
+                                  </div>
+                                  <br>
                                   
-                                  </form>
                                   <div>
-                                    <a href="#">Forgot email?</a>
-                                    <br>
-                                    <br>
-                                    <a href="#">Forgot password?</a>
+                                    <a routerLink="/forgot-password">Forgot password?</a>
                                   </div> 
                                 
                                 <br>
@@ -51,15 +55,15 @@
                                 <br>
                                 <div fxLayoutAlign="space-between"> 
                                   <a href="#" routerLink="/register">Create account</a>
-                                  <button mat-raised-button style="background-color:#0f5cd8; color: white">Next</button>
+                                  <button (click)="login()" mat-raised-button style="background-color:#0f5cd8; color: white">Next</button>
                                 </div> 
                               </mat-card>
-  
+                            </form>
                           </div>
                         </div>
                             
                 </div>   
-          <div fxFlex="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+          <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
       </div>
 <div></div>
 </div>

@@ -1,8 +1,8 @@
 <div fxLayout="column" fxLayoutGap.lg="10%" fxLayoutGap.md="0%" fxLayoutGap.sm="0%" fxLayoutGap.xs="0%">
-  <div><p>Header</p></div>  
+  <div></div>  
     <div fxLayout="row">
           <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
-          <div fxFlex="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%">
+          <div fxFlex.lg="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%">
               <mat-card style="width: 100%">
                 <div fxLayoutAlign="center">
                     <h1>
@@ -43,6 +43,7 @@
                           </div>
                             <div *ngIf="submitted && f.Uname.errors" class="invalid-feedback">
                                 <mat-error *ngIf="f.Uname.errors.required" >Username is required</mat-error>
+                                <mat-error *ngIf="f.Uname.errors.email" >[Provide a valid email xyz@abc.com]</mat-error>
                             </div>
                             <p>You can use letters or numbers.</p>
                             <div>
@@ -52,6 +53,7 @@
                             </div>
                             <div *ngIf="submitted && f.Uname.errors" class="invalid-feedback">
                                 <mat-error *ngIf="f.Email.errors.required">Email is required</mat-error>
+                                <mat-error *ngIf="f.Email.errors.email">[Provide a valid format xyz@abc.com]</mat-error>
                             </div>
                             
                           
@@ -84,7 +86,7 @@
                           <br>
                           <div fxLayoutAlign="space-between"> 
                               <a href="#" routerLink="/login">Sign in instead</a>
-                              <button  mat-raised-button style="background-color:#0f5cd8; color: white" (click)="signup()">Next</button>
+                              <button [disabled]="!buttonDisabled"  mat-raised-button style="background-color:#0f5cd8; color: white" (click)="signup()">Next</button>
                           </div>
                           <br>
                             <div fxLayout="row" fxLayoutGap="5%" >
@@ -102,5 +104,5 @@
           </div>
           <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
     </div>
-  <div><p>Footer</p></div>
+  <div></div>
 </div>
