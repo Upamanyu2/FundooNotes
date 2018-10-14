@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from '../service/http/service.service' ;
+import { ServiceService } from '../../service/http/service.service' ;
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
 @Component({
@@ -16,8 +16,8 @@ export class ForgotPasswordComponent implements OnInit {
     private formBuilder : FormBuilder, 
     public snackBar: MatSnackBar
     ) { }
-
-  ngOnInit() {
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+  ngOnInit() {                   //initialisation function which is called when the page loads
     this.forgotPasswordForm = this.formBuilder.group({
       Email :['', [Validators.required, Validators.email]]
     })
@@ -32,7 +32,7 @@ export class ForgotPasswordComponent implements OnInit {
         let mail = this.model.email;
         if(mail.length==0){
           console.log("Please provide an email.");
-          this.snackBar.open("fill in all the details", "cannot send mail", {
+          this.snackBar.open("Please provide a valid email", "cannot send mail", {
             duration: 2000
           })
           return;
@@ -41,9 +41,15 @@ export class ForgotPasswordComponent implements OnInit {
           "email":this.model.email
         }).subscribe(data =>{
           console.log("POST request is successful", data);
+          this.snackBar.open("Check your mail", "mail sent", {
+            duration: 2000
+          })
         },
         error =>{
           console.log("Error",error);
+          this.snackBar.open("Something bad happened", "please contact the support", {
+            duration: 2000
+          })
         })
         if (this.forgotPasswordForm.invalid) {
           return;
@@ -52,3 +58,4 @@ export class ForgotPasswordComponent implements OnInit {
    }
 
 }
+/*------------------------------------------------------------------------------------------------------------------------------------*/

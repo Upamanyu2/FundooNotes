@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponentComponent } from './login-component/login-component.component';
-import { SignupComponentComponent } from './signup-component/signup-component.component';
+import { LoginComponentComponent } from './component/login-component/login-component.component';
+import { SignupComponentComponent } from './component/signup-component/signup-component.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -16,8 +16,13 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
+import { HomeComponent } from './component/home/home.component';
+import { NavigationBarComponent } from './component/navigation-bar/navigation-bar.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/material';
+import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -26,7 +31,10 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     LoginComponentComponent,
     SignupComponentComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    HomeComponent,
+    NavigationBarComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +52,11 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),    
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -60,10 +60,10 @@
                           <br>
                           <div fxLayoutAlign="space-between">
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Password" [(ngModel)]="model.pass" formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
+                                  <input matInput placeholder="Password" [(ngModel)]="model.pass" [type]="!hide ? 'password' : 'text'"  formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
                               </mat-form-field>
                               <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Confirm password" [(ngModel)]="model.Cpass" [type]="hide ? 'password' : 'text'" formControlName="ConfirmPassword" [ngClass]="{ 'is-invalid': submitted && f.ConfirmPassword.errors }">
+                                  <input matInput placeholder="Confirm password" [(ngModel)]="model.Cpass" [type]="!hide ? 'password' : 'text'" formControlName="ConfirmPassword" [ngClass]="{ 'is-invalid': submitted && f.ConfirmPassword.errors }">
                                   <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                               </mat-form-field>
                           </div>

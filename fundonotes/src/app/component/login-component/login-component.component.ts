@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { ServiceService } from '../service/http/service.service' ;
+import { ServiceService } from '../../service/http/service.service' ;
 import {MatSnackBar} from '@angular/material';
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-login-component',
   templateUrl: './login-component.component.html',
@@ -13,7 +13,11 @@ export class LoginComponentComponent implements OnInit {
   submitted = false;
   model: any ={};
   loginForm : FormGroup;
-  constructor(private _service : ServiceService, private formBuilder : FormBuilder, public snackBar: MatSnackBar) { }
+  constructor(private _service : ServiceService,
+     private formBuilder : FormBuilder,
+      public snackBar: MatSnackBar,
+      public router:Router
+      ) { }
  
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -59,6 +63,7 @@ export class LoginComponentComponent implements OnInit {
       }).subscribe(
         data =>{
           console.log("POST request is successful", data);
+          this.router.navigate(['/','home']);           //for navigating to the home page.
         },
         error => {
           console.log("Error",error);
@@ -72,3 +77,4 @@ export class LoginComponentComponent implements OnInit {
   }
 
 }
+/*------------------------------------------------------------------------------------------------------------------------------------*/

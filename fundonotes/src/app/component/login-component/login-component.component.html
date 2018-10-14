@@ -36,7 +36,7 @@
                                     <br>
                                   <div class="container-full-width">
                                       <mat-form-field>
-                                          <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'"  [(ngModel)]="model.password"  formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
+                                          <input matInput placeholder="Password" [type]="!hide ? 'password' : 'text'"  [(ngModel)]="model.password"  formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
                                           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                                       </mat-form-field>
                                   </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from '../service/http/service.service' ;
+import { ServiceService } from '../../service/http/service.service' ;
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
-import { passValidator } from '../util/custom';
+import { passValidator } from '../../util/custom';
 
 @Component({
   selector: 'app-signup-component',
@@ -23,7 +23,7 @@ export class SignupComponentComponent implements OnInit {
         private formBuilder : FormBuilder, 
         public snackBar: MatSnackBar
         ) {  }
-      
+/*------------------------------------------------------------------------------------------------------------------------------------*/      
       ngOnInit() {    //initialisation function which is called when the page loads
         
         this.signupForm = this.formBuilder.group({
@@ -65,44 +65,57 @@ export class SignupComponentComponent implements OnInit {
             })
             return;
           }
+          let firstName = this.model.fname;
+          let lastName = this.model.lname;
+          let username =  this.model.uname;
+          let email = this.model.uname;
+          let password = this.model.pass;
+          let confirmpassword = this.model.Cpass;
+          if (firstName.length == 0 || lastName.length == 0 || username.length == 0 || 
+            password.length == 0 || this.service.length == 0  ){
+             this.buttonDisabled=false;
+             console.log("fill all the details");
+             this.snackBar.open("fill in all the details", "signup failed", {
+               duration: 2000
+             })
+             return;
+           }
+           else if(password!=confirmpassword){
+            console.log("give same password to confirm");
+            this.snackBar.open("should give same password", "signup failed", {
+              duration: 2000
+            })
+               return;
+          }
+           
+          else if(password.length<6 || confirmpassword.length<6){
+            console.log("Password should be minimum of 6 characters");
+            this.snackBar.open("Password should be minimum of 6 characters", "signup failed", {
+              duration: 2000
+            })
+               return;
+          }
+
           this._service.postData("user/userSignUp",
           {
             "firstName": this.model.fname,
             "lastName": this.model.lname,
             "phoneNumber": 9674921473,
             "service": this.serviceName,
-            "createdDate": "2018-10-09T06:35:12.617Z",
-            "modifiedDate": "2018-10-09T06:35:12.617Z",
+            "createdDate": new Date,
+            "modifiedDate": new Date,
             "username": this.model.uname,
             "email": this.model.uname,
             "emailVerified": true,
             "password": this.model.pass
           }).subscribe(
             data => {
-              if (this.model.fname.length == 0 || this.model.lname.length == 0 || this.model.uname.length == 0 || 
-                this.model.pass.length == 0 || this.service.length == 0  ){
-                 this.buttonDisabled=false;
-                 console.log("fill all the details");
-                 this.snackBar.open("fill in all the details", "signup failed", {
-                   duration: 2000
-                 })
-                 return;
-               }
-               else if(this.model.pass!=this.model.Cpass){
-                 console.log("give same password to confirm");
-                 this.snackBar.open("should give same password", "signup failed", {
-                   duration: 2000
-                 })
-                    return;
-               }
-               else if(this.model.pass.length<6 || this.model.Cpass<6){
-                console.log("Password should be minimum of 6 characters");
-                this.snackBar.open("Password should be minimum of 6 characters", "signup failed", {
-                  duration: 2000
-                })
-                   return;
-              }
-               else console.log("POST request is successful", data);
+              console.log("POST request is successful", data);
+              this.snackBar.open("The user is successfully registered", "signup successful", {
+                duration: 2000
+              })
+              return;
+
             },
             error => {
               console.log("Error",error);

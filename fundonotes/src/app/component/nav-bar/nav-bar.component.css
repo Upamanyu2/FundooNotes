@@ -1,0 +1,21 @@
+.navigation-bar{
+    display: flex;
+    flex-direction: column;
+}
+.tool-bar{
+    background-color: #fb0;
+}
+.logo{
+    margin-left: 3%;
+}
+.example-form-field {
+    width: 200px;
+    margin-left: 10%;
+  }
+  .searchbar{
+      margin-left: 9%;
+      width: 100%;
+  }
+  .search-container >*{
+     
+  }
