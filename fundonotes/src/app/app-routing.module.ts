@@ -6,12 +6,18 @@ import { SignupComponentComponent } from './component/signup-component/signup-co
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import { HomeComponent } from './component/home/home.component';
+import { NotesComponentComponent } from './component/notes-component/notes-component.component';
+import { ReminderComponentComponent } from './component/reminder-component/reminder-component.component';
 const routes: Routes = [
   { path: 'register', component: SignupComponentComponent },
   { path: 'login', component: LoginComponentComponent },
   { path: 'forgot-password', component:ForgotPasswordComponent },
   { path: 'resetpassword/:token', component: ResetPasswordComponent},
-  { path: 'home', component: HomeComponent},
+  { path: 'home', component: HomeComponent,
+   
+    children:[{path:'notes', component:NotesComponentComponent},
+              {path:'reminder', component:ReminderComponentComponent}
+  ]},
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

@@ -23,6 +23,9 @@ import { NavigationBarComponent } from './component/navigation-bar/navigation-ba
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/material';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
+import { NotesComponentComponent } from './component/notes-component/notes-component.component';
+import { ReminderComponentComponent } from './component/reminder-component/reminder-component.component';
+
 
 
 @NgModule({
@@ -34,7 +37,9 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
     ResetPasswordComponent,
     HomeComponent,
     NavigationBarComponent,
-    NavBarComponent
+    NavBarComponent,
+    NotesComponentComponent,
+    ReminderComponentComponent
   ],
   imports: [
     BrowserModule,

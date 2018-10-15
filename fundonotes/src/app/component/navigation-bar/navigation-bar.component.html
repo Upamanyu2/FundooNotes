@@ -9,22 +9,29 @@
   <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
   <span class="title">fundoo</span>
-  <input class="searchbar" aria-label="Search" autocomplete="off" placeholder="Search" value="" name="q" role="combobox" type="text" aria-hidden="false">
+  
+<div class="search">
+    
+    <button class="search-button" aria-label="Toggle sidenav" mat-icon-button  aria-label="Toggle sidenav"><mat-icon aria-label="Side nav toggle icon">search</mat-icon></button>
+    <input class="search-input"  aria-label="Search" autocomplete="off" placeholder="Search" value="" name="q" role="combobox" type="text" aria-hidden="false">
+  </div> 
+  
+  
+    
+  
+  
   <div fxLayout="row">
     <div fxLayoutAlign="space-between">
-        <div>
+        <div class="left_icons">
             <button aria-label="Toggle sidenav" mat-icon-button  aria-label="Toggle sidenav"><mat-icon aria-label="Side nav toggle icon">refresh</mat-icon></button>
-        </div>
-        <div>
+        
             <button aria-label="Toggle sidenav" mat-icon-button  aria-label="Toggle sidenav"><mat-icon aria-label="Side nav toggle icon">view_agenda</mat-icon></button>
-        </div>
-        <div>
+       
             <button aria-label="Toggle sidenav" mat-icon-button  aria-label="Toggle sidenav"><mat-icon aria-label="Side nav toggle icon">view_module</mat-icon></button>
         </div>
-        <div>
+        <div class="right_icons">
             <button aria-label="Toggle sidenav" mat-icon-button  aria-label="Toggle sidenav"><mat-icon aria-label="Side nav toggle icon">notifications</mat-icon></button>
-        </div>
-        <div>   
+       
             <button aria-label="Toggle sidenav" mat-icon-button  aria-label="Toggle sidenav"><mat-icon aria-label="Side nav toggle icon">person</mat-icon></button>
         </div>
     </div>
@@ -42,18 +49,25 @@
   [mode]="(isHandset$ | async) ? 'over' : 'side'"
   [opened]="(isHandset$ | async)">
   <mat-nav-list>
-  <a mat-list-item href="#">Link 1</a>
-  <a mat-list-item href="#">Link 2</a>
-  <a mat-list-item href="#">Link 3</a>
+  <a mat-list-item routerLink="notes"><span class="Notes"><img src="../../../assets/image/add..svg"></span><span class="Notes">Notes</span></a>
+  <a mat-list-item routerLink="reminder"><span class="Notes"><img src="../../../assets/image/add1.svg"></span><span class="Notes">Reminder</span></a>
+  <hr class="line">
+  <a mat-list-item href="#"><span class="label" class="Notes1">Labels</span><span class="edit"><b>EDIT</b></span></a>
+  <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add2.svg"></span><span class="Notes">Create a new label</span></a>
+  <hr class="line">
+  <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add3.svg"></span><span class="Notes">Archive</span></a>
+  <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add4.svg"></span><span class="Notes">Trash</span></a>
+  <hr class="line">
+  <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add5.svg"></span><span class="Notes">Settings</span></a>
+  <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add6.svg"></span><span class="Notes">Send feedback</span></a>
+  <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add7.svg"></span><span class="Notes">Help</span></a>
+  <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add8.svg"></span><span class="Notes">App downloads</span></a>
+  <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add9.svg"></span><span class="Notes">Keyboard shortcuts</span></a>
   </mat-nav-list>
   </mat-sidenav>
   
   <mat-sidenav-content >
-  <p>Netaji Subhas Chandra Bose (23 January 1897 – 18 August 1945)[1][a] was an Indian nationalist whose defiant patriotism made him a hero in India,[2][b][3][c][4][d] but whose attempt during World War II to rid India of British rule with the help of Nazi Germany and Imperial Japan left an ambivalent legacy.[5][e][6][f][2][g] The honorific Netaji (Hindustani: "Respected Leader"), the name granted to him in the early 1940s by the Indian soldiers of the Indische Legion and by the German and Indian officials in the Special Bureau for India in Berlin, was later used throughout India.[7][h]</p>
-  <p>Netaji Subhas Chandra Bose (23 January 1897 – 18 August 1945)[1][a] was an Indian nationalist whose defiant patriotism made him a hero in India,[2][b][3][c][4][d] but whose attempt during World War II to rid India of British rule with the help of Nazi Germany and Imperial Japan left an ambivalent legacy.[5][e][6][f][2][g] The honorific Netaji (Hindustani: "Respected Leader"), the name granted to him in the early 1940s by the Indian soldiers of the Indische Legion and by the German and Indian officials in the Special Bureau for India in Berlin, was later used throughout India.[7][h]</p>
-  <p>Netaji Subhas Chandra Bose (23 January 1897 – 18 August 1945)[1][a] was an Indian nationalist whose defiant patriotism made him a hero in India,[2][b][3][c][4][d] but whose attempt during World War II to rid India of British rule with the help of Nazi Germany and Imperial Japan left an ambivalent legacy.[5][e][6][f][2][g] The honorific Netaji (Hindustani: "Respected Leader"), the name granted to him in the early 1940s by the Indian soldiers of the Indische Legion and by the German and Indian officials in the Special Bureau for India in Berlin, was later used throughout India.[7][h]</p>
-  <p>Netaji Subhas Chandra Bose (23 January 1897 – 18 August 1945)[1][a] was an Indian nationalist whose defiant patriotism made him a hero in India,[2][b][3][c][4][d] but whose attempt during World War II to rid India of British rule with the help of Nazi Germany and Imperial Japan left an ambivalent legacy.[5][e][6][f][2][g] The honorific Netaji (Hindustani: "Respected Leader"), the name granted to him in the early 1940s by the Indian soldiers of the Indische Legion and by the German and Indian officials in the Special Bureau for India in Berlin, was later used throughout India.[7][h]</p>
-  <p>Netaji Subhas Chandra Bose (23 January 1897 – 18 August 1945)[1][a] was an Indian nationalist whose defiant patriotism made him a hero in India,[2][b][3][c][4][d] but whose attempt during World War II to rid India of British rule with the help of Nazi Germany and Imperial Japan left an ambivalent legacy.[5][e][6][f][2][g] The honorific Netaji (Hindustani: "Respected Leader"), the name granted to him in the early 1940s by the Indian soldiers of the Indische Legion and by the German and Indian officials in the Special Bureau for India in Berlin, was later used throughout India.[7][h]</p>
+        <router-outlet></router-outlet>
   </mat-sidenav-content>
   </mat-sidenav-container>
   
