@@ -1,4 +1,6 @@
-
+/* .home{
+  display: flex;
+} */
 .sidenav-container {
   height: 100%;
 }
@@ -35,8 +37,8 @@
   overflow-y: scroll;
 } */
 .search{
-  width: 95%;
-  margin: 0% 3% 0% 0%;
+  width: 70%;
+  margin: 0% 0% 0% 0%;
   border: 1px;
   border-radius: 0px 5px 5px 0px;
   height: 65%;
@@ -51,14 +53,13 @@
 }
 
 .search{
-  margin-left: 3%;
+  margin-left: 0%;
   margin-bottom: 0%;
 }
 
 .search-button{
-  border: 2px;
   border-radius: 5px 0px 0px 5px;
-  width: 10%;
+  width: 5%;
 }
 .search-input{
   width: 90%;
@@ -92,4 +93,7 @@ font-size: 83%;
 }
 .line{
   opacity: 0.3;
+}
+.icons{
+  margin-right: 0%;
 }

@@ -25,6 +25,8 @@ import { MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/mate
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { NotesComponentComponent } from './component/notes-component/notes-component.component';
 import { ReminderComponentComponent } from './component/reminder-component/reminder-component.component';
+import { MatMenuModule } from '@angular/material/menu';
+
 
 
 
@@ -39,7 +41,8 @@ import { ReminderComponentComponent } from './component/reminder-component/remin
     NavigationBarComponent,
     NavBarComponent,
     NotesComponentComponent,
-    ReminderComponentComponent
+    ReminderComponentComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { ReminderComponentComponent } from './component/reminder-component/remin
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule,    
+    MatListModule,
+    MatMenuModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

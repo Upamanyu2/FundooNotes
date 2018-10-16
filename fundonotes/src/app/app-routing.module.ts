@@ -14,7 +14,6 @@ const routes: Routes = [
   { path: 'forgot-password', component:ForgotPasswordComponent },
   { path: 'resetpassword/:token', component: ResetPasswordComponent},
   { path: 'home', component: HomeComponent,
-   
     children:[{path:'notes', component:NotesComponentComponent},
               {path:'reminder', component:ReminderComponentComponent}
   ]},
@@ -30,4 +29,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [SignupComponentComponent, LoginComponentComponent]
+export const routingComponents = [SignupComponentComponent, LoginComponentComponent, ForgotPasswordComponent]
