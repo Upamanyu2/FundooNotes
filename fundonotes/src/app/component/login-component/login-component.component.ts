@@ -63,7 +63,7 @@ export class LoginComponentComponent implements OnInit {
       }).subscribe(
         data =>{
           console.log("POST request is successful", data);
-          this.router.navigate(['/','home']);           //for navigating to the home page.
+          this.router.navigate(['../home','notes']);           //for navigating to the home page. 
         },
         error => {
           console.log("Error",error);

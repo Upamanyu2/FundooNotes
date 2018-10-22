@@ -11,12 +11,13 @@ import { map } from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None
 })
 export class NavigationBarComponent {
-
+  
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
-    
+  
   constructor(private breakpointObserver: BreakpointObserver) {}
+  
   
   }

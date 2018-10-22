@@ -8,7 +8,8 @@
 .sidenav {
   width: 250px;
   margin-top: 0px;
-  position: absolute;  
+  position: absolute;
+  
 }
 
 /* .mat-toolbar.mat-primary {
@@ -32,6 +33,10 @@
   padding-top: 0px;
   display: block;
   -webkit-tap-highlight-color: transparent;
+}
+.mat-drawer-content{
+  overflow: auto;
+  position: relative;
 }
 /* .mat-nav-list{
   overflow-y: scroll;
