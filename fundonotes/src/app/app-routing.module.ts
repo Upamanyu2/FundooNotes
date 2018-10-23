@@ -8,6 +8,7 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
 import { HomeComponent } from './component/home/home.component';
 import { NotesComponentComponent } from './component/notes-component/notes-component.component';
 import { ReminderComponentComponent } from './component/reminder-component/reminder-component.component';
+
 const routes: Routes = [
   { path: 'register', component: SignupComponentComponent },
   { path: 'login', component: LoginComponentComponent },

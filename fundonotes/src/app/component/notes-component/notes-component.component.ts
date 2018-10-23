@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-notes-component',
   templateUrl: './notes-component.component.html',
@@ -11,5 +12,5 @@ export class NotesComponentComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+ 
 }

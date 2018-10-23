@@ -1,95 +1,17 @@
-<div class="notes" fxLayout="column" fxLayoutGap="5%">
-  <div></div>
-  <div fxLayout="row">
-   <div fxFlex="20%"></div> 
-   <div fxFlex="60%" style="margin-left:auto;margin-right:auto">
-      
-          <mat-card class="matcard" *ngIf="!note1">
-              <div data-text="Take a note..." contenteditable="true" class="div2" (click)="note1=!note1">
-              </div>
-      
-              <span class="span">
-                <button mat-icon-button>
-                <i class="material-icons" style="opacity: 0.5;">list</i>
-                </button>
-      
-      
-                <button mat-icon-button>
-                <i class="material-icons" style="opacity: 0.5;">photo</i>
-                </button>
-      
-                <button mat-icon-button>
-                <i class="material-icons" style="opacity: 0.5;">edit</i>
-                </button>
-      
-              </span>
-              </mat-card>
-      
-              <mat-card class="matcard" *ngIf="note1">
-                  <mat-card-header >
-                      <div data-text="Title" contenteditable="true" class="div2">
-                      </div>
-                      <span>
-                          <img src="../../../assets/image/add10.svg">
-                        </span>
-                  </mat-card-header>
-      
-                  <mat-card-content class="take_note">
-                      <div data-text="Take a note.." contenteditable="true" class="div2">
-                      </div>
-                      
-                  </mat-card-content>
-      
-                  <mat-card-actions flexLayout="row">
-                    <button mat-icon-button>
-                      <img src="../../../assets/image/add1.svg" class="svg_img" height="20px" width="20px" style="margin-top: -5px; opacity: 0.5"/>
-                    </button>
-      
-                    <button mat-icon-button>
-                    <i class="material-icons" style="opacity: 0.5;"> person_add </i>
-                    </button>
-      
-                    <button mat-icon-button>
-                    <i class="material-icons" style="opacity: 0.5;" >color_lens</i>
-                    </button>
-      
-                    <button mat-icon-button>
-                    <i class="material-icons" style="opacity: 0.5;">photo</i>
-                    </button>
-      
-                    <button mat-icon-button>
-                        <i class="material-icons" style="opacity: 0.5;">archive</i>
-                    </button>
-      
-                  <button mat-icon-button>
-                  <i class="material-icons" style="opacity: 0.5;"> more_vert </i>
-                  </button>
-      
-                  <button mat-icon-button>
-                  <i class="material-icons" style="opacity: 0.5;">rotate_left </i>
-                  </button>
-      
-                  <button mat-icon-button>
-                  <i class="material-icons" style="opacity: 0.5;">rotate_right</i>
-                  </button>
-      
-                  <button mat-button style="float:right" (click)="note1=!note1" (clickOutside)="(note1=false)"> Close</button>
-                  </mat-card-actions>
-      
-                </mat-card>
-      
-     
-
-
-
-
-   </div>    
-   <div fxFlex="20%"></div>
-
-  </div>
-        
-        
-         
-    
-  <div></div>
+<app-add-notes></app-add-notes>
+<div fxLayout="column" fxLayoutGap="0%">
+   <div></div>
+    <div fxLayout="row">
+        <div fxFlex="10%"></div>
+        <div fxFlex="80%">
+            
+                    
+                            <app-note-card></app-note-card> 
+                    
+                     
+               
+        </div>
+        <div fxFlex="10%"></div>   
+    </div>    
+   <div></div>
 </div>

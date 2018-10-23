@@ -14,7 +14,7 @@ import { error } from 'protractor';
 export class ResetPasswordComponent implements OnInit {
   resetPasswordForm : FormGroup;
   submitted = false;
-  public token;
+  private token;
   model:any={}
   constructor(
     private route: ActivatedRoute,

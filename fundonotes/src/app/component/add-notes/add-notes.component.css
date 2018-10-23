@@ -1,0 +1,33 @@
+
+.matcard
+{
+    width: 600px;
+   
+}
+.span{
+    top: 10px;
+    right: 0px;
+    position: absolute;
+}
+.div2{
+
+    outline: none;
+    width: 550px;
+    position: relative;
+}
+div:empty:before {
+    content:attr(data-text);
+    color:gray
+  }
+
+.take_note{
+    padding-top: 12px;
+    padding-left: 14px;
+    padding-bottom: 0px
+}
+.select_pin{
+opacity: 0.5;
+}
+.deselect_pin{
+opacity:0;
+}

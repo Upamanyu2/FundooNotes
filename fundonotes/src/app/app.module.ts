@@ -26,6 +26,9 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { NotesComponentComponent } from './component/notes-component/notes-component.component';
 import { ReminderComponentComponent } from './component/reminder-component/reminder-component.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { AddNotesComponent } from './component/add-notes/add-notes.component';
+import { NoteCardComponent } from './component/note-card/note-card.component';
+
 
 
 
@@ -42,6 +45,9 @@ import { MatMenuModule } from '@angular/material/menu';
     NavBarComponent,
     NotesComponentComponent,
     ReminderComponentComponent,
+    AddNotesComponent,
+    NoteCardComponent,
+    
     
   ],
   imports: [
@@ -65,7 +71,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule    
+    MatMenuModule
+        
   ],
   providers: [],
   bootstrap: [AppComponent]

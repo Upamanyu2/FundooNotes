@@ -63,6 +63,9 @@ export class LoginComponentComponent implements OnInit {
       }).subscribe(
         data =>{
           console.log("POST request is successful", data);
+          localStorage.setItem("token",data['id'])
+          // console.log(data['id']);
+          
           this.router.navigate(['../home','notes']);           //for navigating to the home page. 
         },
         error => {
