@@ -55,7 +55,7 @@ export class ServiceService {
 
 
 /*------------------------------------------------------------------------------------------------------------------------------------*/
-public getNotes(name,token){
+public getDeleteNotes(name,token){
   var httpheaders = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -66,5 +66,16 @@ public getNotes(name,token){
   
   return this.http.get(this.url + "/" + name,httpheaders);
 }
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+public postDeleteColorNotes(name, body, token){
+  var httpheaders = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
+  };
 
+  return this.http.post(this.url + "/" + name, body, httpheaders);
+}
+/*------------------------------------------------------------------------------------------------------------------------------------*/
 }

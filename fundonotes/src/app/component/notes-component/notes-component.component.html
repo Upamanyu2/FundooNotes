@@ -1,17 +1,23 @@
-<app-add-notes></app-add-notes>
-<div fxLayout="column" fxLayoutGap="0%">
+
+<div fxLayout="column" fxLayoutGap="0%" >
+        <app-add-notes (closeClicked)="displayCard($event)" ></app-add-notes>
    <div></div>
     <div fxLayout="row">
-        <div fxFlex="10%"></div>
-        <div fxFlex="80%">
+        <div fxFlex="5%"></div>
+        <div fxFlex="90%">
             
-                    
-                            <app-note-card></app-note-card> 
+
+
+
+                    <div>
+                        <app-note-card [notesListArray]="notes" (refreshClicked)="displayCard($event)"></app-note-card>
+                    </div>
+                             
                     
                      
                
         </div>
-        <div fxFlex="10%"></div>   
+        <div fxFlex="5%"></div>  
     </div>    
    <div></div>
 </div>

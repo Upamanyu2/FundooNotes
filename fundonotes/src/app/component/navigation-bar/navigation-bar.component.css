@@ -7,9 +7,10 @@
 
 .sidenav {
   width: 250px;
-  margin-top: 0px;
-  position: absolute;
-  
+  margin-top: 5%;
+  /* position: absolute; */
+  position: fixed;
+ 
 }
 
 /* .mat-toolbar.mat-primary {
@@ -20,6 +21,8 @@
 } */
 .toolbar{
  background-color: #fb0;
+ position: fixed;
+ z-index: 2 !important;
 }
 .sidenav-content{
   width: 100%;

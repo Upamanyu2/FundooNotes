@@ -28,6 +28,9 @@ import { ReminderComponentComponent } from './component/reminder-component/remin
 import { MatMenuModule } from '@angular/material/menu';
 import { AddNotesComponent } from './component/add-notes/add-notes.component';
 import { NoteCardComponent } from './component/note-card/note-card.component';
+import { MoreComponent } from './component/more/more.component';
+import { ThemeComponent } from './component/theme/theme.component';
+
 
 
 
@@ -47,6 +50,9 @@ import { NoteCardComponent } from './component/note-card/note-card.component';
     ReminderComponentComponent,
     AddNotesComponent,
     NoteCardComponent,
+    MoreComponent,
+    ThemeComponent
+   
     
     
   ],

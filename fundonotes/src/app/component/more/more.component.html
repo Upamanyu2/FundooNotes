@@ -1,0 +1,8 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" >
+  <i class="material-icons" style="opacity: 0.5;"> more_vert </i>
+  </button>
+  <mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
+          <button mat-menu-item (click)="deleteNotes()">Delete Note</button>
+          <button mat-menu-item>Add label</button>
+          <button mat-menu-item>Show checkbox</button> 
+        </mat-menu>
