@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../../service/http/service.service' ;
 
 @Component({
@@ -17,16 +17,12 @@ private token;
  /*-------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
     this.token=localStorage.getItem("token");
-    console.log(this.token);
     this.getNotes();
   }
 
  /*-------------------------------------------------------------------------------------------------------------------------------------*/
  displayCard(event){
   if(event){
-    console.log(event);
-    this.notes=[];
-    console.log(this.token);
     this.getNotes();
     
   }   
@@ -36,12 +32,13 @@ private token;
   this._service.getDeleteNotes("notes/getNotesList",this.token)
   .subscribe(
     data=>{
+      this.notes=[];
     console.log(data['data'].data);
     for(var i=data['data'].data.length-1;i>=0;i--){
-      if(data['data'].data[i].isDeleted==false)
+      if(data['data'].data[i].isDeleted==false && data['data'].data[i].isArchived==false)
       {
         this.notes.push(data['data'].data[i]);
-        console.log(data['data'].data[i].id);
+       
       }
      
       

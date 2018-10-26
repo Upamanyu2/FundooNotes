@@ -1,15 +1,17 @@
-<div fxLayout="row wrap"  fxLayoutAllign="space-evenly start" >
-    <mat-card class="card" [ngStyle]="{'background-color':data.color}" *ngFor="let data of notesListArray" style="margin:15px; height: min-content">
-        <mat-card-header>
-         <h5>{{data.title}}</h5>
-        </mat-card-header>
+<div fxLayout="row wrap"  fxLayoutAllign="space-evenly start"  >
+    <mat-card class="card" [ngStyle]="{'background-color':data.color}" *ngFor="let data of notesListArray" style="margin:15px; height: min-content" >
         <div>
+      <div style="font-weight:bold" [innerHTML]="data.title"  (click)="openDialog(data)">
+
+         </div>
+        </div>
+        <div [innerHTML]="data.description"   (click)="openDialog(data)">
             
-                {{data.description}}
+               
             
         </div>
         
-                <div  fxLayoutAlign="space-around end" class="buttons" >
+                <div  fxLayoutAlign="space-around end" class="buttons"  >
          
                         <button mat-icon-button>
                             <img src="../../../assets/image/add1.svg" class="svg_img" height="20px" width="20px" style="margin-top: -5px; opacity: 0.5"/>
@@ -22,9 +24,7 @@
                         <button mat-icon-button>
                             <i class="material-icons" style="opacity: 0.5;">photo</i>
                         </button>
-                        <button mat-icon-button>
-                            <i class="material-icons" style="opacity: 0.5;">archive</i>
-                        </button>
+                        <app-post-archive [Noteid]=data (ArchiveClicked)="refresh($event)"></app-post-archive>
               
                        <app-more [Noteid]=data (DeleteClicked)="refresh($event)"></app-more>
                    </div>

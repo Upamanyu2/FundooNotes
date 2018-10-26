@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-// import { Observable } from 'rxjs/Observable';
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,7 @@ export class ServiceService {
   }
 
   /*------------------------------------------------------------------------------------------------------------------------------------*/
-  public addNotes(name, body, token) {            //service function posting whatever notes added
+  public addNotes(name, body, token) {            //Service function posting whatever notes added
     var httpheaders = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -55,7 +55,7 @@ export class ServiceService {
 
 
 /*------------------------------------------------------------------------------------------------------------------------------------*/
-public getDeleteNotes(name,token){
+public getDeleteNotes(name,token){    //Get service for getting the note list after deletion
   var httpheaders = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -67,7 +67,7 @@ public getDeleteNotes(name,token){
   return this.http.get(this.url + "/" + name,httpheaders);
 }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
-public postDeleteColorNotes(name, body, token){
+public postDeleteColorNotes(name, body, token){  //Service file pr posting delete function and the color hash codes of notes
   var httpheaders = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -78,4 +78,43 @@ public postDeleteColorNotes(name, body, token){
   return this.http.post(this.url + "/" + name, body, httpheaders);
 }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
+public postArchiveNotes(name, body, token){  //Service file pr posting delete function and the color hash codes of notes
+  var httpheaders = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
+  };
+
+  return this.http.post(this.url + "/" + name, body, httpheaders);
+}
+
+
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+public getArchiveNotes(name,token){    //Get service for getting the note list after deletion
+  var httpheaders = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': token
+    })
+  };
+  console.log(httpheaders);
+  
+  return this.http.get(this.url + "/" + name,httpheaders);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------------------- */
+public updateCard(name, body){        //Post function for updating the card.
+  
+  var token=localStorage.getItem('token')
+  console.log('token is',token);
+  
+  var httpheaders = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
+  };
+  return this.http.post(this.url + "/" + name, body,httpheaders);
+}
+/*----------------------------------------------------------------------------------------------------------------------------------------------- */
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponentComponent } from './component/login-component/login-component.component';
@@ -30,6 +30,10 @@ import { AddNotesComponent } from './component/add-notes/add-notes.component';
 import { NoteCardComponent } from './component/note-card/note-card.component';
 import { MoreComponent } from './component/more/more.component';
 import { ThemeComponent } from './component/theme/theme.component';
+import { GetArchiveComponent } from './component/get-archive/get-archive.component';
+import { PostArchiveComponent } from './component/post-archive/post-archive.component';
+import { GetDeleteComponent } from './component/get-delete/get-delete.component';
+import { EditComponent } from './component/edit/edit.component';
 
 
 
@@ -51,7 +55,11 @@ import { ThemeComponent } from './component/theme/theme.component';
     AddNotesComponent,
     NoteCardComponent,
     MoreComponent,
-    ThemeComponent
+    ThemeComponent,
+    GetArchiveComponent,
+    PostArchiveComponent,
+    GetDeleteComponent,
+    EditComponent
    
     
     
@@ -77,10 +85,11 @@ import { ThemeComponent } from './component/theme/theme.component';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
-        
+    MatMenuModule,
+    MatDialogModule    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents:[EditComponent,NoteCardComponent]
 })
 export class AppModule { }

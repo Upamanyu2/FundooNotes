@@ -1,0 +1,55 @@
+<!-- <mat-card class="matcard/" > -->
+  <body>
+      <mat-card-header >
+          <div data-text="Title" id="title" contenteditable="true" class="div2" [innerHTML]="data.title">
+          </div>
+          <button mat-icon-button (click)="pinned()">
+              <img src="../../../assets/image/add10.svg">
+            </button>
+      </mat-card-header>
+
+      <mat-card-content class="take_note">
+          <div data-text="Take a note.." id="description" contenteditable="true" class="div2" [innerHTML]="data.description">
+          </div>
+          
+      </mat-card-content>
+
+      <div flexLayout="row">
+        <button mat-icon-button>
+          <img src="../../../assets/image/add1.svg" class="svg_img" height="20px" width="20px" style="margin-top: -5px; opacity: 0.5"/>
+        </button>
+
+        <button mat-icon-button>
+        <i class="material-icons" style="opacity: 0.5;"> person_add </i>
+        </button>
+
+        <button mat-icon-button>
+        <i class="material-icons" style="opacity: 0.5;" >color_lens</i>
+        </button>
+
+        <button mat-icon-button>
+        <i class="material-icons" style="opacity: 0.5;">photo</i>
+        </button>
+
+        <button mat-icon-button>
+            <i class="material-icons" style="opacity: 0.5;">archive</i>
+        </button>
+
+      <button mat-icon-button>
+      <i class="material-icons" style="opacity: 0.5;"> more_vert </i>
+      </button>
+
+      <button mat-icon-button>
+      <i class="material-icons" style="opacity: 0.5;">rotate_left </i>
+      </button>
+
+      <button mat-icon-button>
+      <i class="material-icons" style="opacity: 0.5;">rotate_right</i>
+      </button>
+
+      <button mat-button style="float:right" (click)=" onNoClick();updatecard()"> Close</button>
+    </div>
+  </body>
+        
+
+      <!-- </mat-card> -->

@@ -13,14 +13,14 @@ export class MoreComponent implements OnInit {
 
 @Input() 
 Noteid:any;
-@Output() DeleteClicked = new EventEmitter<any>();
+@Output() DeleteClicked = new EventEmitter<any>(); // Event emitter for emitting the deleted arrray while it is getting posted.
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
    
   }
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 
-  deleteNotes(){
+  deleteNotes(){   //Delete post function.
     console.log(this.Noteid.id);
 
     let noteId=[]

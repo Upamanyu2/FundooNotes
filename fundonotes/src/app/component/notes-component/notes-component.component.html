@@ -10,7 +10,7 @@
 
 
                     <div>
-                        <app-note-card [notesListArray]="notes" (refreshClicked)="displayCard($event)"></app-note-card>
+                        <app-note-card [notesListArray]="notes" (refreshClicked)="displayCard($event)" (updateCard)="displayCard($event)"></app-note-card>
                     </div>
                              
                     
