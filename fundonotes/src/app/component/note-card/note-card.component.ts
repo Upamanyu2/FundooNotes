@@ -39,8 +39,8 @@ export class NoteCardComponent implements OnInit {
  /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
   refresh(event){                //Refresh function for the emitted event(delete, archive and color changing of the card)
-    this.refreshClicked.emit(true);   //emitting to the parent component.
-    this.updateCard.emit(true); //To make the parent known about the model box openDialog function has successfully occured.
+    this.refreshClicked.emit(event);   //emitting to the parent component.
+    this.updateCard.emit(event); //To make the parent known about the model box openDialog function has successfully occured.
 
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */

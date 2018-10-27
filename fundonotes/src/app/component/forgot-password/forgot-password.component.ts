@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';  //
 import { ServiceService } from '../../service/http/service.service' ;
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
@@ -27,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
     return this.forgotPasswordForm.controls;
   }
 /*------------------------------------------------------------------------------------------------------------------------------------*/ 
-  mailSend(){                  //function to send the link to the registered mail.
+  mailSend(){                  //Function to send the link to the registered mail.
         this.submitted = true;
         let mail = this.model.email;
         if(mail.length==0){
@@ -39,13 +39,13 @@ export class ForgotPasswordComponent implements OnInit {
         }
         this._service.postData("user/reset",{
           "email":this.model.email
-        }).subscribe(data =>{
+        }).subscribe(data =>{   //On success of api call
           console.log("POST request is successful", data);
           this.snackBar.open("Check your mail", "mail sent", {
             duration: 2000
           })
         },
-        error =>{
+        error =>{   //On failure of api call.
           console.log("Error",error);
           this.snackBar.open("Something bad happened", "please contact the support", {
             duration: 2000

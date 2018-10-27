@@ -1,8 +1,6 @@
 
-.matcard
-{
-    width: 600px;
-   
+.mat-card{
+    padding:19px; 
 }
 .span{
     top: 10px;
@@ -12,7 +10,7 @@
 .div2{
 
     outline: none;
-    width: 550px;
+    width: 680px;
     position: relative;
 }
 div:empty:before {

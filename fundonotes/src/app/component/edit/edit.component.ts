@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Component, OnInit, Inject,Output,EventEmitter } from '@angular/core'; //Importing the (inject is used for injecting the avlues to the modal box) output input and the event emitter for connecting child to parent.
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material'; //Importing all the dialogue box requirements
 import { NoteCardComponent } from '../note-card/note-card.component'; //Note card component is imported to link the edit component and note component.
 import { ServiceService } from '../../service/http/service.service' ;//Http service file is imported.
 
@@ -9,22 +9,30 @@ import { ServiceService } from '../../service/http/service.service' ;//Http serv
   styleUrls: ['./edit.component.css']
 })
 /*------------------------------------------------------------------------------------------------------------ */
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit { //Export class to export all the functionalities while initialisation of the page.
 
   constructor( 
-    private _service : ServiceService, //service file reference is made.
-    public dialogRef: MatDialogRef<NoteCardComponent>, //reference for dialogue box reference is being made.
+    private _service : ServiceService, //Service file reference is made.
+    public dialogRef: MatDialogRef<NoteCardComponent>, //Reference for dialogue box reference is being made.
+    
     @Inject(MAT_DIALOG_DATA) public data: any,  //Used for injecting the datas received by the modal box from the note-card.
   ) { }
+  @Output() ColorClicked = new EventEmitter<any>(); //Output decorator used for emitting the function for color being picked with the click function.
+  
 /*------------------------------------------------------------------------------------------------------------ */
   ngOnInit() {
  
 
   }
+  public bgColor=this.data.color;
 /*------------------------------------------------------------------------------------------------------------ */
   onNoClick(): void {        //Function for closing the dialogue or modal box when the datas are contained.
     this.dialogRef.close();
   }
+
+
+
+
 /*------------------------------------------------------------------------------------------------------------ */
   updatecard(){    //Update card post function is occuring to send the updated card details
 
@@ -36,18 +44,32 @@ export class EditComponent implements OnInit {
       "title":title,
       "description":description
     }
-    this._service.updateCard('notes/updateNotes',body)
+    this._service.updateCard('notes/updateNotes',body)  //Update card service is called to call the post api.
     .subscribe(
-      data=>{
+      data=>{  //On success
     console.log(data);
     
       },
-      error=>{
+      error=>{ //On faliure (of api calling)
     console.log(error);
     
       }
     )}
     
-    }
+    
  /*------------------------------------------------------------------------------------------------------------ */ 
+refresh(event){                //Refresh function for the emitted event(delete, archive and color changing of the card)
+    console.log(event);
+    this.ColorClicked.emit();
+    this.bgColor=event;
+  }
 
+archive(event){                 //Function called while archive function is called in the archiveclicked emitter.
+  this.dialogRef.close();
+}
+
+delete(event){                 //Function called while archive function is called in the archiveclicked emitter.
+  this.dialogRef.close();
+}
+/*------------------------------------------------------------------------------------------------------------ */ 
+}

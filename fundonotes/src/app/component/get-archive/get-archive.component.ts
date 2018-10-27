@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from '../../service/http/service.service' ;
+import { ServiceService } from '../../service/http/service.service' ; //Importing the service file for using the get archive api.
+/*------------------------------------------------------------------------------------------------------------------------ */
 @Component({
   selector: 'app-get-archive',
   templateUrl: './get-archive.component.html',
   styleUrls: ['./get-archive.component.css']
 })
-export class GetArchiveComponent implements OnInit {
+/*------------------------------------------------------------------------------------------------------------------------ */
+export class GetArchiveComponent implements OnInit {  //Exporting all the functionalities to use it in the while the initilisation of the page.
   private token=localStorage.getItem("token");
   public notes=[];
   constructor(private _service : ServiceService) { }
-  
-  ngOnInit() {
+ /*------------------------------------------------------------------------------------------------------------------------ */ 
+  ngOnInit() {   //Initialisation function to called while the page is reloaded.
     this.getArchive();
   }
-  getArchive(){
+/*------------------------------------------------------------------------------------------------------------------------ */
+  getArchive(){  //Function for calling the get api.
    this._service.getArchiveNotes("notes/getArchiveNotesList",this.token)
    .subscribe(
      data=>{
@@ -30,5 +33,5 @@ export class GetArchiveComponent implements OnInit {
      }
    )
   }
-
+/*------------------------------------------------------------------------------------------------------------------------ */
 }

@@ -117,4 +117,14 @@ public updateCard(name, body){        //Post function for updating the card.
   return this.http.post(this.url + "/" + name, body,httpheaders);
 }
 /*----------------------------------------------------------------------------------------------------------------------------------------------- */
+public logoutService(name,token){
+  var httpheaders = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
+  };
+  return this.http.post(this.url + "/" + name,{},httpheaders);
+}
+ /*--------------------------------------------------------------------------------------------------------------------*/
 }

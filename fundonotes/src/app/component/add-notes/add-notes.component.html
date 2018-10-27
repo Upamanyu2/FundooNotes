@@ -25,11 +25,11 @@
                 </span>
                 </mat-card>
         
-                <mat-card class="matcard" *ngIf="note1">
+                <mat-card class="matcard" *ngIf="note1" [style.background-color]="bgColor">
                     <mat-card-header >
                         <div data-text="Title" id="title" contenteditable="true" class="div2">
                         </div>
-                        <button mat-icon-button (click)="pinned()">
+                        <button mat-icon-button style="margin-top: -10px" (click)="pinned()">
                             <img src="../../../assets/image/add10.svg">
                           </button>
                     </mat-card-header>
@@ -49,17 +49,13 @@
                       <i class="material-icons" style="opacity: 0.5;"> person_add </i>
                       </button>
         
-                      <button mat-icon-button>
-                      <i class="material-icons" style="opacity: 0.5;" >color_lens</i>
-                      </button>
+                      <app-theme [Noteid]=""  (ColorChanged)="refresh($event)"></app-theme>
         
                       <button mat-icon-button>
                       <i class="material-icons" style="opacity: 0.5;">photo</i>
                       </button>
         
-                      <button mat-icon-button>
-                          <i class="material-icons" style="opacity: 0.5;">archive</i>
-                      </button>
+                      <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
         
                     <button mat-icon-button>
                     <i class="material-icons" style="opacity: 0.5;"> more_vert </i>

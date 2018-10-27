@@ -1,6 +1,6 @@
-<!-- <mat-card class="matcard/" > -->
-  <body>
-      <mat-card-header >
+
+  <body [ngStyle]="{'background-color':data.color}" style="padding:10px" [style.background-color]="bgColor">
+      <mat-card-header   >
           <div data-text="Title" id="title" contenteditable="true" class="div2" [innerHTML]="data.title">
           </div>
           <button mat-icon-button (click)="pinned()">
@@ -23,22 +23,15 @@
         <i class="material-icons" style="opacity: 0.5;"> person_add </i>
         </button>
 
-        <button mat-icon-button>
-        <i class="material-icons" style="opacity: 0.5;" >color_lens</i>
-        </button>
+        <app-theme [Noteid]=data  (ColorChanged)="refresh($event)"></app-theme>
 
         <button mat-icon-button>
         <i class="material-icons" style="opacity: 0.5;">photo</i>
         </button>
 
-        <button mat-icon-button>
-            <i class="material-icons" style="opacity: 0.5;">archive</i>
-        </button>
+        <app-post-archive [Noteid]=data (ArchiveClicked)="archive($event)"></app-post-archive>
 
-      <button mat-icon-button>
-      <i class="material-icons" style="opacity: 0.5;"> more_vert </i>
-      </button>
-
+        <app-more [Noteid]=data (DeleteClicked)="delete($event)"></app-more>
       <button mat-icon-button>
       <i class="material-icons" style="opacity: 0.5;">rotate_left </i>
       </button>
@@ -52,4 +45,4 @@
   </body>
         
 
-      <!-- </mat-card> -->
+    

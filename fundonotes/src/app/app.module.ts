@@ -34,6 +34,7 @@ import { GetArchiveComponent } from './component/get-archive/get-archive.compone
 import { PostArchiveComponent } from './component/post-archive/post-archive.component';
 import { GetDeleteComponent } from './component/get-delete/get-delete.component';
 import { EditComponent } from './component/edit/edit.component';
+import { LabelCreateComponent } from './component/label-create/label-create.component';
 
 
 
@@ -59,7 +60,8 @@ import { EditComponent } from './component/edit/edit.component';
     GetArchiveComponent,
     PostArchiveComponent,
     GetDeleteComponent,
-    EditComponent
+    EditComponent,
+    LabelCreateComponent
    
     
     

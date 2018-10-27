@@ -1,4 +1,4 @@
-<div fxLayout="row wrap"  fxLayoutAllign="space-evenly start"  >
+<div fxLayout="row wrap"  fxLayoutAllign="space-evenly start" style="padding-bottom:5%;padding-left:3%" >
     <mat-card class="card" [ngStyle]="{'background-color':data.color}" *ngFor="let data of notesListArray" style="margin:15px; height: min-content" >
         <div>
       <div style="font-weight:bold" [innerHTML]="data.title"  (click)="openDialog(data)">

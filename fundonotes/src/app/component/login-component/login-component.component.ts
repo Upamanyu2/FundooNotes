@@ -64,6 +64,7 @@ export class LoginComponentComponent implements OnInit {
         data =>{
           console.log("POST request is successful", data);
           localStorage.setItem("token",data['id'])
+          localStorage.setItem("FirstName",data['firstName'])
           // console.log(data['id']);
           
           this.router.navigate(['../home','notes']);           //for navigating to the home page. 

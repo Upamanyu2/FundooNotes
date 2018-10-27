@@ -15,8 +15,9 @@ export class PostArchiveComponent implements OnInit {
   ngOnInit() {
   }
 postArchivedNotes(){
-  console.log(this.Noteid.id);
+  // console.log(this.Noteid.id);
   let noteId=[];
+  if(this.Noteid!=null){
     noteId.push(this.Noteid.id);
     this._service.postArchiveNotes("notes/archiveNotes",{
      "isArchived":true,
@@ -33,6 +34,11 @@ postArchivedNotes(){
      
       }
     )
+  }
+  else{
+    this.ArchiveClicked.emit(true);
+  }
+   
 }
   
 
