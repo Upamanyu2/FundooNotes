@@ -35,6 +35,7 @@ import { PostArchiveComponent } from './component/post-archive/post-archive.comp
 import { GetDeleteComponent } from './component/get-delete/get-delete.component';
 import { EditComponent } from './component/edit/edit.component';
 import { LabelCreateComponent } from './component/label-create/label-create.component';
+import { AddLabelComponent } from './component/add-label/add-label.component';
 
 
 
@@ -61,7 +62,8 @@ import { LabelCreateComponent } from './component/label-create/label-create.comp
     PostArchiveComponent,
     GetDeleteComponent,
     EditComponent,
-    LabelCreateComponent
+    LabelCreateComponent,
+    AddLabelComponent
    
     
     
@@ -92,6 +94,7 @@ import { LabelCreateComponent } from './component/label-create/label-create.comp
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[EditComponent,NoteCardComponent]
+  entryComponents:[EditComponent,NoteCardComponent,LabelCreateComponent, AddLabelComponent]
+  
 })
 export class AppModule { }

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { ViewEncapsulation } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ServiceService } from '../../service/http/service.service' ;
 import {Router} from '@angular/router';
+
+
 @Component({
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
@@ -24,23 +26,32 @@ export class NavigationBarComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private _service : ServiceService,
-    public router:Router
+    public router:Router,
+    
     ) { }
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+    
+  
   /*--------------------------------------------------------------------------------------------------------------------*/
-  public logout(){
+  public logout(){  //Funtion to call the logout service function.
     console.log(this.token);
     this._service.logoutService("user/logout",this.token)
-    .subscribe(
-      data=>{
+    .subscribe( 
+      data=>{          //On success
       console.log(data);
-      localStorage.clear();
-     this.router.navigate(['login']);
+      localStorage.clear(); //clearing all local storage
+     this.router.navigate(['login']); //redirecting to login page
     },
-    error=>{
-      console.log(error);
+    error=>{               //On failure
+      console.log(error); 
     }
     )
     
   }
  /*--------------------------------------------------------------------------------------------------------------------*/ 
-  }
+  
+
+
+
+}

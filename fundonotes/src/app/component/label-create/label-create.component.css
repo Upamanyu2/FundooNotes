@@ -1,0 +1,28 @@
+::ng-deep.mat-dialog-container{
+padding: 0%;
+overflow: hidden;
+}
+
+.mat-card{
+    padding: 10px;
+}
+.editbox{
+    opacity:0.3;
+}
+.editbox:hover{
+ opacity: 1;
+}
+.delete{
+    opacity: 0.3;
+}
+.delete:hover{
+    opacity: 1; 
+}
+::ng-deep.mat-dialog-content {
+    overflow: hidden;
+}
+.inputLabel{
+border: transparent;
+border: none;
+outline: none;
+}

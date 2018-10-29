@@ -105,8 +105,7 @@ public getArchiveNotes(name,token){    //Get service for getting the note list a
 /*----------------------------------------------------------------------------------------------------------------------------------------------- */
 public updateCard(name, body){        //Post function for updating the card.
   
-  var token=localStorage.getItem('token')
-  console.log('token is',token);
+  var token=localStorage.getItem('token');
   
   var httpheaders = {
     headers: new HttpHeaders({
@@ -127,4 +126,30 @@ public logoutService(name,token){
   return this.http.post(this.url + "/" + name,{},httpheaders);
 }
  /*--------------------------------------------------------------------------------------------------------------------*/
+public labelPostService(name,body,token){
+  var httpheaders = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
+  };
+  return this.http.post(this.url + "/" + name,body,httpheaders);
+}
+ /*--------------------------------------------------------------------------------------------------------------------*/
+public labelGetService(name,token){
+  var httpheaders = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
+  };
+  return this.http.get(this.url + "/" + name,httpheaders);
+}
+/*--------------------------------------------------------------------------------------------------------------------*/
+public labelDeleteService(name){
+  
+  return this.http.delete(this.url+"/"+name);
+}
+/*----------------------------------------------------------------------------------------------------- */
+
 }
