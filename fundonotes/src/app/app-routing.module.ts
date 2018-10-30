@@ -10,6 +10,7 @@ import { NotesComponentComponent } from './component/notes-component/notes-compo
 import { ReminderComponentComponent } from './component/reminder-component/reminder-component.component';
 import { GetDeleteComponent } from './component/get-delete/get-delete.component';
 import { GetArchiveComponent } from './component/get-archive/get-archive.component';
+
 const routes: Routes = [
   { path: 'register', component: SignupComponentComponent },
   { path: 'login', component: LoginComponentComponent },

@@ -10,15 +10,15 @@ export class ServiceService {
   private url: string = 'http://34.213.106.173/api';
 
   constructor(private http: HttpClient) { }
-  /*------------------------------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------------------------------------------*/
   public getData(name) {                       //service function for getting the data
     return this.http.get(this.url + "/" + name);
   }
-  /*------------------------------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------------------------------------------*/
   public postData(name, body) {                 //service function for posting the data
     return this.http.post(this.url + "/" + name, body);
   }
-  /*------------------------------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------------------------------------------*/
   public posttoken(name, body, token) {          //service function for authorisation and posting of token in case of resetting password
     var httpheaders = {
       headers: new HttpHeaders({
@@ -40,7 +40,7 @@ export class ServiceService {
     return formBody.join('&');
   }
 
-  /*------------------------------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------------------------------------------*/
   public addNotes(name, body, token) {            //Service function posting whatever notes added
     var httpheaders = {
       headers: new HttpHeaders({
@@ -151,5 +151,13 @@ public labelDeleteService(name){
   return this.http.delete(this.url+"/"+name);
 }
 /*----------------------------------------------------------------------------------------------------- */
-
+public addLabelToNotes(name,token){
+  var httpheaders = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': token
+    })
+  };
+  return this.http.post(this.url+"/"+name,{},httpheaders)
+}
 }

@@ -36,7 +36,7 @@ import { GetDeleteComponent } from './component/get-delete/get-delete.component'
 import { EditComponent } from './component/edit/edit.component';
 import { LabelCreateComponent } from './component/label-create/label-create.component';
 import { AddLabelComponent } from './component/add-label/add-label.component';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -90,7 +90,8 @@ import { AddLabelComponent } from './component/add-label/add-label.component';
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-    MatDialogModule    
+    MatDialogModule,
+    MatCheckboxModule 
   ],
   providers: [],
   bootstrap: [AppComponent],

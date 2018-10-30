@@ -32,7 +32,7 @@ export class NoteCardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-     this.updateCard.emit(true);    //Updated card array emitting here
+     this.updateCard.emit(true);    //Updated card emitting here
 
     });
   }

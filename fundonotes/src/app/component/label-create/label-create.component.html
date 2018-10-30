@@ -10,13 +10,13 @@
     </div>
     <div fxLayout="column" *ngFor="let name of labelList">
         
-      <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="name.id==editId ? !label : label">
-          <div fxFlex="10%" class="editbox" > <mat-icon style="margin-left: 3%; opacity: 0.5" (click)="editLabel(name.id,true)" >edit</mat-icon> </div>
-          <div fxFlex="80%"  style="margin-left:5%" >{{name.label}}</div>
+      <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="editId!=name.id">
+          <div fxFlex="10%" class="editbox" > <mat-icon style="margin-left: 3%; opacity: 0.5" (click)="editLabel(name.id)" >edit</mat-icon> </div>
+          <div fxFlex="80%"  style="margin-left:5%; white-space: nowrap; text-overflow:ellipsis; overflow: hidden;" >{{name.label}}</div>
           <div fxFlex="10%" class="delete" ><mat-icon style=" opacity: 0.5" (click)="deleteLabel(name.id)">delete</mat-icon></div> 
       </div>
-       <div *ngIf="editId==name.id ? label : !label">
-          <div fxFlex="10%" class="editbox" > <mat-icon style=" margin-left: 3%; opacity: 0.5" (click)="updateLabel(name.id); editLabel(name.id,false)" >check</mat-icon> </div>
+       <div fxLayout="row" *ngIf="editId==name.id">
+          <div fxFlex="10%" class="editbox" > <mat-icon style=" margin-left: 3%; opacity: 0.5" (click)="updateLabel(name.id); editLabel(false)" >check</mat-icon> </div>
           <div fxFlex="80%"> <input class="inputLabel"  matInput value="{{name.label}}" style=" margin-left: 5%; border: 0px" #labeledit></div>
           <div fxFlex="10%" class="delete" ><mat-icon style=" opacity: 0.5" (click)="deleteLabel(name.id)">delete</mat-icon></div> 
        </div>
@@ -30,5 +30,5 @@
 
 <mat-card>
   
-  <button mat-button  cdkFocusInitial (click)="onNoClick(); updateLabel(name.id)" style=" margin-left: 66%" >Ok</button>
+  <button mat-button  cdkFocusInitial (click)="onNoClick()" style=" margin-left: 66%" >Ok</button>
 </mat-card>
