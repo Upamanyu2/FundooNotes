@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import {ViewChild, ElementRef} from '@angular/core';
@@ -20,7 +20,7 @@ public editId: any;
 public userId=localStorage.getItem("UserId");
 private token=localStorage.getItem("token");
 public labelList=[];
-@Output() LabelsClicked=new EventEmitter<any>();
+
 /*----------------------------------------------------------------------------------------------------- */
   constructor(  
    public  dialogRef: MatDialogRef<NavigationBarComponent>,
@@ -31,6 +31,7 @@ public labelList=[];
   ngOnInit() {
     this.getLabel();
   }
+ 
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -88,7 +89,7 @@ public labelList=[];
      data=>{
        console.log(data);
        this.getLabel();
-       this.LabelsClicked.emit(true);
+       
      },
      error=>{
        console.log(error);
@@ -108,6 +109,7 @@ updateLabel(id){
    console.log(data);
    this.getLabel();
    
+   
     },
     error=>{
    console.log(error);
@@ -118,9 +120,8 @@ updateLabel(id){
 }
 /*----------------------------------------------------------------------------------------------------- */    
 editLabel(id){
-// this.label=value;
-// console.log(value);
 this.editId=id;
 console.log(this.editId);
 }
+
 }

@@ -57,9 +57,7 @@
         
                       <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
         
-                    <button mat-icon-button>
-                    <i class="material-icons" style="opacity: 0.5;"> more_vert </i>
-                    </button>
+                    <app-add-notes-more (LabelId)="labels($event)"></app-add-notes-more>
         
                     <button mat-icon-button>
                     <i class="material-icons" style="opacity: 0.5;">rotate_left </i>

@@ -1,6 +1,6 @@
 
 <div fxLayout="column" fxLayoutGap="0%"  >
-        <app-add-notes (closeClicked)="displayCard($event)" ></app-add-notes> 
+        <app-add-notes  (closeClicked)="displayCard($event)" ></app-add-notes> 
    <div></div>
     <div fxLayout="row">
        
@@ -10,7 +10,7 @@
 
 
                     <div>
-                        <app-note-card [notesListArray]="notes" (refreshClicked)="displayCard($event)" (updateCard)="displayCard($event)"></app-note-card>
+                        <app-note-card [notesListArray]="notes" (refreshClickedDeleteLabel)="refresh($event)" (refreshClicked)="displayCard($event)" (updateCard)="displayCard($event)"></app-note-card>
                     </div>
                              
                     

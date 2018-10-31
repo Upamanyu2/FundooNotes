@@ -9,10 +9,10 @@
                   <div (click)="$event.stopPropagation()">Label Note</div>
                 </button>
               <button mat-menu-item>
-                  <div fxLayout="row"><i class="material-icons">search</i><input #search type="search" class="labelinput" placeholder="Enter label name" (click)="$event.stopPropagation()"></div>
+                  <div fxLayout="row"><i class="material-icons">search</i><input [(ngModel)]="searchLabel" type="search" class="labelinput" placeholder="Enter label name" (click)="$event.stopPropagation()"></div>
               </button>
-              <button mat-menu-item *ngFor="let name of labelList">
-                    <div fxLayout="row"><span><mat-checkbox (click)="$event.stopPropagation(); addNotesToLabelPost(name.id)" [(ngModel)]="name.isChecked" >{{name.label}}</mat-checkbox></span></div>
+              <button mat-menu-item *ngFor="let name of labelList | search:searchLabel">
+                    <div fxLayout="row"><span><mat-checkbox (click)="$event.stopPropagation();  check(name,name.id)" [(ngModel)]="name.isChecked" >{{name.label}}</mat-checkbox></span></div>
                 </button>
           </mat-menu>
           <button mat-menu-item>Show checkbox</button> 

@@ -7,6 +7,7 @@ import { ServiceService } from '../../service/http/service.service' ;
   styleUrls: ['./notes-component.component.css'],
   
 })
+
  /*-------------------------------------------------------------------------------------------------------------------------------------*/
 export class NotesComponentComponent implements OnInit {
   

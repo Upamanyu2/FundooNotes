@@ -9,6 +9,7 @@ import {MatSnackBar} from '@angular/material';//Importing properties of snackbar
   styleUrls: ['./add-notes.component.css'],
   outputs: ['closeClicked']
 })
+
 /*----------------------------------------------------------------------------------------------------------- */
 export class AddNotesComponent implements OnInit {  //Export class top export all the functionalities.
 private token;
@@ -17,6 +18,7 @@ public pin: boolean=false;
 
 public bgColor="#ffffff";
 public isArchived=false;
+public LabelId=[]
 /*----------------------------------------------------------------------------------------------------------- */
   constructor(
     private _service : ServiceService, //Service file reference is made in the constructor to use it.
@@ -25,7 +27,8 @@ public isArchived=false;
   /*----------------------------------------------------------------------------------------------------------- */
   @Output() closeClicked = new EventEmitter<any>(); //Outputting the post function event while the close click is clicked.
   @Output() ArchiveClicked = new EventEmitter<any>(); //Output decorator used for emitting the function for color being picked with the click function.
- 
+  @Input()  
+  notesListArray:any
   /*----------------------------------------------------------------------------------------------------------- */
   ngOnInit() {     //Initialisation function to called while the page is reloaded.
     this.token=localStorage.getItem("token");
@@ -55,7 +58,8 @@ public isArchived=false;
         'description': description,
         'isPined': this.pin,
         'color' : changecolor,
-        'isArchived':this.isArchived
+        'isArchived':this.isArchived,
+        'labelIdList':this.LabelId.toString()
       },this.token)
         
         .subscribe(
@@ -74,6 +78,7 @@ public isArchived=false;
 refresh(event){                //Refresh function for the emitted event(delete, archive and color changing of the card)
 console.log(event);
 this.bgColor=event;
+
 }
 /*----------------------------------------------------------------------------------------------------------- */   
 archive(event){                 //Function called while archive function is called in the archiveclicked emitter.
@@ -85,5 +90,17 @@ this.addNotes();
     duration: 2000
   })
 }
+
+
+labels(event){
+  this.LabelId.push(event);
+  console.log(event);
+  console.log(this.LabelId);
+  
+  
+}
 /*----------------------------------------------------------------------------------------------------------- */  
+
+
+
 }

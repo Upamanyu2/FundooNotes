@@ -37,7 +37,9 @@ import { EditComponent } from './component/edit/edit.component';
 import { LabelCreateComponent } from './component/label-create/label-create.component';
 import { AddLabelComponent } from './component/add-label/add-label.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
+import { AddNotesMoreComponent } from './component/add-notes-more/add-notes-more.component';
+import {MatChipsModule} from '@angular/material/chips';
+import { SearchPipe } from './search.pipe';
 
 
 
@@ -63,7 +65,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     GetDeleteComponent,
     EditComponent,
     LabelCreateComponent,
-    AddLabelComponent
+    AddLabelComponent,
+    AddNotesMoreComponent,
+    SearchPipe
    
     
     
@@ -91,7 +95,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatListModule,
     MatMenuModule,
     MatDialogModule,
-    MatCheckboxModule 
+    MatCheckboxModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

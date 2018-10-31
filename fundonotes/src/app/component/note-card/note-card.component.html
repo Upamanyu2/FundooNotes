@@ -5,11 +5,19 @@
 
          </div>
         </div>
+        
         <div [innerHTML]="data.description"   (click)="openDialog(data)">
             
                
             
         </div>
+
+        <div *ngFor="let label of data.noteLabels" fxLayout="row row wrap">
+            <mat-chip-list >
+                <mat-chip  *ngIf="label.isDeleted==false">{{label.label}}</mat-chip>
+            </mat-chip-list>    
+        </div>
+        
         
                 <div  fxLayoutAlign="space-around end" class="buttons"  >
          

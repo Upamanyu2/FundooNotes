@@ -13,7 +13,7 @@ export class AddLabelComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private _service : ServiceService) { this.getLabel(); }
-
+   
   ngOnInit() {
   }
   openDialog(): void {
@@ -42,12 +42,13 @@ export class AddLabelComponent implements OnInit {
       }
          
   }
-  
-  
-    },
+ },
     error=>{
   console.log(error);
   
     })
-  }    
+  }
+  
+  
+  
 }
