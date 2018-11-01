@@ -18,7 +18,7 @@ public pin: boolean=false;
 
 public bgColor="#ffffff";
 public isArchived=false;
-public LabelId=[]
+public LabelObj=[]
 /*----------------------------------------------------------------------------------------------------------- */
   constructor(
     private _service : ServiceService, //Service file reference is made in the constructor to use it.
@@ -32,6 +32,7 @@ public LabelId=[]
   /*----------------------------------------------------------------------------------------------------------- */
   ngOnInit() {     //Initialisation function to called while the page is reloaded.
     this.token=localStorage.getItem("token");
+    
   }
   public pinned(){     //Function used for sending the true and false values while the pin is pressed.
     this.pin=!this.pin;
@@ -49,6 +50,10 @@ public LabelId=[]
    this.bgColor='#ffffff';
     let title = document.getElementById("title").innerHTML;
     let description = document.getElementById("description").innerHTML;
+    
+   
+
+
     if(description=="" && title==""){   //For preventing the api call while the two filds are left empty.
       return;
     }
@@ -59,19 +64,23 @@ public LabelId=[]
         'isPined': this.pin,
         'color' : changecolor,
         'isArchived':this.isArchived,
-        'labelIdList':this.LabelId.toString()
+        'labelIdList':JSON.stringify(this.LabelObj)
       },this.token)
         
         .subscribe(
           data =>{    //On success.
             console.log("POST Request is successful ", data);
             this.closeClicked.emit(true);   
+            this.LabelObj=[];
           },
           error=>{  //On failure of api call.
             console.log("Error", error);
           });
 
   }
+
+
+
   
   
 /*----------------------------------------------------------------------------------------------------------- */ 
@@ -80,7 +89,9 @@ console.log(event);
 this.bgColor=event;
 
 }
-/*----------------------------------------------------------------------------------------------------------- */   
+
+
+
 archive(event){                 //Function called while archive function is called in the archiveclicked emitter.
   this.isArchived=event;
   this.ArchiveClicked.emit();
@@ -92,12 +103,13 @@ this.addNotes();
 }
 
 
-labels(event){
-  this.LabelId.push(event);
-  console.log(event);
-  console.log(this.LabelId);
-  
-  
+labels(event){                   //Function for receiving all the datas of from the child more component
+if(event.status==undefined || event.status==false){
+  this.LabelObj.push(event.labelObject.id)
+}
+else if(event.status==true){
+  this.LabelObj.pop()
+}  
 }
 /*----------------------------------------------------------------------------------------------------------- */  
 

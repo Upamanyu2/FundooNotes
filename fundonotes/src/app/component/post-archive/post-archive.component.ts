@@ -17,7 +17,7 @@ export class PostArchiveComponent implements OnInit {
 postArchivedNotes(){
   // console.log(this.Noteid.id);
   let noteId=[];
-  if(this.Noteid!=null){
+  if(this.Noteid!=null && this.Noteid.noteLabels.length!=undefined){
     noteId.push(this.Noteid.id);
     this._service.postArchiveNotes("notes/archiveNotes",{
      "isArchived":true,

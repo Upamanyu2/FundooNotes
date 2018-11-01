@@ -5,6 +5,8 @@ import { ViewEncapsulation } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ServiceService } from '../../service/http/service.service' ;
 import {Router} from '@angular/router';
+import { SearchServiceService }from '../../service/searchService/search-service.service'
+
 
 
 @Component({
@@ -22,17 +24,18 @@ export class NavigationBarComponent implements OnInit {
     );
   private token=localStorage.getItem("token");
   public firstname=localStorage.getItem('FirstName')
-  
+  public message:String;
 /*--------------------------------------------------------------------------------------------------------------------*/
   constructor(
     private breakpointObserver: BreakpointObserver,
     private _service : ServiceService,
     public router:Router,
-    
+    public search:SearchServiceService
     ) { }
 /*--------------------------------------------------------------------------------------------------------------------*/
     ngOnInit() {
       this.getLabel();
+      this.search.currentMessage.subscribe(message=>this.message=message)
     }
 /*--------------------------------------------------------------------------------------------------------------------*/
 getLabel(){        //Function for getting all the labels
@@ -74,6 +77,9 @@ console.log(error);
   }
  /*--------------------------------------------------------------------------------------------------------------------*/ 
 
-
+ onKeydown(event) {
+console.log(event.target.value);
+this.search.changeMessage(event.target.value);
+ }
 
 }

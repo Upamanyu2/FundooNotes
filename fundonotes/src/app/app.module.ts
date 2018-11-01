@@ -37,9 +37,9 @@ import { EditComponent } from './component/edit/edit.component';
 import { LabelCreateComponent } from './component/label-create/label-create.component';
 import { AddLabelComponent } from './component/add-label/add-label.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { AddNotesMoreComponent } from './component/add-notes-more/add-notes-more.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { SearchPipe } from './search.pipe';
+import { SearchBarComponent } from './component/search-bar/search-bar.component';
 
 
 
@@ -66,8 +66,8 @@ import { SearchPipe } from './search.pipe';
     EditComponent,
     LabelCreateComponent,
     AddLabelComponent,
-    AddNotesMoreComponent,
-    SearchPipe
+    SearchPipe,
+    SearchBarComponent
    
     
     

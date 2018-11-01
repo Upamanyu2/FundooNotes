@@ -1,5 +1,5 @@
 <div fxLayout="row wrap"  fxLayoutAllign="space-evenly start" style="padding-bottom:5%;padding-left:3%" >
-    <mat-card class="card" [ngStyle]="{'background-color':data.color}" *ngFor="let data of notesListArray" style="margin:15px; height: min-content" >
+    <mat-card class="card" [ngStyle]="{'background-color':data.color}" *ngFor="let data of notesListArray| search: searchData" style="margin:15px; height: min-content" >
         <div>
       <div style="font-weight:bold" [innerHTML]="data.title"  (click)="openDialog(data)">
 
@@ -12,7 +12,7 @@
             
         </div>
 
-        <div *ngFor="let label of data.noteLabels" fxLayout="row row wrap">
+        <div *ngFor="let label of data.noteLabels " fxLayout="row row wrap">
             <mat-chip-list >
                 <mat-chip  *ngIf="label.isDeleted==false">{{label.label}}</mat-chip>
             </mat-chip-list>    

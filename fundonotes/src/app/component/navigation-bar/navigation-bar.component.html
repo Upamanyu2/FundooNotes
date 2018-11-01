@@ -8,12 +8,12 @@
         <mat-icon aria-label="Side nav toggle icon">search</mat-icon>
     </button>
     <div class="search" fxShow.xs="false" fxShow.sm="true" fxShow.md="true"
-        fxShow.lg="true">
+        fxShow.lg="true" >
 
 
-        <input class="search-input" aria-label="Search" autocomplete="off"
+        <input  class="search-input" aria-label="Search" autocomplete="off"
             placeholder="Search" value="" name="q" role="combobox" type="text"
-            aria-hidden="false">
+            aria-hidden="false" routerLink="Search" [(ngModel)]="message" (keyup)="onKeydown($event)">
     </div>
 
 

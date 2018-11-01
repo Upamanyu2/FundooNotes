@@ -10,7 +10,7 @@ import { NotesComponentComponent } from './component/notes-component/notes-compo
 import { ReminderComponentComponent } from './component/reminder-component/reminder-component.component';
 import { GetDeleteComponent } from './component/get-delete/get-delete.component';
 import { GetArchiveComponent } from './component/get-archive/get-archive.component';
-
+import { SearchBarComponent } from './component/search-bar/search-bar.component';
 const routes: Routes = [
   { path: 'register', component: SignupComponentComponent },
   { path: 'login', component: LoginComponentComponent },
@@ -20,7 +20,8 @@ const routes: Routes = [
     children:[{path:'notes', component:NotesComponentComponent},
               {path:'reminder', component:ReminderComponentComponent},
               {path:'Trash', component:GetDeleteComponent},
-              {path:'Archive', component:GetArchiveComponent}
+              {path:'Archive', component:GetArchiveComponent},
+              {path:'Search', component:SearchBarComponent}
   ]},
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];

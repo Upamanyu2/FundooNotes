@@ -20,6 +20,7 @@ export class NoteCardComponent implements OnInit {
   @Output() refreshClicked =new EventEmitter<any>();//Output decorator and event emitter for color change archive and delete operation.
   @Output() updateCard =new EventEmitter<any>(); //Output decorator and event emitter for updated card array.
   @Input() notesListArray;
+  @Input() searchData;
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   ngOnInit() {
 
