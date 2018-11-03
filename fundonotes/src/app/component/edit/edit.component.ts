@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject,Output,EventEmitter } from '@angular/core'; //Importing the (inject is used for injecting the avlues to the modal box) output input and the event emitter for connecting child to parent.
+import { Component, OnInit, Inject,Output,EventEmitter,Input } from '@angular/core'; //Importing the (inject is used for injecting the avlues to the modal box) output input and the event emitter for connecting child to parent.
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material'; //Importing all the dialogue box requirements
 import { NoteCardComponent } from '../note-card/note-card.component'; //Note card component is imported to link the edit component and note component.
 import { ServiceService } from '../../service/http/service.service' ;//Http service file is imported.
@@ -18,13 +18,13 @@ export class EditComponent implements OnInit { //Export class to export all the 
     @Inject(MAT_DIALOG_DATA) public data: any,  //Used for injecting the datas received by the modal box from the note-card.
   ) { }
   @Output() ColorClicked = new EventEmitter<any>(); //Output decorator used for emitting the function for color being picked with the click function.
-  
+  @Output() UpdatingCard = new EventEmitter<any>();
 /*------------------------------------------------------------------------------------------------------------ */
   ngOnInit() {
- 
 
   }
   public bgColor=this.data.color;
+  
 /*------------------------------------------------------------------------------------------------------------ */
   onNoClick(): void {        //Function for closing the dialogue or modal box when the datas are contained.
     this.dialogRef.close();
@@ -48,7 +48,7 @@ export class EditComponent implements OnInit { //Export class to export all the 
     .subscribe(
       data=>{  //On success
     console.log(data);
-    
+    this.UpdatingCard.emit(true);
       },
       error=>{ //On faliure (of api calling)
     console.log(error);

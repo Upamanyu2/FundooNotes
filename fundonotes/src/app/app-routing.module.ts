@@ -11,6 +11,7 @@ import { ReminderComponentComponent } from './component/reminder-component/remin
 import { GetDeleteComponent } from './component/get-delete/get-delete.component';
 import { GetArchiveComponent } from './component/get-archive/get-archive.component';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { GetLabelsOnClickComponent } from './component/get-labels-on-click/get-labels-on-click.component';
 const routes: Routes = [
   { path: 'register', component: SignupComponentComponent },
   { path: 'login', component: LoginComponentComponent },
@@ -21,8 +22,10 @@ const routes: Routes = [
               {path:'reminder', component:ReminderComponentComponent},
               {path:'Trash', component:GetDeleteComponent},
               {path:'Archive', component:GetArchiveComponent},
-              {path:'Search', component:SearchBarComponent}
+              {path:'Search', component:SearchBarComponent},
+              { path: 'label/:params', component: GetLabelsOnClickComponent}
   ]},
+ 
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 

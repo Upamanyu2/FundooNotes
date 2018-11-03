@@ -1,4 +1,4 @@
 <a mat-list-item  (click)="openDialog()"><span class="Notes"><img src="../../../assets/image/add2.svg"></span><span class="Notes">Create new label</span></a>
 
 <div *ngFor="let name of labelList" fxLayout="row" >
-  <a mat-list-item><i class="material-icons" >label</i><span style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; ">{{name.label}}</span></a></div>
+  <a mat-list-item (click)="labelsClicked(name)"><i class="material-icons" >label</i><span style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; ">{{name.label}}</span></a></div>

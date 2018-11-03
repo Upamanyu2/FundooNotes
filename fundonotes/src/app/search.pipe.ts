@@ -12,7 +12,7 @@ export class SearchPipe implements PipeTransform {
         else args = args.toLowerCase();
 
         return value.filter(function(item){
-            return JSON.stringify(item).toLowerCase().includes(args);
+            return (item.title.toLowerCase().includes(args)) || (item.description.toLowerCase().includes(args)) ;
         });
     return null;
   }

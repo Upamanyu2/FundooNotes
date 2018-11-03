@@ -1,6 +1,7 @@
-import { Component, OnInit,  EventEmitter, Output, Input  } from '@angular/core';//Importing the output input and the event emitter for connecting child to parent.
+import { Component, OnInit, ViewChild, EventEmitter, Output, Input  } from '@angular/core';//Importing the output input and the event emitter for connecting child to parent.
 import { ServiceService } from '../../service/http/service.service' ;//Importing the service file for calling the post api.
 import {MatSnackBar} from '@angular/material';//Importing properties of snackbar.
+
 /*----------------------------------------------------------------------------------------------------------- */
 
 @Component({
@@ -19,6 +20,7 @@ public pin: boolean=false;
 public bgColor="#ffffff";
 public isArchived=false;
 public LabelObj=[]
+public LabelName=[]
 /*----------------------------------------------------------------------------------------------------------- */
   constructor(
     private _service : ServiceService, //Service file reference is made in the constructor to use it.
@@ -27,12 +29,13 @@ public LabelObj=[]
   /*----------------------------------------------------------------------------------------------------------- */
   @Output() closeClicked = new EventEmitter<any>(); //Outputting the post function event while the close click is clicked.
   @Output() ArchiveClicked = new EventEmitter<any>(); //Output decorator used for emitting the function for color being picked with the click function.
-  @Input()  
-  notesListArray:any
+  @Input()  notesListArray:any
+ 
   /*----------------------------------------------------------------------------------------------------------- */
   ngOnInit() {     //Initialisation function to called while the page is reloaded.
     this.token=localStorage.getItem("token");
-    
+   this.LabelName=[];
+   this.LabelObj=[];
   }
   public pinned(){     //Function used for sending the true and false values while the pin is pressed.
     this.pin=!this.pin;
@@ -55,6 +58,8 @@ public LabelObj=[]
 
 
     if(description=="" && title==""){   //For preventing the api call while the two filds are left empty.
+      this.LabelName=[];
+      this.LabelObj=[];
       return;
     }
         
@@ -72,14 +77,19 @@ public LabelObj=[]
             console.log("POST Request is successful ", data);
             this.closeClicked.emit(true);   
             this.LabelObj=[];
+            this.LabelName=[];
           },
           error=>{  //On failure of api call.
             console.log("Error", error);
+            this.LabelName=[];
+            this.LabelObj=[];
           });
 
   }
 
-
+// public close(){
+//   this.LabelName=[];
+// }
 
   
   
@@ -106,9 +116,11 @@ this.addNotes();
 labels(event){                   //Function for receiving all the datas of from the child more component
 if(event.status==undefined || event.status==false){
   this.LabelObj.push(event.labelObject.id)
+  this.LabelName.push(event.labelObject.label)
 }
 else if(event.status==true){
   this.LabelObj.pop()
+  this.LabelName.pop()
 }  
 }
 /*----------------------------------------------------------------------------------------------------------- */  

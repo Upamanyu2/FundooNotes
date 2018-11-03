@@ -39,6 +39,12 @@
                         </div>
                         
                     </mat-card-content>
+
+                    <div fxLayout="row row wrap" *ngFor="let label of LabelName">
+                      <mat-chip-list>
+                        <mat-chip>{{label}}</mat-chip>
+                      </mat-chip-list>
+                    </div>
         
                     <mat-card-actions flexLayout="row">
                       <button mat-icon-button>

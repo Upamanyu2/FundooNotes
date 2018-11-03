@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material';
 import { LabelCreateComponent } from '../label-create/label-create.component';
 import { ServiceService } from '../../service/http/service.service' ;
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-add-label',
   templateUrl: './add-label.component.html',
@@ -12,7 +13,8 @@ export class AddLabelComponent implements OnInit {
   private token=localStorage.getItem("token");
   constructor(
     public dialog: MatDialog,
-    private _service : ServiceService) { this.getLabel(); }
+    private _service : ServiceService,
+    public router:Router) { this.getLabel(); }
    
   ngOnInit() {
   }
@@ -47,6 +49,10 @@ export class AddLabelComponent implements OnInit {
   console.log(error);
   
     })
+  }
+  labelsClicked(labels){
+  let labelName=labels.label;
+  this.router.navigate(['home/label/'+labelName]);
   }
   
   

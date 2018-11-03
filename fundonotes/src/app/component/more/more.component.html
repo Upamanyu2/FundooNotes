@@ -11,7 +11,7 @@
               <button mat-menu-item>
                   <div fxLayout="row"><i class="material-icons">search</i><input [(ngModel)]="searchLabel" type="search" class="labelinput" placeholder="Enter label name" (click)="$event.stopPropagation()"></div>
               </button>
-              <button mat-menu-item *ngFor="let name of labelList | search:searchLabel">
+              <button mat-menu-item *ngFor="let name of labelList | smallSearch:searchLabel">
                     <div fxLayout="row"><span><mat-checkbox (click)="$event.stopPropagation();  check(name,name.id)" [(ngModel)]="name.isChecked" >{{name.label}}</mat-checkbox></span></div>
                 </button>
           </mat-menu>

@@ -32,6 +32,7 @@ export class NavigationBarComponent implements OnInit {
     public router:Router,
     public search:SearchServiceService
     ) { }
+    
 /*--------------------------------------------------------------------------------------------------------------------*/
     ngOnInit() {
       this.getLabel();
@@ -80,6 +81,9 @@ console.log(error);
  onKeydown(event) {
 console.log(event.target.value);
 this.search.changeMessage(event.target.value);
+ }
+ refresh(event){
+   console.log(event)
  }
 
 }

@@ -40,6 +40,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 import { SearchPipe } from './search.pipe';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
+import { GetLabelsOnClickComponent } from './component/get-labels-on-click/get-labels-on-click.component';
+import { SmallSearchPipe } from './small-search.pipe';
 
 
 
@@ -67,7 +69,9 @@ import { SearchBarComponent } from './component/search-bar/search-bar.component'
     LabelCreateComponent,
     AddLabelComponent,
     SearchPipe,
-    SearchBarComponent
+    SearchBarComponent,
+    GetLabelsOnClickComponent,
+    SmallSearchPipe
    
     
     

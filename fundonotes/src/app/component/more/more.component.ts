@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ServiceService } from '../../service/http/service.service';
 
+
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
@@ -17,8 +18,7 @@ export class MoreComponent implements OnInit {
   ) { }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
 
-  @Input()
-  Noteid: any;
+  @Input() Noteid:any;
   @Output() DeleteClicked = new EventEmitter<any>(); // Event emitter for emitting the deleted arrray while it is getting posted.
   @Output() LabelObj=new EventEmitter<any>();
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
@@ -29,7 +29,8 @@ export class MoreComponent implements OnInit {
           
   //   }
   // }
-    // this.getLabel();
+  //   this.getLabel();
+ 
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -61,7 +62,7 @@ export class MoreComponent implements OnInit {
 
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   getLabel() {        //Function for getting all the labels
-
+  
     this._service.labelGetService("noteLabels/getNoteLabelList", this.token)
       .subscribe((data) => {
         // console.log(data);
@@ -70,7 +71,7 @@ export class MoreComponent implements OnInit {
           if (data["data"].details[i].isDeleted == false) {
             this.labelList.push(data["data"].details[i]);
           }
-        if(this.Noteid!==undefined){
+        if(this.Noteid!=null){
           for (let i = 0; i < this.labelList.length; i++) {
             this.labelList[i].isChecked = false;
             for (let j = 0; j < this.Noteid['noteLabels'].length; j++) {

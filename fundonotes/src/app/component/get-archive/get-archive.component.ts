@@ -17,11 +17,13 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
   }
 /*------------------------------------------------------------------------------------------------------------------------ */
   getArchive(){  //Function for calling the get api.
+    
    this._service.getArchiveNotes("notes/getArchiveNotesList",this.token)
    .subscribe(
      data=>{
+      this.notes=[]
       for(var i=data['data'].data.length-1;i>=0;i--){
-        if( data['data'].data[i].isArchived==true)
+        if( data['data'].data[i].isArchived==true && data['data'].data[i].isDeleted==false)
         {
           this.notes.push(data['data'].data[i]);
           console.log(data['data'].data[i].id);
@@ -34,4 +36,13 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
    )
   }
 /*------------------------------------------------------------------------------------------------------------------------ */
+refresh(event){
+if(event==true){ 
+  this.getArchive();
+}
+console.log(event)
+}
+
+
+
 }

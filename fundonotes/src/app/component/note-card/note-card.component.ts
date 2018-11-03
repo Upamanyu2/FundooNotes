@@ -29,7 +29,7 @@ export class NoteCardComponent implements OnInit {
   openDialog(data): void {         // Function taking the data of the dialogue box
     const dialogRef = this.dialog.open(EditComponent, {
       width: '700px',
-      data: {"title":data.title,"description":data.description,"id":data.id,"color":data.color}
+      data: data
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
