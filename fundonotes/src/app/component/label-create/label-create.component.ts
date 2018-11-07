@@ -2,7 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import {ViewChild, ElementRef} from '@angular/core';
-import { ServiceService } from '../../service/http/service.service' ;//Http service file is imported.
+import { NotesServiceService } from '../../service/notes/notes-service.service';
+import { LabelServiceService } from '../../service/label/label-service.service';
+
 
 
 /*----------------------------------------------------------------------------------------------------- */
@@ -24,7 +26,8 @@ public labelList=[];
 /*----------------------------------------------------------------------------------------------------- */
   constructor(  
    public  dialogRef: MatDialogRef<NavigationBarComponent>,
-   private _service : ServiceService, //Service file reference is made.
+   private _service : NotesServiceService, //Service file reference is made.
+   private _service1: LabelServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
     @ViewChild('label') labelInputRef: ElementRef;
     @ViewChild('labeledit') labelEditInputRef: ElementRef;
@@ -46,7 +49,7 @@ public labelList=[];
       if(label=="" || label==null){
           return;
       }
-    this._service.labelPostService("noteLabels",{
+    this._service.postNotes("noteLabels",{
       "userId":this.userId,
       "label":label,
       "isDeleted":false
@@ -64,7 +67,7 @@ public labelList=[];
 /*----------------------------------------------------------------------------------------------------- */
  getLabel(){        //Function for getting all the labels
   
-      this._service.labelGetService("noteLabels/getNoteLabelList",this.token)
+      this._service.getNoteJson("noteLabels/getNoteLabelList",this.token)
       .subscribe((data)=>{
     console.log(data);
     this.labelList=[];
@@ -84,7 +87,7 @@ public labelList=[];
  }
 /*----------------------------------------------------------------------------------------------------- */
  deleteLabel(id){            //Function for deleting all the labels
-   this._service.labelDeleteService("noteLabels/"+id+"/deleteNoteLabel")
+   this._service1.labelDeleteService("noteLabels/"+id+"/deleteNoteLabel")
    .subscribe(
      data=>{
        console.log(data);
@@ -101,7 +104,7 @@ public labelList=[];
 updateLabel(id){
  
  let editLabel=this.labelEditInputRef.nativeElement.value; 
-  this._service.labelPostService("noteLabels/"+id+"/updateNoteLabel",{
+  this._service.postNotes("noteLabels/"+id+"/updateNoteLabel",{
    "label":editLabel
   },this.token)
   .subscribe(

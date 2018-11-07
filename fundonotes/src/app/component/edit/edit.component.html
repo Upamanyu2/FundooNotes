@@ -1,54 +1,48 @@
+<body [ngStyle]="{'background-color':data.color}" class="editBody"
+  [style.background-color]="bgColor">
 
-  <body [ngStyle]="{'background-color':data.color}" style="padding:10px" [style.background-color]="bgColor">
-      <mat-card-header   >
-          <div data-text="Title" id="title" contenteditable="true" class="div2" [innerHTML]="data.title">
-          </div>
-          <button mat-icon-button (click)="pinned()">
-              <img src="../../../assets/image/add10.svg">
-            </button>
-      </mat-card-header>
-
-      <mat-card-content class="take_note">
-          <div data-text="Take a note.." id="description" contenteditable="true" class="div2" [innerHTML]="data.description">
-          </div>
-          
-      </mat-card-content>
-
-      <div fxLayout="row row wrap" *ngFor="let label of data.noteLabels" >
-        <mat-chip-list *ngIf="label.isDeleted==false">
-          <mat-chip>{{label.label}}</mat-chip>
-        </mat-chip-list>
-      </div>
-
-      <div flexLayout="row">
-        <button mat-icon-button>
-          <img src="../../../assets/image/add1.svg" class="svg_img" height="20px" width="20px" style="margin-top: -5px; opacity: 0.5"/>
-        </button>
-
-        <button mat-icon-button>
-        <i class="material-icons" style="opacity: 0.5;"> person_add </i>
-        </button>
-
-        <app-theme [Noteid]="data"  (ColorChanged)="refresh($event)"></app-theme>
-
-        <button mat-icon-button>
-        <i class="material-icons" style="opacity: 0.5;">photo</i>
-        </button>
-
-        <app-post-archive [Noteid]="data" (ArchiveClicked)="archive($event)"></app-post-archive>
-
-        <app-more [Noteid]="data" (DeleteClicked)="delete($event)"></app-more>
-      <button mat-icon-button>
-      <i class="material-icons" style="opacity: 0.5;">rotate_left </i>
-      </button>
-
-      <button mat-icon-button>
-      <i class="material-icons" style="opacity: 0.5;">rotate_right</i>
-      </button>
-
-      <button mat-button style="float:right" (click)=" onNoClick();updatecard()"> Close</button>
+  <mat-card-header>
+    <div data-text="Title" id="title" contenteditable="true" class="div2"
+      [innerHTML]="data.title">
     </div>
-  </body>
-        
+    <button mat-icon-button (click)="pinned()" class="editPin">
+      <img src="../../../assets/image/add10.svg">
+    </button>
+  </mat-card-header>
 
-    
+  <mat-card-content class="take_note">
+    <div data-text="Take a note.." id="description" contenteditable="true"
+      class="div2" [innerHTML]="data.description">
+    </div>
+  </mat-card-content>
+
+  <div fxLayout="row row wrap" *ngFor="let label of data.noteLabels">
+    <mat-chip-list *ngIf="label.isDeleted==false">
+      <mat-chip>{{label.label}}</mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <div flexLayout="row" class="div3">
+    <!------------------------Reminder component starts----------------------------------->
+    <app-reminder></app-reminder>
+    <!------------------------Reminder component ends----------------------------------->
+    <!------------------------Collaborator component starts----------------------------------->
+    <app-collaborator></app-collaborator>
+    <!------------------------Collaborator component ends----------------------------------->
+    <!------------------------Theme component starts----------------------------------->
+    <app-theme [Noteid]="data" (ColorChanged)="refresh($event)"></app-theme>
+    <!------------------------Theme component ends----------------------------------->
+    <!------------------------Image component starts----------------------------------->
+    <app-image></app-image>
+    <!------------------------Image component ends----------------------------------->
+    <!------------------------Post archive component starts----------------------------------->
+    <app-post-archive [Noteid]="data" (ArchiveClicked)="archive($event)"></app-post-archive>
+    <!------------------------Post archive component ends----------------------------------->
+    <!------------------------More component starts----------------------------------->
+    <app-more [Noteid]="data" (DeleteClicked)="delete($event)"></app-more>
+    <!------------------------More component ends----------------------------------->
+
+    <button mat-button class="editButton" (click)=" onNoClick();updatecard()">
+      Close</button>
+  </div>
+</body>

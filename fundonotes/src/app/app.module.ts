@@ -42,6 +42,10 @@ import { SearchPipe } from './search.pipe';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { GetLabelsOnClickComponent } from './component/get-labels-on-click/get-labels-on-click.component';
 import { SmallSearchPipe } from './small-search.pipe';
+import { CollaboratorComponent } from './component/collaborator/collaborator.component';
+import { ReminderComponent } from './component/reminder/reminder.component';
+import { ImageComponent } from './component/image/image.component';
+
 
 
 
@@ -71,7 +75,10 @@ import { SmallSearchPipe } from './small-search.pipe';
     SearchPipe,
     SearchBarComponent,
     GetLabelsOnClickComponent,
-    SmallSearchPipe
+    SmallSearchPipe,
+    CollaboratorComponent,
+    ReminderComponent,
+    ImageComponent
    
     
     

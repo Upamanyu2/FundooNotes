@@ -1,9 +1,10 @@
-<div fxLayout="column" fxLayoutGap.lg="10%" fxLayoutGap.md="0%" fxLayoutGap.sm="0%" fxLayoutGap.xs="0%">
-  <div></div>  
+<div fxLayout="column" fxLayoutGap.lg="10%" fxLayoutGap.md="0%" fxLayoutGap.sm="0%"
+    fxLayoutGap.xs="0%">
+    <div></div>
     <div fxLayout="row">
-          <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
-          <div fxFlex.lg="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%">
-              <mat-card style="width: 100%">
+        <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+        <div fxFlex.lg="36%" fxFlex.md="90%" fxFlex.sm="100%" fxFlex.xs="100%">
+            <mat-card style="width: 100%">
                 <div fxLayoutAlign="center">
                     <h1>
                         <span class="B">F</span>
@@ -12,97 +13,124 @@
                         <span class="B">D</span>
                         <span class="R">O</span>
                         <span class="G">O</span>
-                   </h1>
-                  </div> 
-                  <div fxLayoutAlign="center">
-                      <p style="font-size:20px" >Create your account</p>
-                  </div>
-                  <div>
-                      <form class="container1" [formGroup]="signupForm">
-                          <div fxLayoutAlign="space-between">
-                              <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="First name" [(ngModel)]="model.fname" formControlName="Fname" [ngClass]="{ 'is-invalid': submitted && f.Fname.errors }">
-                              </mat-form-field>
-                              
-                              <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Last name" [(ngModel)]="model.lname" formControlName="Lname" [ngClass]="{ 'is-invalid': submitted && f.Lname.errors }">
-                              </mat-form-field>
-                          </div>
-                          <div fxLayoutAlign="space-between">
-                                <div *ngIf="submitted && f.Fname.errors"  class="invalid-feedback">
-                                     <mat-error *ngIf="f.Fname.errors.required">First Name is required</mat-error>
-                                </div>
-                                <div *ngIf="submitted && f.Lname.errors" class="invalid-feedback">
-                                     <mat-error *ngIf="f.Lname.errors.required">Last Name is required</mat-error>
-                                </div>
-                          </div>
-                          <div>
-                            <mat-form-field class="container1">
-                              <input matInput placeholder="Username" [(ngModel)]="model.uname" formControlName="Uname" [ngClass]="{ 'is-invalid': submitted && f.Uname.errors }">
+                    </h1>
+                </div>
+                <div fxLayoutAlign="center">
+                    <p style="font-size:20px">Create your account</p>
+                </div>
+                <div>
+                    <form class="container1" [formGroup]="signupForm">
+                        <div fxLayoutAlign="space-between">
+                            <mat-form-field class="container2-full-width">
+                                <input matInput placeholder="First name"
+                                    [(ngModel)]="model.fname" formControlName="Fname"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Fname.errors }">
                             </mat-form-field>
-                          </div>
-                            <div *ngIf="submitted && f.Uname.errors" class="invalid-feedback">
-                                <mat-error *ngIf="f.Uname.errors.required" >Username is required</mat-error>
-                                <mat-error *ngIf="f.Uname.errors.email" >[Provide a valid email xyz@abc.com]</mat-error>
+
+                            <mat-form-field class="container2-full-width">
+                                <input matInput placeholder="Last name"
+                                    [(ngModel)]="model.lname" formControlName="Lname"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Lname.errors }">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="space-between">
+                            <div *ngIf="submitted && f.Fname.errors" class="invalid-feedback">
+                                <mat-error *ngIf="f.Fname.errors.required">First
+                                    Name is required</mat-error>
                             </div>
-                            <p>You can use letters or numbers.</p>
-                            <div>
-                                <mat-form-field class="container1">
-                                    <input matInput placeholder="Email" [(ngModel)]="model.uname" formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
-                                </mat-form-field>
+                            <div *ngIf="submitted && f.Lname.errors" class="invalid-feedback">
+                                <mat-error *ngIf="f.Lname.errors.required">Last
+                                    Name is required</mat-error>
                             </div>
-                            <div *ngIf="submitted && f.Uname.errors" class="invalid-feedback">
-                                <mat-error *ngIf="f.Email.errors.required">Email is required</mat-error>
-                                <mat-error *ngIf="f.Email.errors.email">[Provide a valid format xyz@abc.com]</mat-error>
+                        </div>
+                        <div>
+                            <mat-form-field class="container1">
+                                <input matInput placeholder="Username"
+                                    [(ngModel)]="model.uname" formControlName="Uname"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Uname.errors }">
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="submitted && f.Uname.errors" class="invalid-feedback">
+                            <mat-error *ngIf="f.Uname.errors.required">Username
+                                is required</mat-error>
+                            <mat-error *ngIf="f.Uname.errors.email">[Provide a
+                                valid email xyz@abc.com]</mat-error>
+                        </div>
+                        <p>You can use letters or numbers.</p>
+                        <div>
+                            <mat-form-field class="container1">
+                                <input matInput placeholder="Email" [(ngModel)]="model.uname"
+                                    formControlName="Email" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="submitted && f.Uname.errors" class="invalid-feedback">
+                            <mat-error *ngIf="f.Email.errors.required">Email is
+                                required</mat-error>
+                            <mat-error *ngIf="f.Email.errors.email">[Provide a
+                                valid format xyz@abc.com]</mat-error>
+                        </div>
+
+
+                        <br>
+                        <div fxLayoutAlign="space-between">
+                            <mat-form-field class="container2-full-width">
+                                <input matInput placeholder="Password"
+                                    [(ngModel)]="model.pass" [type]="!hide ? 'password' : 'text'"
+                                    formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
+                            </mat-form-field>
+                            <mat-form-field class="container2-full-width">
+                                <input matInput placeholder="Confirm password"
+                                    [(ngModel)]="model.Cpass" [type]="!hide ? 'password' : 'text'"
+                                    formControlName="ConfirmPassword" [ngClass]="{ 'is-invalid': submitted && f.ConfirmPassword.errors }">
+                                <mat-icon matSuffix (click)="hide = !hide">{{hide
+                                    ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayoutAlign="space-between">
+                            <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+                                <mat-error *ngIf="f.Password.errors.required">Password
+                                    required</mat-error>
+                                <mat-error *ngIf="f.Password.errors.minlength">Passwords
+                                    should be 6 characters</mat-error>
                             </div>
-                            
-                          
-                          <br>
-                          <div fxLayoutAlign="space-between">
-                              <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Password" [(ngModel)]="model.pass" [type]="!hide ? 'password' : 'text'"  formControlName="Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
-                              </mat-form-field>
-                              <mat-form-field class="container2-full-width">
-                                  <input matInput placeholder="Confirm password" [(ngModel)]="model.Cpass" [type]="!hide ? 'password' : 'text'" formControlName="ConfirmPassword" [ngClass]="{ 'is-invalid': submitted && f.ConfirmPassword.errors }">
-                                  <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                              </mat-form-field>
-                          </div>
-                          <div fxLayoutAlign="space-between">
-                                <div *ngIf="submitted && f.Password.errors"  class="invalid-feedback">
-                                     <mat-error *ngIf="f.Password.errors.required">Password required</mat-error>
-                                     <mat-error *ngIf="f.Password.errors.minlength">Passwords should be 6 characters</mat-error>
-                                </div>
-                                <div *ngIf="submitted && f.ConfirmPassword.errors" class="invalid-feedback">
-                                     <mat-error *ngIf="f.ConfirmPassword.errors.required">Confirm password required</mat-error> 
-                                     <mat-error *ngIf="f.ConfirmPassword.errors.minlength">Password should be 6 characters</mat-error> 
-                                     <mat-error *ngIf="f.ConfirmPassword.errors.passValidator">Both the password should match</mat-error> 
-                                </div>
-                                <!-- <div *ngIf="submitted && f.ConfirmPassword.errors">
+                            <div *ngIf="submitted && f.ConfirmPassword.errors"
+                                class="invalid-feedback">
+                                <mat-error *ngIf="f.ConfirmPassword.errors.required">Confirm
+                                    password required</mat-error>
+                                <mat-error *ngIf="f.ConfirmPassword.errors.minlength">Password
+                                    should be 6 characters</mat-error>
+                                <mat-error *ngIf="f.ConfirmPassword.errors.passValidator">Both
+                                    the password should match</mat-error>
+                            </div>
+                            <!-- <div *ngIf="submitted && f.ConfirmPassword.errors">
                                     <mat-error *ngIf="f.ConfirmPassword.errors.passValidator">Both the password should match</mat-error>
                                 </div> -->
-                                     
-                            </div>
-                          
-                          <br>
-                          <div fxLayoutAlign="space-between"> 
-                              <a href="#" routerLink="/login">Sign in instead</a>
-                              <button [disabled]="!buttonDisabled"  mat-raised-button style="background-color:#0f5cd8; color: white" (click)="signup()">Sign up</button>
-                          </div>
-                          <br>
-                            <div fxLayout="row" fxLayoutGap="5%" >
-                                
-                                        <mat-card (click)="toggle(datas)" *ngFor="let datas of cards"  [ngClass]="datas.select ? 'select' : 'deselect'">
-                                                <h3>{{datas.name}}</h3>
-                                                <hr>
-                                                <br>
-                                                {{datas.description}}
-                                        </mat-card>
-                            </div>
-                      </form>
-                  </div>  
-              </mat-card>  
-          </div>
-          <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
+
+                        </div>
+
+                        <br>
+                        <div fxLayoutAlign="space-between">
+                            <a href="#" routerLink="/login">Sign in instead</a>
+                            <button [disabled]="!buttonDisabled"
+                                mat-raised-button style="background-color:#0f5cd8; color: white"
+                                (click)="signup()">Sign up</button>
+                        </div>
+                        <br>
+                        <div fxLayout="row" fxLayoutGap="5%">
+
+                            <mat-card (click)="toggle(datas)" *ngFor="let datas of cards"
+                                [ngClass]="datas.select ? 'select' : 'deselect'">
+                                <h3>{{datas.name}}</h3>
+                                <hr>
+                                <br>
+                                {{datas.description}}
+                            </mat-card>
+                        </div>
+                    </form>
+                </div>
+            </mat-card>
+        </div>
+        <div fxFlex.lg="32%" fxFlex.md="5%" fxFlex.sm="0%" fxFlex.xs="0%"></div>
     </div>
-  <div></div>
+    <div></div>
 </div>

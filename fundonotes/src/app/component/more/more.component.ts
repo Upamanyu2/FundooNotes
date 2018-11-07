@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ServiceService } from '../../service/http/service.service';
-
+import { NotesServiceService } from '../../service/notes/notes-service.service';
+import { LabelServiceService } from '../../service/label/label-service.service';
 
 @Component({
   selector: 'app-more',
@@ -13,35 +13,59 @@ export class MoreComponent implements OnInit {
   public labelList = [];
   public searchLabel;
   constructor(
-    private _service: ServiceService,
+    private _service: NotesServiceService,
+    private _service1: LabelServiceService,
+    
 
   ) { }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
 
   @Input() Noteid:any;
+  @Input() Delete:any;
   @Output() DeleteClicked = new EventEmitter<any>(); // Event emitter for emitting the deleted arrray while it is getting posted.
   @Output() LabelObj=new EventEmitter<any>();
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
-  //   if( this.Noteid!=undefined ){
-  //     for (let j = 0; j < this.Noteid['noteLabels'].length; j++) {
-  //        this.labelList.push(this.Noteid['noteLabels'][j])
-          
-  //   }
-  // }
-  //   this.getLabel();
+ 
  
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
 
-  deleteNotes() {   //Delete post function.
+  deleteNotes(flag) {   //Delete post function.
     
 
     let noteId = []
     noteId.push(this.Noteid.id);
     if(this.Noteid!=undefined && this.Noteid.noteLabels!=undefined){
-      this._service.postDeleteColorNotes("notes/trashNotes", {
-        "isDeleted": true,
+      this._service.postNotes("notes/trashNotes", {
+        "isDeleted": flag,
+        "noteIdList": noteId
+      },
+        this.token)
+        .subscribe(
+          data => {
+            console.log(data);
+            this.DeleteClicked.emit(true);
+          },
+          error => {
+            console.log(error);
+  
+          }
+        )
+    }
+    
+  }
+
+ /*-------------------------------------------------------------------------------------------------------------------------------------*/
+
+  deleteForeverNotes(flag) {   //Delete post function.
+    
+
+    let noteId = []
+    noteId.push(this.Noteid.id);
+    if(this.Noteid!=undefined && this.Noteid.noteLabels!=undefined){
+      this._service.postNotes("notes/deleteForeverNotes", {
+        "isDeleted": flag,
         "noteIdList": noteId
       },
         this.token)
@@ -63,7 +87,7 @@ export class MoreComponent implements OnInit {
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   getLabel() {        //Function for getting all the labels
   
-    this._service.labelGetService("noteLabels/getNoteLabelList", this.token)
+    this._service.getNoteJson("noteLabels/getNoteLabelList", this.token)
       .subscribe((data) => {
         // console.log(data);
         this.labelList = [];
@@ -95,7 +119,7 @@ export class MoreComponent implements OnInit {
   addNotesToLabelPost(id) {
     let noteId = this.Noteid.id;
 
-    this._service.addLabelToNotes("notes/" + noteId + "/addLabelToNotes/" + id + "/add", this.token)
+    this._service1.addLabelToNotes("notes/" + noteId + "/addLabelToNotes/" + id + "/add", this.token)
       .subscribe(data => {
         console.log(data);
         this.DeleteClicked.emit(true);
@@ -111,7 +135,7 @@ export class MoreComponent implements OnInit {
   deleteNotesfromLabelPost(id) {
     let noteId = this.Noteid.id;
 
-    this._service.addLabelToNotes("notes/" + noteId + "/addLabelToNotes/" + id + "/remove", this.token)
+    this._service1.addLabelToNotes("notes/" + noteId + "/addLabelToNotes/" + id + "/remove", this.token)
       .subscribe(data => {
         console.log(data);
         this.DeleteClicked.emit(true);
@@ -123,10 +147,6 @@ export class MoreComponent implements OnInit {
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   check(label, id) {
-  //  if( label.isChecked==undefined || label.isChecked==false){
-  //   this.LabelObj.emit(label);
-  //  }
-  //  console.log(label.isChecked)  
     
    this.LabelObj.emit({labelObject:label, status:label.isChecked}); 
     if ( this.Noteid!=null && label.isChecked == true) {

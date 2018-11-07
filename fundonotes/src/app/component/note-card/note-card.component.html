@@ -1,43 +1,53 @@
-<div fxLayout="row wrap"  fxLayoutAllign="space-evenly start" style="padding-bottom:5%;padding-left:3%" >
-    <mat-card class="card" [ngStyle]="{'background-color':data.color}" *ngFor="let data of notesListArray| search: searchData" style="margin:15px; height: min-content" >
-        <div>
-      <div style="font-weight:bold" [innerHTML]="data.title"  (click)="openDialog(data)">
+<!--Outer div starts-->
+<div fxLayoutAllign="space-evenly start" class="outsideDivNoteCard">
+    <div [ngClass]="{
+        'grid-view':!toggle,
+        'list-view': toggle
+    }">
+        <!--Mat-card starts-->
+        <mat-card [ngClass]="{'grid-card':!toggle,
+                           'list-card': toggle}"
+            class="card noteCards" [ngStyle]="{'background-color':data.color}"
+            *ngFor="let data of notesListArray| search: searchData">
 
-         </div>
-        </div>
-        
-        <div [innerHTML]="data.description"   (click)="openDialog(data)">
-            
-               
-            
-        </div>
 
-        <div *ngFor="let label of data.noteLabels " fxLayout="row row wrap">
-            <mat-chip-list >
-                <mat-chip  *ngIf="label.isDeleted==false">{{label.label}}</mat-chip>
-            </mat-chip-list>    
-        </div>
-        
-        
-                <div  fxLayoutAlign="space-around end" class="buttons"  >
-         
-                        <button mat-icon-button>
-                            <img src="../../../assets/image/add1.svg" class="svg_img" height="20px" width="20px" style="margin-top: -5px; opacity: 0.5"/>
-                        </button>
-                        <button mat-icon-button>
-                            <i class="material-icons" style="opacity: 0.5;"> person_add </i>
-                        </button>
-                        <app-theme [Noteid]=data (ColorClicked)="refresh($event)"></app-theme>
-                       
-                        <button mat-icon-button>
-                            <i class="material-icons" style="opacity: 0.5;">photo</i>
-                        </button>
-                        <app-post-archive [Noteid]=data (ArchiveClicked)="refresh($event)"></app-post-archive>
-              
-                       <app-more [Noteid]=data (DeleteClicked)="refresh($event)"></app-more>
-                   </div>
-                  
-        
-        
-    </mat-card>
+            <div class="headerNoteCard" [innerHTML]="data.title" (click)="openDialog(data)">
+
+            </div>
+
+
+            <div [innerHTML]="data.description" (click)="openDialog(data)">
+
+
+
+            </div>
+
+            <div *ngFor="let label of data.noteLabels " fxLayout="row row wrap">
+                <mat-chip-list>
+                    <mat-chip *ngIf="label.isDeleted==false">{{label.label}}</mat-chip>
+                </mat-chip-list>
+            </div>
+
+
+            <div fxLayoutAlign="space-around end" class="buttons">
+
+                <app-reminder [Delete]=data.isDeleted></app-reminder>
+                <app-collaborator [Delete]=data.isDeleted></app-collaborator>
+                <app-theme [Noteid]=data (ColorClicked)="refresh($event)"
+                    [Delete]=data.isDeleted></app-theme>
+
+                <app-image [Delete]=data.isDeleted></app-image>
+                <app-post-archive [Noteid]=data (ArchiveClicked)="refresh($event)"
+                    [Archive]=data.isArchived [Delete]=data.isDeleted></app-post-archive>
+
+                <app-more [Noteid]=data (DeleteClicked)="refresh($event)"
+                    [Delete]=data.isDeleted></app-more>
+            </div>
+
+
+
+        </mat-card>
+        <!--Mat-card ends-->
+    </div>
 </div>
+<!--Outer div ends-->

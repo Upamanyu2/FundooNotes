@@ -1,3 +1,6 @@
-<button mat-icon-button >
-  <i class="material-icons" (click)="postArchivedNotes()" style="opacity: 0.5;">archive</i>
+<button mat-icon-button>
+  <i class="material-icons unarchivePost" (click)="postArchivedNotes(false)"
+    *ngIf="Archive && !Delete">unarchive</i>
+  <i class="material-icons unarchivePost" (click)="postArchivedNotes(true)"
+    *ngIf="!Archive && !Delete">archive</i>
 </button>

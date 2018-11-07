@@ -3,8 +3,14 @@
 } */
 .sidenav-container {
   height: 100%;
+  
 }
-
+.image{
+  float:left ;
+  width:100px;
+  height:100px;
+  border-radius: 50% !important;
+}
 .sidenav {
   width: 250px;
   margin-top: 5%;
@@ -27,23 +33,21 @@
 .sidenav-content{
   width: 100%;
   position: fixed;
-  margin-left: 0%;
+  
 }
 .mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgba(0,0,0,.0);
 }
-.mat-list, .mat-nav-list, .mat-selection-list {
-  padding-top: 0px;
-  display: block;
-  -webkit-tap-highlight-color: transparent;
+@media only screen and (max-width: 640px){
+  .mat-nav-list{
+    padding-top:15% !important;
+  }
 }
 .mat-drawer-content{
   overflow: auto;
   position: relative;
 }
-/* .mat-nav-list{
-  overflow-y: scroll;
-} */
+
 .search{
   width: 70%;
   margin: 0% 0% 0% 0%;
@@ -79,13 +83,7 @@
 input:focus{
   background-color: white;
 }
-/* .left_icons{
-  margin-right: 6%;
-}
-.right_icons{
-  padding: 0% 8% 0% 0%;
-  margin: 0% 0% 0% 0%;
-} */
+
 .Notes{
   padding: 0% 16% 0% 0%;
   font-size: 83%;
@@ -104,4 +102,30 @@ font-size: 83%;
 }
 .icons{
   margin-right: 0%;
+}
+.sideNavBar{
+  margin-top: 5%;
+}
+.mat-menu-content:not(:empty){
+  padding: 8px 8px 8px 8px !important;
+}
+.mail{
+  margin: auto;
+}
+.mail1{
+  font-weight: 900;
+}
+.inputFile{
+  padding-bottom:2%;
+}
+.image1{
+  height: 30px;
+  width:  30px;
+  border-radius: 50% !important;
+}
+.left_icons{
+
+}
+.right_icons{
+
 }

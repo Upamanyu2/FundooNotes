@@ -1,6 +1,7 @@
 .body{
     border: 1px;
     border-radius: 20px;
+  
 }
 .span{
     top: 10px;
@@ -10,8 +11,9 @@
 .div2{
 
     outline: none;
-    width: 570px;
+    width: 605px;
     position: relative;
+    padding-top: 10px;
 }
 div:empty:before {
     content:attr(data-text);
@@ -40,4 +42,16 @@ opacity:0;
     height: 100%;
     min-height: inherit;
     max-height: inherit;
+}
+.editButton{
+    float:right;
+}
+.editBody{
+    padding:10px;
+}
+.editPin{
+    float: right;
+}
+.div3{
+    padding-bottom: 6px;
 }

@@ -1,3 +1,4 @@
+<!--Mat-toolbar starts-->
 <mat-toolbar class="toolbar">
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
@@ -8,12 +9,13 @@
         <mat-icon aria-label="Side nav toggle icon">search</mat-icon>
     </button>
     <div class="search" fxShow.xs="false" fxShow.sm="true" fxShow.md="true"
-        fxShow.lg="true" >
+        fxShow.lg="true">
 
 
-        <input  class="search-input" aria-label="Search" autocomplete="off"
+        <input class="search-input" aria-label="Search" autocomplete="off"
             placeholder="Search" value="" name="q" role="combobox" type="text"
-            aria-hidden="false" routerLink="Search" [(ngModel)]="message" (keyup)="onKeydown($event)">
+            aria-hidden="false" routerLink="Search" [(ngModel)]="message"
+            (keyup)="onKeydown($event)">
     </div>
 
 
@@ -21,35 +23,59 @@
 
 
     <div fxLayout="row">
-        <div fxLayoutAlign="space-between" class="icons">
-            <div class="left_icons">
+        <div fxLayoutAlign="space-around" fxFlex="100%" class="icons">
+            <div class="left_icons" fxFlex="50%">
                 <button mat-icon-button aria-label="refresh">
                     <mat-icon aria-label="refresh">refresh</mat-icon>
                 </button>
 
-                <button mat-icon-button aria-label="view_agenda">
-                    <mat-icon aria-label="view_agenda">view_agenda</mat-icon>
+                <button mat-icon-button aria-label="view_agenda" fxShow.xs="false"
+                    fxShow.sm="false" fxShow.md="true" fxShow.lg="true">
+                    <mat-icon aria-label="view_stream" (click)="viewList()"
+                        *ngIf="grid==0">view_stream</mat-icon>
+                    <mat-icon aria-label="view_module" (click)="viewGrid()"
+                        *ngIf="grid==1">view_module</mat-icon>
+
                 </button>
-                <span fxShow.xs="false" fxShow.sm="false" fxShow.md="true"
-                    fxShow.lg="true">
-                    <button mat-icon-button aria-label="view_module">
-                        <mat-icon aria-label="view_module">view_module</mat-icon>
-                    </button>
-                </span>
+
             </div>
-            <div class="right_icons">
+            <div class="right_icons" fxFlex="50%">
                 <span fxShow.xs="false" fxShow.sm="true" fxShow.md="true"
                     fxShow.lg="true">
                     <button mat-icon-button aria-label="notifications">
                         <mat-icon aria-label="notifications">notifications</mat-icon>
                     </button>
                 </span>
-
-                <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu">{{
-                    firstname[0] | uppercase }}</button>
+                <span>
+                    <img src="{{img}}" [matMenuTriggerFor]="menu" class="image1">
+                </span>
                 <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="after">
-                    <button mat-menu-item>Settings</button>
-                    <button mat-menu-item (click)="logout()">Logout</button>
+                    <div class="signout">
+                        <!--Profile-pic upload-->
+                        <div fxLayout="row">
+                            <span fxLayoutGap="15px">
+
+
+                                <img src="{{img}}" class="image">
+
+
+                            </span>
+                            <p class="mail mail1">{{firstname}}</p>
+
+                        </div>
+
+                    </div>
+                    <hr>
+
+                    <input type="file" class="inputFile" (change)=onFileSelected($event)>
+                    <button type="button" (click)="onUpload()"
+                        mat-raised-button color="primary">Upload</button>
+
+
+
+
+                    <button class="signup_button" mat-raised-button color="primary"
+                        style="float:right" (click)="logout()">Logout</button>
                 </mat-menu>
             </div>
         </div>
@@ -58,7 +84,10 @@
 
 
 </mat-toolbar>
+<!--Mat-toolbar ends-->
+<!--Mat-sidenave-container starts-->
 <mat-sidenav-container class="sidenav-container">
+    <!--Mat-sidenav starts-->
     <mat-sidenav #drawer class="sidenav" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
         <mat-nav-list>
@@ -69,9 +98,10 @@
             <hr class="line">
             <a mat-list-item href="#"><span class="label" class="Notes1">Labels</span><span
                     class="edit"><b>EDIT</b></span></a>
+            <!-------------------Add label starts---------------------------->
             <app-add-label></app-add-label>
-           
-           
+            <!-------------------Add label ends---------------------------->
+
             <hr class="line">
             <a mat-list-item routerLink="Archive"><span class="Notes"><img src="../../../assets/image/add3.svg"></span><span
                     class="Notes">Archive</span></a>
@@ -91,9 +121,12 @@
 
         </mat-nav-list>
     </mat-sidenav>
-
-    <mat-sidenav-content style="margin-top:5%">
+    <!--Mat-sidenav ends-->
+    <mat-sidenav-content class="sideNavBar">
+        <!--------------------Router outlet starts------------------------------>
         <router-outlet></router-outlet>
+        <!--------------------Router outlet ends------------------------------>
     </mat-sidenav-content>
 
 </mat-sidenav-container>
+<!--Mat-sidenave-container ends-->

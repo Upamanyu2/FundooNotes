@@ -1,51 +1,60 @@
-
-  
-    <button mat-icon-button class="fundoo33" matTooltip="Change Color" [matMenuTriggerFor]="menuColor">
-        <mat-icon> palette </mat-icon>
+<button mat-icon-button class="fundoo33" matTooltip="Change Color"
+  [matMenuTriggerFor]="menuColor">
+  <mat-icon *ngIf="!Delete"> palette </mat-icon>
+</button>
+<mat-menu #menuColor="matMenu" yPosition="above" [overlapTrigger]="false" class="colorCard">
+  <div class="colorDiv">
+    <button mat-menu-item (click)="setcolor('#FAFAFA')" class="colorPalette"
+      style="background-color:rgb(250, 250, 250)">
+      <mat-icon></mat-icon>
     </button>
-    <mat-menu #menuColor="matMenu" yPosition="above" [overlapTrigger]="false" class="colorCard">
-      <div class="colorDiv">
-        <button mat-menu-item (click)="setcolor('#FAFAFA')" class="colorPalette" style="background-color:rgb(250, 250, 250)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#FF8A80')" class="colorPalette" style="background-color: rgb(255, 138, 128)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#FFD180')" class="colorPalette" style="background-color:rgb(255, 209, 128)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#FFFF8D')" class="colorPalette" style="background-color:rgb(255, 255, 141)">
-          <mat-icon></mat-icon>
-        </button>
-      </div>
-      <div class="colorDiv">
-        <button mat-menu-item (click)="setcolor('#CCFF90')" class="colorPalette" style="background-color:rgb(204, 255, 144)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#A7FFEB')" class="colorPalette" style="background-color:rgb(167, 255, 235)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#80D8FF')" class="colorPalette" style="background-color:rgb(128, 216, 255)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#82B1FF')" class="colorPalette" style="background-color:rgb(130, 177, 255)">
-          <mat-icon></mat-icon>
-        </button>
-      </div>
-      <div class="colorDiv">
-        <button mat-menu-item (click)="setcolor('#B388FF')" class="colorPalette" style="background-color:rgb(179, 136, 255)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#F8BBD0')" class="colorPalette" style="background-color:rgb(248, 187, 208)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#D7CCC8')" class="colorPalette" style="background-color:rgb(215, 204, 200)">
-          <mat-icon></mat-icon>
-        </button>
-        <button mat-menu-item (click)="setcolor('#CFD8DC')" class="colorPalette" style="background-color:rgb(207, 216, 220)">
-          <mat-icon></mat-icon>
-        </button>
-      </div>
-    </mat-menu>
-  
-    
+    <button mat-menu-item (click)="setcolor('#FF8A80')" class="colorPalette"
+      style="background-color: rgb(255, 138, 128)">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-menu-item (click)="setcolor('#FFD180')" class="colorPalette"
+      style="background-color:rgb(255, 209, 128)">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-menu-item (click)="setcolor('#FFFF8D')" class="colorPalette"
+      style="background-color:rgb(255, 255, 141)">
+      <mat-icon></mat-icon>
+    </button>
+  </div>
+  <div class="colorDiv">
+    <button mat-menu-item (click)="setcolor('#CCFF90')" class="colorPalette"
+      style="background-color:rgb(204, 255, 144)">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-menu-item (click)="setcolor('#A7FFEB')" class="colorPalette"
+      style="background-color:rgb(167, 255, 235)">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-menu-item (click)="setcolor('#80D8FF')" class="colorPalette"
+      style="background-color:rgb(128, 216, 255)">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-menu-item (click)="setcolor('#82B1FF')" class="colorPalette"
+      style="background-color:rgb(130, 177, 255)">
+      <mat-icon></mat-icon>
+    </button>
+  </div>
+  <div class="colorDiv">
+    <button mat-menu-item (click)="setcolor('#B388FF')" class="colorPalette"
+      style="background-color:rgb(179, 136, 255)">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-menu-item (click)="setcolor('#F8BBD0')" class="colorPalette"
+      style="background-color:rgb(248, 187, 208)">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-menu-item (click)="setcolor('#D7CCC8')" class="colorPalette"
+      style="background-color:rgb(215, 204, 200)">
+      <mat-icon></mat-icon>
+    </button>
+    <button mat-menu-item (click)="setcolor('#CFD8DC')" class="colorPalette"
+      style="background-color:rgb(207, 216, 220)">
+      <mat-icon></mat-icon>
+    </button>
+  </div>
+</mat-menu>

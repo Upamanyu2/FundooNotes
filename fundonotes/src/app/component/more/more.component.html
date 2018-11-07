@@ -2,8 +2,10 @@
   <i class="material-icons" style="opacity: 0.5;"> more_vert </i>
   </button>
   <mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
-          <button mat-menu-item (click)="deleteNotes()">Delete Note</button>
-          <button mat-menu-item [matMenuTriggerFor]="menu1" (click)="getLabel();">Add label</button>
+          <button mat-menu-item (click)="deleteNotes(true)" *ngIf="!Delete">Delete Note</button>
+          <button mat-menu-item (click)="deleteNotes(false)" *ngIf="Delete">Restore</button>
+          <button mat-menu-item (click)="deleteForeverNotes(false)" *ngIf="Delete">Delete permanently</button>
+          <button mat-menu-item [matMenuTriggerFor]="menu1" (click)="getLabel();" *ngIf="!Delete">Add label</button>
           <mat-menu #menu1="matMenu" yPosition="below" [overlapTrigger]="false"> 
               <button mat-menu-item>
                   <div (click)="$event.stopPropagation()">Label Note</div>
@@ -15,5 +17,5 @@
                     <div fxLayout="row"><span><mat-checkbox (click)="$event.stopPropagation();  check(name,name.id)" [(ngModel)]="name.isChecked" >{{name.label}}</mat-checkbox></span></div>
                 </button>
           </mat-menu>
-          <button mat-menu-item>Show checkbox</button> 
+          <button mat-menu-item *ngIf="!Delete">Show checkbox</button> 
         </mat-menu>

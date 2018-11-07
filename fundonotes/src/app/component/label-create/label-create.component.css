@@ -26,3 +26,38 @@ border: transparent;
 border: none;
 outline: none;
 }
+.inputLabel1{
+    margin-top:10%; 
+    margin-left: 7%; 
+    border: 0px
+}
+.labelCreateIcon{
+    margin-top: 68%; 
+    margin-left: 3%; 
+    opacity: 0.5
+}
+.checkLabel{
+    margin-top: 68%; 
+    opacity: 0.5
+}
+.editLabelIcon{
+    margin-left: 3%; 
+    opacity: 0.5
+}
+.labelInputField{
+    margin-left:5%; 
+    white-space: nowrap; 
+    text-overflow:ellipsis; 
+    overflow: hidden;
+}
+.deleteIcon{
+    opacity: 0.5;
+}
+.checkLabel1{
+    margin-left: 3%; 
+    opacity: 0.5
+}
+.labelEditBox{
+    margin-left: 5%; 
+    border: 0px
+}

@@ -1,49 +1,52 @@
-import { Component, OnInit,Input } from '@angular/core';
-import { ServiceService } from '../../service/http/service.service';
-import { ActivatedRoute,Params } from '@angular/router';
-@Component({
+import { Component, OnInit } from '@angular/core'; //Importing all the modules for injecting dependencies
+import { NotesServiceService } from '../../service/notes/notes-service.service';//Importing the service file
+import { ActivatedRoute, Params } from '@angular/router';//Importing the activated route and params
+/*-------------------------------------------------------------------------------------------- */
+@Component({   //Injecting the component dependencies
   selector: 'app-get-labels-on-click',
   templateUrl: './get-labels-on-click.component.html',
   styleUrls: ['./get-labels-on-click.component.css']
 })
-export class GetLabelsOnClickComponent implements OnInit {
+/*-------------------------------------------------------------------------------------------- */
+export class GetLabelsOnClickComponent implements OnInit { //Exported class
 
-  constructor(
-    private _service: ServiceService,
-    private route:ActivatedRoute
+  constructor(         //Constructor for making all the instances
+    private _service: NotesServiceService,
+    private route: ActivatedRoute
   ) { }
- 
-  public notes=[]
+  /*-------------------------------------------------------------------------------------------- */
+  public notes = []
   public label;
-  private token=localStorage.getItem("token");
+  private token = localStorage.getItem("token");
+  /*-------------------------------------------------------------------------------------------- */
   ngOnInit() {
-    
+
     this.route.params.subscribe(
-      (params:Params)=>{
-        this.label=params['params'];
+      (params: Params) => {
+        this.label = params['params'];
         this.getCard(this.label)
       })
   }
-  
- getCard(label){
-   this._service.labelPostService("notes/getNotesListByLabel/"+label,{},this.token)
-   .subscribe(data=>{
-     this.notes=[]
-     for(let i=data['data'].data.length-1;i>=0;i--){
-       this.notes.push(data['data'].data[i]);
-     }
-   },
-   error=>{
-     console.log(error);
-   })
- }
+  /*-------------------------------------------------------------------------------------------- */
+  getCard(label) {      //Function for getting all the cards using the label name
+    this._service.postNotes("notes/getNotesListByLabel/" + label, {}, this.token)
+      .subscribe(data => {
+        this.notes = []
+        for (let i = data['data'].data.length - 1; i >= 0; i--) {
+          this.notes.push(data['data'].data[i]);
+        }
+      },
+        error => {
+          console.log(error);
+        })
+  }
+
+  /*-------------------------------------------------------------------------------------------- */
+  refresh(event) {  //Function for handling all the event handlers
+    if (event == true) {
+      this.getCard(this.label)
+    }
 
 
- refresh(event){
-   if(event==true){
-    this.getCard(this.label)
-   }
-  
-   
- }
+  }
 }

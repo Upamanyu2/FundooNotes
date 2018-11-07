@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { ServiceService } from '../../service/http/service.service' ;
+import { ServiceService } from '../../service/user/service.service' ;
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 @Component({
@@ -68,6 +68,7 @@ export class LoginComponentComponent implements OnInit {
            console.log(data['userId']);
            
            localStorage.setItem("UserId",data['userId']);
+           localStorage.setItem("imageUrl",data['imageUrl'])
            
           // console.log(data['id']);
           
