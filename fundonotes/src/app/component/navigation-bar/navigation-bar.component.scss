@@ -54,7 +54,7 @@
   border: 1px;
   border-radius: 0px 5px 5px 0px;
   height: 65%;
-  padding: 1% 1% 1% 1%;
+  padding: 1% 1% 1% 0%;
 }
 .title{
   padding:2%;
@@ -64,10 +64,6 @@
   border-radius: 5px;
 }
 
-.search{
-  margin-left: 0%;
-  margin-bottom: 0%;
-}
 
 .search-button{
   border-radius: 5px 0px 0px 5px;
@@ -119,13 +115,10 @@ font-size: 83%;
   padding-bottom:2%;
 }
 .image1{
-  height: 30px;
-  width:  30px;
+  height: 35px;
+  width:  35px;
   border-radius: 50% !important;
 }
-.left_icons{
-
-}
 .right_icons{
-
+  margin-left: 29%;
 }

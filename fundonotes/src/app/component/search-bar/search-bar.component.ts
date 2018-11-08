@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NotesServiceService } from '../../service/notes/notes-service.service';
-import { SearchServiceService } from '../../service/searchService/search-service.service'
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
+import { SearchServiceService } from '../../core/service/searchService/search-service.service'
 /*------------------------------------------------------------------------------------------- */
 @Component({      //Injected dependency for component
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css']
+  styleUrls: ['./search-bar.component.scss']
 })
 /*------------------------------------------------------------------------------------------- */
 export class SearchBarComponent implements OnInit { //Exported class

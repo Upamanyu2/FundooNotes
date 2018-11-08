@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';//Importing all the dependencies
 import { MatDialog } from '@angular/material'; //Importing the mat dialog
 import { LabelCreateComponent } from '../label-create/label-create.component'; //Importing label create component
-import { NotesServiceService } from '../../service/notes/notes-service.service'; //Importing notes service
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service'; //Importing notes service
 import { Router } from '@angular/router';//Importing router
 /*------------------------------------------------------------------------------------------ */
 @Component({   //Injecting componet dependencies
   selector: 'app-add-label',
   templateUrl: './add-label.component.html',
-  styleUrls: ['./add-label.component.css']
+  styleUrls: ['./add-label.component.scss']
 })
 /*------------------------------------------------------------------------------------------ */
 export class AddLabelComponent implements OnInit {   //Exported class

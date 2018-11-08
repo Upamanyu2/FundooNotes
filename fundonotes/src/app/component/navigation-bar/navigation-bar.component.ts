@@ -3,17 +3,17 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { ViewEncapsulation } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { ServiceService } from '../../service/user/service.service'; //Importing the service file
-import { NotesServiceService } from '../../service/notes/notes-service.service';//Importing the notes service file
+import { ServiceService } from '../../core/service/http/user/service.service'; //Importing the service file
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the notes service file
 import { Router } from '@angular/router';//Importing the  router file
-import { SearchServiceService } from '../../service/searchService/search-service.service'//Importing the search service file
+import { SearchServiceService } from '../../core/service/searchService/search-service.service'//Importing the search service file
 
 
 
 @Component({   //Injecting component dependency
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
-  styleUrls: ['./navigation-bar.component.css'],
+  styleUrls: ['./navigation-bar.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class NavigationBarComponent implements OnInit {

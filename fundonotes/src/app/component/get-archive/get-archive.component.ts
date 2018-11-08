@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';  //Importing for injecting all the dependencies.
-import { NotesServiceService } from '../../service/notes/notes-service.service'; //Importing the service file for using the get archive api.
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service'; //Importing the service file for using the get archive api.
 /*------------------------------------------------------------------------------------------------------------------------ */
 @Component({         //Injection of component dependencies
   selector: 'app-get-archive',
   templateUrl: './get-archive.component.html',
-  styleUrls: ['./get-archive.component.css']
+  styleUrls: ['./get-archive.component.scss']
 })
 /*------------------------------------------------------------------------------------------------------------------------ */
 export class GetArchiveComponent implements OnInit {  //Exporting all the functionalities to use it in the while the initilisation of the page.

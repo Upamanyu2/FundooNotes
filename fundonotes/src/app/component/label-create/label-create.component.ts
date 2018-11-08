@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import {ViewChild, ElementRef} from '@angular/core';
-import { NotesServiceService } from '../../service/notes/notes-service.service';
-import { LabelServiceService } from '../../service/label/label-service.service';
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
+import { LabelServiceService } from '../../core/service/http/label/label-service.service';
 
 
 
@@ -11,7 +11,7 @@ import { LabelServiceService } from '../../service/label/label-service.service';
 @Component({
   selector: 'app-label-create',
   templateUrl: './label-create.component.html',
-  styleUrls: ['./label-create.component.css'],
+  styleUrls: ['./label-create.component.scss'],
   providers:[]
 })
 /*----------------------------------------------------------------------------------------------------- */

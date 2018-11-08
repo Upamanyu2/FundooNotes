@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from '../../service/user/service.service';
+import { ServiceService } from '../../core/service/http/user/service.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { passValidator } from '../../util/custom';
@@ -7,7 +7,7 @@ import { passValidator } from '../../util/custom';
 @Component({
   selector: 'app-signup-component',
   templateUrl: './signup-component.component.html',
-  styleUrls: ['./signup-component.component.css']
+  styleUrls: ['./signup-component.component.scss']
 })
 export class SignupComponentComponent implements OnInit {
   public buttonDisabled = true;

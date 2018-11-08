@@ -23,7 +23,7 @@
 
 
     <div fxLayout="row">
-        <div fxLayoutAlign="space-around" fxFlex="100%" class="icons">
+        <div fxLayoutAlign="" fxFlex="100%" class="icons">
             <div class="left_icons" fxFlex="50%">
                 <button mat-icon-button aria-label="refresh">
                     <mat-icon aria-label="refresh">refresh</mat-icon>
@@ -37,17 +37,20 @@
                         *ngIf="grid==1">view_module</mat-icon>
 
                 </button>
-
-            </div>
-            <div class="right_icons" fxFlex="50%">
                 <span fxShow.xs="false" fxShow.sm="true" fxShow.md="true"
                     fxShow.lg="true">
-                    <button mat-icon-button aria-label="notifications">
+                    <button mat-icon-button>
                         <mat-icon aria-label="notifications">notifications</mat-icon>
                     </button>
                 </span>
+
+            </div>
+            <div class="right_icons" fxFlex="50%">
+
                 <span>
+
                     <img src="{{img}}" [matMenuTriggerFor]="menu" class="image1">
+
                 </span>
                 <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="after">
                     <div class="signout">

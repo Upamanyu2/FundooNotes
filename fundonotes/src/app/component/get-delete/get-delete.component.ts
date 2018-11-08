@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';//Importing all modules for adding dependencies
-import { NotesServiceService } from '../../service/notes/notes-service.service';//Importing notes service
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing notes service
 /*---------------------------------------------------------------------------------------- */
 @Component({  //Injecting the component dependencies
   selector: 'app-get-delete',
   templateUrl: './get-delete.component.html',
-  styleUrls: ['./get-delete.component.css']
+  styleUrls: ['./get-delete.component.scss']
 })
 /*---------------------------------------------------------------------------------------- */
 export class GetDeleteComponent implements OnInit { //Exported class

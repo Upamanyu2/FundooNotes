@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NotesServiceService } from '../../service/notes/notes-service.service';
-import { LabelServiceService } from '../../service/label/label-service.service';
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
+import { LabelServiceService } from '../../core/service/http/label/label-service.service';
 
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
-  styleUrls: ['./more.component.css']
+  styleUrls: ['./more.component.scss']
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 export class MoreComponent implements OnInit {

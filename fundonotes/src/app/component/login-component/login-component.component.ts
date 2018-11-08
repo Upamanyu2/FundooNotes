@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { ServiceService } from '../../service/user/service.service' ;
+import { ServiceService } from '../../core/service/http/user/service.service' ;
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 @Component({
   selector: 'app-login-component',
   templateUrl: './login-component.component.html',
-  styleUrls: ['./login-component.component.css'],
+  styleUrls: ['./login-component.component.scss'],
   
 })
 export class LoginComponentComponent implements OnInit {

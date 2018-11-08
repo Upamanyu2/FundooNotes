@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NotesServiceService } from '../../service/notes/notes-service.service';
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 
 @Component({
   selector: 'app-post-archive',
   templateUrl: './post-archive.component.html',
-  styleUrls: ['./post-archive.component.css']
+  styleUrls: ['./post-archive.component.scss']
 })
 export class PostArchiveComponent implements OnInit {
   @Output() ArchiveClicked = new EventEmitter<any>();

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { ServiceService } from '../../service/user/service.service';
-import { NotesServiceService } from '../../service/notes/notes-service.service';
+import { ServiceService } from '../../core/service/http/user/service.service';
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+  styleUrls: ['./reset-password.component.scss']
 })
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 export class ResetPasswordComponent implements OnInit { //Exported class

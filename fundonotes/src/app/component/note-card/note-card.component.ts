@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';//Import all the classes for dependency injection
 import { MatDialog } from '@angular/material';//Importing the matdialog
 import { EditComponent } from '../edit/edit.component'//Importing edit component
-import { SearchServiceService } from 'src/app/service/searchService/search-service.service';//Importing search service
+import { SearchServiceService } from 'src/app/core/service/searchService/search-service.service';//Importing search service
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
 @Component({ //Importing dependency injection of component
   selector: 'app-note-card',
   templateUrl: './note-card.component.html',
-  styleUrls: ['./note-card.component.css']
+  styleUrls: ['./note-card.component.scss']
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 export class NoteCardComponent implements OnInit {// Exported class

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';//Importing the output input and the event emitter for connecting child to parent.
-import { NotesServiceService } from '../../service/notes/notes-service.service';//Importing the service file for calling the post api.
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file for calling the post api.
 import { MatSnackBar } from '@angular/material';//Importing properties of snackbar.
 
 /*----------------------------------------------------------------------------------------------------------- */

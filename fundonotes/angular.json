@@ -129,5 +129,10 @@
       }
     }
   },
-  "defaultProject": "fundonotes"
+  "defaultProject": "fundonotes",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

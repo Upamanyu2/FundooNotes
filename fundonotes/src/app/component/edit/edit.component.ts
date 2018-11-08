@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core'; //Importing the (inject is used for injecting the avlues to the modal box) output input and the event emitter for connecting child to parent.
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing all the dialogue box requirements
 import { NoteCardComponent } from '../note-card/note-card.component'; //Note card component is imported to link the edit component and note component.
-import { NotesServiceService } from '../../service/notes/notes-service.service';//Http service file is imported.
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Http service file is imported.
 
 @Component({ //Injecting component dependency
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css']
+  styleUrls: ['./edit.component.scss']
 })
 /*------------------------------------------------------------------------------------------------------------ */
 export class EditComponent implements OnInit { //Export class to export all the functionalities while initialisation of the page.

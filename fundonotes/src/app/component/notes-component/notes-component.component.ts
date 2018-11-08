@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';  //Importing all functions for injecting the dependencies
-import { NotesServiceService } from '../../service/notes/notes-service.service';//Importing notes service
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing notes service
 
 @Component({  //Dependency injection for component
   selector: 'app-notes-component',
   templateUrl: './notes-component.component.html',
-  styleUrls: ['./notes-component.component.css'],
+  styleUrls: ['./notes-component.component.scss'],
 
 })
 

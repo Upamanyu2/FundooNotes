@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';  //Importing modules to inject dependencies
-import { ServiceService } from '../../service/user/service.service';//Importing the service file
+import { ServiceService } from '../../core/service/http/user/service.service';//Importing the service file
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'; //Importing the form modules
 import { MatSnackBar } from '@angular/material'; //Importing snckbar module
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 @Component({  //Injected component dependencies
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {  //Exported class
   forgotPasswordForm: FormGroup;

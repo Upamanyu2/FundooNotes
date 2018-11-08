@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core'; //Importing all the modules for injecting dependencies
-import { NotesServiceService } from '../../service/notes/notes-service.service';//Importing the service file
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file
 import { ActivatedRoute, Params } from '@angular/router';//Importing the activated route and params
 /*-------------------------------------------------------------------------------------------- */
 @Component({   //Injecting the component dependencies
   selector: 'app-get-labels-on-click',
   templateUrl: './get-labels-on-click.component.html',
-  styleUrls: ['./get-labels-on-click.component.css']
+  styleUrls: ['./get-labels-on-click.component.scss']
 })
 /*-------------------------------------------------------------------------------------------- */
 export class GetLabelsOnClickComponent implements OnInit { //Exported class
