@@ -23,10 +23,10 @@ import { LabelCreateComponent } from './component/label-create/label-create.comp
 import { AddLabelComponent } from './component/add-label/add-label.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { SearchPipe } from './pipe/searchPipe/search.pipe';
+import { SearchPipe } from './core/pipe/searchPipe/search.pipe';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { GetLabelsOnClickComponent } from './component/get-labels-on-click/get-labels-on-click.component';
-import { SmallSearchPipe } from '././pipe/searchSmallPipe/small-search.pipe';
+import { SmallSearchPipe } from '././core/pipe/searchSmallPipe/small-search.pipe';
 import { CollaboratorComponent } from './component/collaborator/collaborator.component';
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ImageComponent } from './component/image/image.component';
