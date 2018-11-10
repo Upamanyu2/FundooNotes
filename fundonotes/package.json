@@ -26,6 +26,7 @@
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
     "ng-click-outside": "^4.0.0",
+    "ngx-image-cropper": "^1.2.2",
     "ngx-show-hide-password": "^1.2.6",
     "popper.js": "^1.14.4",
     "rxjs": "~6.2.0",

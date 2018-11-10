@@ -52,14 +52,20 @@
                     <img src="{{img}}" [matMenuTriggerFor]="menu" class="image1">
 
                 </span>
-                <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="after">
+                <mat-menu #menu="matMenu" class="inputFile1" [overlapTrigger]="false" xPosition="after">
                     <div class="signout">
                         <!--Profile-pic upload-->
                         <div fxLayout="row">
                             <span fxLayoutGap="15px">
 
 
-                                <img src="{{img}}" class="image">
+                                <div class="profilebutton" (click)="$event.stopPropagation()"
+                                    [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+
+
+                                 
+                                </div>
+
 
 
                             </span>
@@ -68,11 +74,12 @@
                         </div>
 
                     </div>
+
                     <hr>
 
-                    <input type="file" class="inputFile" (change)=onFileSelected($event)>
-                    <button type="button" (click)="onUpload()"
-                        mat-raised-button color="primary">Upload</button>
+                    <input type="file" class="inputFile" (change)="onFileSelected($event);$event.stopPropagation()">
+                    <!-- <button type="button" (click)="onUpload();$event.stopPropagation()"
+                        mat-raised-button color="primary">Upload</button> -->
 
 
 
@@ -127,6 +134,7 @@
     <!--Mat-sidenav ends-->
     <mat-sidenav-content class="sideNavBar">
         <!--------------------Router outlet starts------------------------------>
+    
         <router-outlet></router-outlet>
         <!--------------------Router outlet ends------------------------------>
     </mat-sidenav-content>

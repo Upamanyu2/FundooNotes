@@ -30,6 +30,7 @@ import { SmallSearchPipe } from '././core/pipe/searchSmallPipe/small-search.pipe
 import { CollaboratorComponent } from './component/collaborator/collaborator.component';
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ImageComponent } from './component/image/image.component';
+// import { ImageCropperComponent } from './component/image-cropper/image-cropper.module';
 /*------------------------------------------------------------------------------ */
       /*-----------Routing module imported------------------ */
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +39,7 @@ import { AppRoutingModule } from './app-routing.module';
       /*-----------Angular module imported------------------ */
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -54,6 +55,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material/menu';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ProfilePhotoComponent } from './component/profile-photo/profile-photo.component';
+
+
 /*------------------------------------------------------------------------------ */
 
 
@@ -91,7 +96,8 @@ import { MatMenuModule } from '@angular/material/menu';
     SmallSearchPipe,
     CollaboratorComponent,
     ReminderComponent,
-    ImageComponent
+    ImageComponent,
+    ProfilePhotoComponent
 
 
 
@@ -120,11 +126,13 @@ import { MatMenuModule } from '@angular/material/menu';
     MatMenuModule,
     MatDialogModule,
     MatCheckboxModule,
-    MatChipsModule
+    MatChipsModule,
+    ImageCropperModule
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [EditComponent, NoteCardComponent, LabelCreateComponent, AddLabelComponent]
+  entryComponents: [EditComponent, NoteCardComponent, LabelCreateComponent, AddLabelComponent, NavigationBarComponent, ProfilePhotoComponent]
 
 })
 export class AppModule { }

@@ -47,3 +47,8 @@ opacity:0;
     margin-left:auto;
     margin-right:auto
 }
+::ng-deep.checkboxInput{
+    border: transparent;
+    outline: none;
+    border: none;
+}

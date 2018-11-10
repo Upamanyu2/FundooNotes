@@ -11,6 +11,9 @@ export class SearchServiceService {
   private viewSource = new BehaviorSubject(false);
   currentView = this.viewSource.asObservable();
 
+  private viewSource1 = new BehaviorSubject(false);
+  currentView1 = this.viewSource1.asObservable();
+
 
   constructor() { }
   
@@ -20,5 +23,8 @@ export class SearchServiceService {
 
   changeView(message:boolean){
     this.viewSource.next(message)
+  }
+  changeView1(message:boolean){
+    this.viewSource1.next(message)
   }
 }

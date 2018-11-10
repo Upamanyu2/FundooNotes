@@ -7,9 +7,10 @@ import { ServiceService } from '../../core/service/http/user/service.service'; /
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the notes service file
 import { Router } from '@angular/router';//Importing the  router file
 import { SearchServiceService } from '../../core/service/searchService/search-service.service'//Importing the search service file
-
-
-
+import { environment } from '../../../environments/environment';
+import { MatDialog } from '@angular/material';
+import { ProfilePhotoComponent } from '../profile-photo/profile-photo.component'
+/*-------------------------------------------------------------------------------------------------- */
 @Component({   //Injecting component dependency
   selector: 'app-navigation-bar',
   templateUrl: './navigation-bar.component.html',
@@ -18,14 +19,16 @@ import { SearchServiceService } from '../../core/service/searchService/search-se
 })
 export class NavigationBarComponent implements OnInit {
   public labelList = [];
+  public imageChangedEvent: any = '';
+
   /*--------------------------------------------------------------------------------------------------------------------*/
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
   private token = localStorage.getItem("token");
-  public firstname=[];
-  
+  public firstname = [];
+
   public message: String;
   /*--------------------------------------------------------------------------------------------------------------------*/
   constructor(
@@ -33,7 +36,8 @@ export class NavigationBarComponent implements OnInit {
     private _service: ServiceService,
     private _service1: NotesServiceService,
     public router: Router,
-    public search: SearchServiceService
+    public search: SearchServiceService,
+    public dialog: MatDialog
   ) { }
 
   /*--------------------------------------------------------------------------------------------------------------------*/
@@ -63,6 +67,34 @@ export class NavigationBarComponent implements OnInit {
 
         })
   }
+  /*--------------------------------------------------------------------------------------------------------------------*/
+
+  selectedFile = null;
+  public image2 = localStorage.getItem('imageUrl');
+  img = environment.baseUrl1 + this.image2;
+  onFileSelected(event: any): void {
+    this.openDialog(event);
+
+  }
+
+  /*--------------------------------------------------------------------------------------------------------------------*/
+  public pic;
+  openDialog(data): void {       //Function for the dialog box
+    const dialogRef = this.dialog.open(ProfilePhotoComponent, {
+      width: '1000px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.search.currentView1.subscribe(message => this.pic = message)
+      if (this.pic == true) {
+        this.image2 = localStorage.getItem('imageUrl');
+        this.img = environment.baseUrl1 + this.image2;
+      }
+
+    });
+  }
+
 
   /*--------------------------------------------------------------------------------------------------------------------*/
   public logout() {  //Funtion to call the logout service function.
@@ -80,36 +112,8 @@ export class NavigationBarComponent implements OnInit {
       )
 
   }
-  /*--------------------------------------------------------------------------------------------------------------------*/
-
-  ProfilePath=null;
-  selectedFile = null;
-  onFileSelected(event){
- this.selectedFile=event.path[0].files[0];
- console.log(event.target.value);
- this.ProfilePath=event.target.value;
- console.log(this.selectedFile.name);
-  }
-  image={};
-  public image2=localStorage.getItem('imageUrl');
-  img="http://34.213.106.173/"+this.image2;
-  onUpload(){
-   var token=localStorage.getItem('token');
- 
-   const uploadData = new FormData();
-   uploadData.append('file', this.selectedFile, this.selectedFile.name);
-    this._service.httpAddImage('user/uploadProfileImage',uploadData,token).subscribe(res=>{
-     
-    },error=>{
-      
-      
-    })
- 
-  }
 
 
-
-  
   /*--------------------------------------------------------------------------------------------------------------------*/
 
   onKeydown(event) {  //Functiion for catching all the values from the search bar

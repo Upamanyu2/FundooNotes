@@ -1,10 +1,11 @@
 <div fxLayout="column" fxLayoutGap="2%">
   <div></div>
   <div fxLayout="row" class="containerDiv">
-    <div fxFlex="20%" fxShow.lg="true" fxShow.md="true" fxShow.sm="false" fxShow.xs="false" ></div>
-    <div fxFlex="80%" class="mainAddCardDiv">
-
-      <mat-card class="matcard" *ngIf="!note1">
+    <div fxFlex="20%" fxShow.lg="true" fxShow.md="true" fxShow.sm="false"
+      fxShow.xs="false"></div>
+    <div fxFlex="56%" fxFlex.xs="100%" class="mainAddCardDiv">
+      <!----------------------------Mat card on reload starts-------------------------------------->
+      <mat-card class="matcard" *ngIf="!note1 && !check" >
         <div data-text="Take a note..." contenteditable="true" class="div2"
           (click)="note1=!note1">
         </div>
@@ -26,38 +27,78 @@
 
         </span>
       </mat-card>
-      <!-- <mat-card *ngIf="checkListCard" >
-                    <mat-card-header >
-                        <div data-text="Title" id="title" contenteditable="true" class="div2">
-                        </div>
-                        <button mat-icon-button style="margin-top: -10px" (click)="pinned()">
-                            <img src="../../../assets/image/add10.svg">
-                          </button>
-                    </mat-card-header> 
-                  
-                <mat-card-content>
-
-
-                </mat-card-content>
-                <mat-card-actions flexLayout="row" >
-                  <app-reminder></app-reminder>
-    
-                  <app-collaborator></app-collaborator>
-    
-                  <app-theme [Noteid]=""  (ColorChanged)="refresh($event)"></app-theme>
-    
-                 <app-image></app-image>
-    
-                  <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
-    
-                <app-more  (LabelObj)="labels($event)"></app-more>
-    
-                <button mat-button style="float:right" (click)="toggle()"> Close</button>
-                </mat-card-actions>
-              </mat-card> -->
+      <!----------------------------Mat card on reload starts-------------------------------------->
 
 
 
+
+      <!--------------------------Mat card for checklist starts------------------------------->
+      <mat-card *ngIf="check" [style.background-color]="bgColor">
+        <mat-card-header>
+          <div data-text="Title" id="title" contenteditable="true" class="div2">
+          </div>
+          <button mat-icon-button style="margin-top: -10px" (click)="pinned()">
+            <img src="../../../assets/image/add10.svg">
+          </button>
+        </mat-card-header>
+
+        <mat-card-content>
+
+          <div *ngFor="let data of dataArray" fxLayout="row">
+            <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked (click)="isChecked=!isChecked"></mat-checkbox>
+            <input fxFlex="90%" class="checkboxInput"  [(ngModel)]=data.data
+              [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" (click)=onDelete(data) matTooltip="delete">cancel</mat-icon>
+          </div>
+          <hr>
+          <div fxLayout="row">
+            <mat-icon fxFlex="5%">add</mat-icon>
+            <input [(ngModel)]=data fxFlex="95%" class="checkboxInput" placeholder="List Item"
+              (keydown.enter)="onEnter($event)" [style.background-color]="bgColor"
+              (keydown.backspace)="onDelete()" />
+          </div>
+          <hr>
+        </mat-card-content>
+        <div fxLayout="row row wrap" *ngFor="let label of LabelName">
+            <mat-chip-list>
+              <mat-chip>{{label}}</mat-chip>
+            </mat-chip-list>
+          </div>
+        <mat-card-actions flexLayout="row">
+          <!------------------------App reminder starts---------------------------------->
+          <app-reminder></app-reminder>
+          <!------------------------App reminder ends---------------------------------->
+
+          <!------------------------App collaborator starts---------------------------------->
+          <app-collaborator></app-collaborator>
+          <!------------------------App collaborator ends---------------------------------->
+
+          <!------------------------App theme starts---------------------------------->
+          <app-theme [Noteid]="" (ColorChanged)="refresh($event)"></app-theme>
+          <!------------------------App theme ends---------------------------------->
+
+          <!------------------------App image starts---------------------------------->
+          <app-image></app-image>
+          <!------------------------App image ends---------------------------------->
+
+          <!------------------------App Post archive starts---------------------------------->
+          <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
+          <!------------------------App Post archive ends---------------------------------->
+
+          <!------------------------App more starts---------------------------------->
+          <app-more (LabelObj)="labels($event)"></app-more>
+          <!------------------------App more ends---------------------------------->
+
+
+          <button mat-button style="float:right" (click)="toggle1();check=false;addNotes()"> Close</button>
+        </mat-card-actions>
+      </mat-card>
+      <!--------------------------Mat card for checklist ends------------------------------->
+
+
+
+
+      <!--------------------------Mat card for note starts------------------------------->
       <mat-card class="matcard" *ngIf="note1" [style.background-color]="bgColor">
         <mat-card-header>
           <div data-text="Title" id="title" contenteditable="true" class="div2">
@@ -82,38 +123,44 @@
 
         <mat-card-actions flexLayout="row">
           <div fxFlex="90%">
-          <!----------------------------Reminder component starts------------------------------------>
-          <app-reminder></app-reminder>
-          <!----------------------------Reminder component ends------------------------------------>
-          <!----------------------------Collaborator component starts------------------------------------>
-          <app-collaborator></app-collaborator>
-          <!----------------------------Collaborator component ends------------------------------------>
-          <!----------------------------Theme component starts------------------------------------>
-          <app-theme [Noteid]="" (ColorChanged)="refresh($event)"></app-theme>
-          <!----------------------------Theme component ends------------------------------------>
-          <!----------------------------Image component starts------------------------------------>
-          <app-image></app-image>
-          <!----------------------------Image component ends------------------------------------>
-          <!----------------------------Post archive component starts------------------------------------>
-          <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
-          <!----------------------------Post archive component starts------------------------------------>
-          <!----------------------------More component starts------------------------------------>
-          <app-more (LabelObj)="labels($event)"></app-more>
-          <!----------------------------More component ends------------------------------------>
+            <!----------------------------Reminder component starts------------------------------------>
+            <app-reminder></app-reminder>
+            <!----------------------------Reminder component ends------------------------------------>
+
+            <!----------------------------Collaborator component starts------------------------------------>
+            <app-collaborator></app-collaborator>
+            <!----------------------------Collaborator component ends------------------------------------>
+
+            <!----------------------------Theme component starts------------------------------------>
+            <app-theme [Noteid]="" (ColorChanged)="refresh($event)"></app-theme>
+            <!----------------------------Theme component ends------------------------------------>
+
+            <!----------------------------Image component starts------------------------------------>
+            <app-image></app-image>
+            <!----------------------------Image component ends------------------------------------>
+
+            <!----------------------------Post archive component starts------------------------------------>
+            <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
+            <!----------------------------Post archive component ends------------------------------------>
+
+            <!----------------------------More component starts------------------------------------>
+            <app-more (LabelObj)="labels($event)"></app-more>
+            <!----------------------------More component ends------------------------------------>
           </div>
-          <button fxLayoutAllign="end" mat-button   (click)="note1=!note1; addNotes()">
+          <button fxLayoutAllign="end" mat-button (click)="note1=!note1;toggle1(); addNotes()">
             Close</button>
         </mat-card-actions>
 
       </mat-card>
-
+      <!--------------------------Mat card for note ends------------------------------->
 
 
 
 
 
     </div>
-    <div fxFlex="20%" fxShow.lg="true" fxShow.md="true" fxShow.sm="false" fxShow.xs="false"></div>
+    <div fxFlex="24%" fxShow.lg="true" fxShow.md="true" fxShow.sm="false"
+      fxShow.xs="false"></div>
 
   </div>
 

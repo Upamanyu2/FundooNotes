@@ -30,11 +30,11 @@
  position: fixed;
  z-index: 2 !important;
 }
-.sidenav-content{
-  width: 100%;
-  position: fixed;
+// .sidenav-content{
+//   width: 100% !important;
+//   position: fixed !important;
   
-}
+// }
 .mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgba(0,0,0,.0);
 }
@@ -44,8 +44,10 @@
   }
 }
 .mat-drawer-content{
-  overflow: auto;
+
   position: relative;
+  overflow-y: scroll!important;
+  overflow-x: hidden!important;
 }
 
 .search{
@@ -111,6 +113,10 @@ font-size: 83%;
 .mail1{
   font-weight: 900;
 }
+.inputFile1{
+  padding-bottom:5%;
+ 
+}
 .inputFile{
   padding-bottom:2%;
 }
@@ -121,4 +127,9 @@ font-size: 83%;
 }
 .right_icons{
   margin-left: 29%;
+}
+.profilebutton{
+  height: 80px;
+  width: 80px;
+  border-radius: 50% !important;
 }

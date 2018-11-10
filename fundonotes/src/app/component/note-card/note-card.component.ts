@@ -11,7 +11,7 @@ import { SearchServiceService } from 'src/app/core/service/searchService/search-
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 export class NoteCardComponent implements OnInit {// Exported class
-
+ public modifiedCheckList;
 
   constructor(
     public dialog: MatDialog,
@@ -53,5 +53,28 @@ export class NoteCardComponent implements OnInit {// Exported class
 
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
+  checkBox(checkList,note) {
 
+    if (checkList.status == "open") {
+      checkList.status = "close"
+    }
+    else {
+      checkList.status = "open"
+    }
+    console.log(checkList);
+    this.modifiedCheckList = checkList;
+    // this.updatelist(note.id);
+  }
+
+  // updatelist(id){
+  //   var apiData = {
+  //     "itemName": this.modifiedCheckList.itemName,
+  //     "status": this.modifiedCheckList.status
+  //   }
+  //   var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
+  //   this.service.postDel(url, JSON.stringify(apiData), localStorage.getItem('id')).subscribe(response => {
+  //     console.log(response);
+
+  //   })
+  // }
 }
