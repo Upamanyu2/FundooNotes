@@ -11,9 +11,42 @@
   </mat-card-header>
 
   <mat-card-content class="take_note">
-    <div data-text="Take a note.." id="description" contenteditable="true"
-      class="div2" [innerHTML]="data.description">
+    <!---------------------------For displaying the desctiption-------------------------------------->
+    <div data-text="Take a note.." id="description" *ngIf="data.description"
+      contenteditable="true" class="div2" [innerHTML]="data.description">
     </div>
+    <!------------------------------------------------------------------------------------------------>
+    <!-------------------------------For displaying the checklist--------------------------------------->
+    <div *ngFor="let checklist of data.noteCheckLists" fxLayout="row">
+      <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open' && !checklist.isDeleted"
+        (click)="checkBox(checklist,data);toggle()">
+      </mat-checkbox>
+      <input *ngIf="!checklist.isDeleted && checklist.status=='open' "
+        [(ngModel)]=checklist.itemName fxFlex="90%" class="note" (click)="openDialog(data)"
+        [style.backgroundColor]="data.color">
+    </div>
+    <div *ngFor="let data of dataArray" fxLayout="row">
+      <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked
+        (click)="isChecked=!isChecked; onCheck()"></mat-checkbox>
+      <input fxFlex="90%" class="checkboxInput" *ngIf="!data.isChecked"
+        [(ngModel)]=data.data [style.backgroundColor]="bgColor">
+      <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete()"
+        matTooltip="delete">cancel</mat-icon>
+    </div>
+    <hr>
+    <div fxLayout="row">
+      <mat-icon fxFlex="5%">add</mat-icon>
+      <input [(ngModel)]=data1 fxFlex="95%" class="checkboxInput" placeholder="List Item"
+        (keydown.enter)="onEnter($event)" [style.background-color]="bgColor"
+        (keydown.backspace)="onDelete()" />
+    </div>
+    <hr>
+    <div class="note" *ngFor="let checklist of data.noteCheckLists" fxLayout="row">
+      <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close' && !checklist.isDeleted"
+        (click)="checkBox(checklist,data);toggle()"></mat-checkbox>
+      <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="openDialog(data)">{{checklist.itemName}}</del>
+    </div>
+    <!---------------------------------------------------------------------------------------------->
   </mat-card-content>
 
   <div fxLayout="row row wrap" *ngFor="let label of data.noteLabels">
@@ -42,7 +75,12 @@
     <app-more [Noteid]="data" (DeleteClicked)="delete($event)"></app-more>
     <!------------------------More component ends----------------------------------->
 
-    <button mat-button class="editButton" (click)=" onNoClick();updatecard()">
+    <button mat-button class="editButton" *ngIf="data.noteCheckLists.length>0"
+      (click)=" onNoClick();updatecard(false)">
       Close</button>
+    <button mat-button class="editButton" *ngIf="data.noteCheckLists.length==0"
+      (click)=" onNoClick();updatecard(true)">
+      Close</button>
+
   </div>
 </body>

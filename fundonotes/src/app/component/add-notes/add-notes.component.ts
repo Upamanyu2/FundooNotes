@@ -25,12 +25,12 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public dataArray = [];
   public dataArrayApi = [];
   public status;
-  public body={};
+  public body = {};
   public title;
   public data;
   public adding;
-  public i=0;
-  public isChecked=false;
+  public i = 0;
+  public isChecked = false;
   public addCheck;
   public description;
   /*----------------------------------------------------------------------------------------------------------- */
@@ -60,11 +60,12 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   public addNotes() {             //Used for posting the notes being added.
+    
     this.title = document.getElementById("title").innerHTML;
     if (this.click == true) {
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
-     
+
       this.description = document.getElementById("description").innerHTML;
 
 
@@ -87,19 +88,18 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
         .subscribe(
           data => {    //On success.
-            
+
             this.closeClicked.emit(true);
             this.LabelObj = [];
             this.LabelName = [];
           },
           error => {  //On failure of api call.
-            
+
             this.LabelName = [];
             this.LabelObj = [];
           });
     }
     else {
-       
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
       for (var i = 0; i < this.dataArray.length; i++) {
@@ -110,11 +110,13 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
           "itemName": this.dataArray[i].data,
           "status": this.status
         }
-        if(this.dataArray[i].isChecked == false ||this.dataArray[i].isChecked == undefined)
+        if (this.dataArray[i].isChecked == false || this.dataArray[i].isChecked == undefined) {
+          this.status = "open"
+        }
         this.dataArrayApi.push(apiObj)
-        this.status = "open"
+      
       }
-     
+
 
       this.body = {
         "title": this.title,
@@ -127,98 +129,116 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
     }
     if (this.title != "") {
       this._service.addNotes("notes/addNotes", this.body, this.token)
-      .subscribe(response => {
-        
-        this.LabelObj = []
-        this.LabelName = [];
-        this.dataArray = [];
-        this.dataArrayApi = [];
-        //emitting an event when the note is added
-        this.closeClicked.emit(true);
-      }, error => {
-       
-        this.LabelObj = []
-        this.LabelName = [];
-        this.dataArray = [];
-        this.dataArrayApi = [];
+        .subscribe(response => {
 
-      })
+          this.LabelObj = []
+          this.LabelName = [];
+          this.dataArray = [];
+          this.dataArrayApi = [];
+          //emitting an event when the note is added
+          this.closeClicked.emit(true);
+        }, error => {
+
+          this.LabelObj = []
+          this.LabelName = [];
+          this.dataArray = [];
+          this.dataArrayApi = [];
+
+        })
     }
   }
 
-
-/*----------------------------------------------------------------------------------------------------------- */
-onEnter(event){
-  if (this.data != "") {
-    this.adding = true;
-  }
-  else {
-    this.adding = false;
-  }
-  this.i++;
-  this.isChecked = this.addCheck
-  if (this.data != null && event.code == "Enter") {
-    
-    var obj = {
-      "index": this.i,
-      "data": this.data,
-      "isChecked": this.isChecked
-    }
-    this.dataArray.push(obj)
-    
-    this.data = null;
-    this.adding = false;
-    this.isChecked = false;
-    this.addCheck = false;
-  }
-}
 
   /*----------------------------------------------------------------------------------------------------------- */
-public toggle1(){
-  this.click=!this.click;
-  this.click=false;
-  
-}
+  onEnter(event) {
+    if (this.data != "") {
+      this.adding = true;
+    }
+    else {
+      this.adding = false;
+    }
+    this.i++;
+    this.isChecked = this.addCheck
+    if (this.data != null && event.code == "Enter") {
+
+      var obj = {
+        "index": this.i,
+        "data": this.data,
+        "isChecked": this.isChecked
+      }
+      this.dataArray.push(obj)
+
+      this.data = null;
+      this.adding = false;
+      this.isChecked = false;
+      this.addCheck = false;
+    }
+  }
+  onCheck(){
+    for (var i = 0; i < this.dataArray.length; i++) {
+      if (this.dataArray[i].isChecked == true) {
+        this.status = "close"
+      }
+      var apiObj = {
+        "itemName": this.dataArray[i].data,
+        "status": this.status
+      }
+      if (this.dataArray[i].isChecked == false || this.dataArray[i].isChecked == undefined) {
+        this.status = "open"
+      }
+    }
+  }
+
+  onDelete(){
+    this.dataArray.pop()
+  }
+
+  /*----------------------------------------------------------------------------------------------------------- */
+  public toggle1() {
+    this.click = !this.click;
+    this.click = false;
+
+  }
 
 
   public toggle() {        //Toogling function for toggling the checklist view
-  this.check = !this.check
-  
-  
-}
+    this.check = !this.check
 
 
-
-/*----------------------------------------------------------------------------------------------------------- */
-refresh(event) {                //Refresh function for the emitted event(delete, archive and color changing of the card)
-  
-  this.bgColor = event;
-
-}
-
-
-
-archive(event) {                 //Function called while archive function is called in the archiveclicked emitter.
-  this.isArchived = event;
-  this.ArchiveClicked.emit();
-  
-  this.addNotes();
-  this.snackBar.open("Please add something first", "", {
-    duration: 2000
-  })
-}
-
-
-labels(event) {                   //Function for receiving all the datas of from the child more component
-  if (event.status == undefined || event.status == false) {
-    this.LabelObj.push(event.labelObject.id)
-    this.LabelName.push(event.labelObject.label)
   }
-  else if (event.status == true) {
-    this.LabelObj.pop()
-    this.LabelName.pop()
+
+
+
+  /*----------------------------------------------------------------------------------------------------------- */
+  refresh(event) {                //Refresh function for the emitted event(delete, archive and color changing of the card)
+
+    this.bgColor = event;
+
   }
-}
+
+
+
+  archive(event) {                 //Function called while archive function is called in the archiveclicked emitter.
+    this.isArchived = event;
+    this.ArchiveClicked.emit();
+
+    this.addNotes();
+    this.snackBar.open("Please add something first", "", {
+      duration: 2000
+    })
+  }
+
+
+  labels(event) {                   //Function for receiving all the datas of from the child more component
+    if (event.status == undefined || event.status == false) {
+      this.LabelObj.push(event.labelObject.id)
+      this.LabelName.push(event.labelObject.label)
+    }
+    else if (event.status == true) {
+      this.LabelObj.pop()
+      this.LabelName.pop()
+    }
+  }
   /*----------------------------------------------------------------------------------------------------------- */
 
 

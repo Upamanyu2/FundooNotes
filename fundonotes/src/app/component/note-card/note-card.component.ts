@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';//Import all the classes for dependency injection
 import { MatDialog } from '@angular/material';//Importing the matdialog
 import { EditComponent } from '../edit/edit.component'//Importing edit component
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file for calling the post api.
 import { SearchServiceService } from 'src/app/core/service/searchService/search-service.service';//Importing search service
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -11,11 +12,12 @@ import { SearchServiceService } from 'src/app/core/service/searchService/search-
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 export class NoteCardComponent implements OnInit {// Exported class
- public modifiedCheckList;
+  public modifiedCheckList;
 
   constructor(
     public dialog: MatDialog,
-    private data: SearchServiceService
+    private data: SearchServiceService,
+    private service : NotesServiceService
   ) { }
 
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
@@ -53,7 +55,7 @@ export class NoteCardComponent implements OnInit {// Exported class
 
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
-  checkBox(checkList,note) {
+  checkBox(checkList, note) {
 
     if (checkList.status == "open") {
       checkList.status = "close"
@@ -63,18 +65,18 @@ export class NoteCardComponent implements OnInit {// Exported class
     }
     console.log(checkList);
     this.modifiedCheckList = checkList;
-    // this.updatelist(note.id);
+    this.updatelist(note.id);
   }
 
-  // updatelist(id){
-  //   var apiData = {
-  //     "itemName": this.modifiedCheckList.itemName,
-  //     "status": this.modifiedCheckList.status
-  //   }
-  //   var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
-  //   this.service.postDel(url, JSON.stringify(apiData), localStorage.getItem('id')).subscribe(response => {
-  //     console.log(response);
+  updatelist(id) {
+    var apiData = {
+      "itemName": this.modifiedCheckList.itemName,
+      "status": this.modifiedCheckList.status
+    }
+    var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
+    this.service.postNotes(url, JSON.stringify(apiData), localStorage.getItem('token')).subscribe(response => {
+      console.log(response);
 
-  //   })
-  // }
+    })
+  }
 }

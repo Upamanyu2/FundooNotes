@@ -5,7 +5,7 @@
       fxShow.xs="false"></div>
     <div fxFlex="56%" fxFlex.xs="100%" class="mainAddCardDiv">
       <!----------------------------Mat card on reload starts-------------------------------------->
-      <mat-card class="matcard" *ngIf="!note1 && !check" >
+      <mat-card class="matcard" *ngIf="!note1 && !check">
         <div data-text="Take a note..." contenteditable="true" class="div2"
           (click)="note1=!note1">
         </div>
@@ -45,25 +45,38 @@
         <mat-card-content>
 
           <div *ngFor="let data of dataArray" fxLayout="row">
-            <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked (click)="isChecked=!isChecked"></mat-checkbox>
-            <input fxFlex="90%" class="checkboxInput"  [(ngModel)]=data.data
-              [style.backgroundColor]="bgColor">
-            <mat-icon fxFlex="5%" (click)=onDelete(data) matTooltip="delete">cancel</mat-icon>
+            <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked
+              (click)="isChecked=!isChecked; onCheck()"></mat-checkbox>
+            <input fxFlex="90%" class="checkboxInput" *ngIf="!data.isChecked"
+              [(ngModel)]=data.data [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete()"
+              matTooltip="delete">cancel</mat-icon>
+
+
+
           </div>
           <hr>
           <div fxLayout="row">
             <mat-icon fxFlex="5%">add</mat-icon>
-            <input [(ngModel)]=data fxFlex="95%" class="checkboxInput" placeholder="List Item"
-              (keydown.enter)="onEnter($event)" [style.background-color]="bgColor"
-              (keydown.backspace)="onDelete()" />
+            <input [(ngModel)]=data fxFlex="95%" class="checkboxInput"
+              placeholder="List Item" (keydown.enter)="onEnter($event)"
+              [style.background-color]="bgColor" (keydown.backspace)="onDelete()" />
           </div>
           <hr>
+          <div *ngFor="let data of dataArray">
+            <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked *ngIf="data.isChecked"
+              (click)="isChecked=!isChecked; onCheck()"></mat-checkbox>
+            <input fxFlex="90%" class="checkboxInput" *ngIf="data.isChecked"
+              [(ngModel)]=data.data [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete()"
+              matTooltip="delete">cancel</mat-icon>
+          </div>
         </mat-card-content>
         <div fxLayout="row row wrap" *ngFor="let label of LabelName">
-            <mat-chip-list>
-              <mat-chip>{{label}}</mat-chip>
-            </mat-chip-list>
-          </div>
+          <mat-chip-list>
+            <mat-chip>{{label}}</mat-chip>
+          </mat-chip-list>
+        </div>
         <mat-card-actions flexLayout="row">
           <!------------------------App reminder starts---------------------------------->
           <app-reminder></app-reminder>
@@ -90,7 +103,8 @@
           <!------------------------App more ends---------------------------------->
 
 
-          <button mat-button style="float:right" (click)="toggle1();check=false;addNotes()"> Close</button>
+          <button mat-button style="float:right" (click)="toggle1();check=false;addNotes()">
+            Close</button>
         </mat-card-actions>
       </mat-card>
       <!--------------------------Mat card for checklist ends------------------------------->
