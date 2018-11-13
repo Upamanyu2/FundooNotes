@@ -30,7 +30,9 @@ import { SmallSearchPipe } from '././core/pipe/searchSmallPipe/small-search.pipe
 import { CollaboratorComponent } from './component/collaborator/collaborator.component';
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ImageComponent } from './component/image/image.component';
-// import { ImageCropperComponent } from './component/image-cropper/image-cropper.module';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from "@angular/material";
+
 /*------------------------------------------------------------------------------ */
       /*-----------Routing module imported------------------ */
 import { AppRoutingModule } from './app-routing.module';
@@ -127,7 +129,9 @@ import { ProfilePhotoComponent } from './component/profile-photo/profile-photo.c
     MatDialogModule,
     MatCheckboxModule,
     MatChipsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

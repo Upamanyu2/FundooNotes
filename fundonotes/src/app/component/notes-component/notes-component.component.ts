@@ -10,35 +10,37 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 export class NotesComponentComponent implements OnInit {    //Exported class
-
-  constructor(private _service: NotesServiceService) { }
-
   public notes = [];
   private token;
+  constructor(private _service: NotesServiceService) { }
+
+
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
     this.token = localStorage.getItem("token");
     this.getNotes();
+    console.log(this.notes);
+   
   }
 
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   displayCard(event) { //Function for handling the events emitted
     if (event) {
       this.getNotes();
-
     }
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
-  getNotes() {     //Function for getting all theb notes
+  getNotes() {     //Function for getting all the notes
+    
     this._service.getNotes("notes/getNotesList", this.token)
       .subscribe(
         data => {
-          this.notes = [];
+          this.notes=[];
           console.log(data['data'].data);
           for (var i = data['data'].data.length - 1; i >= 0; i--) {
             if (data['data'].data[i].isDeleted == false && data['data'].data[i].isArchived == false) {
               this.notes.push(data['data'].data[i]);
-
+             
             }
 
 

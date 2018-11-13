@@ -17,34 +17,37 @@
     </div>
     <!------------------------------------------------------------------------------------------------>
     <!-------------------------------For displaying the checklist--------------------------------------->
-    <div *ngFor="let checklist of data.noteCheckLists" fxLayout="row">
-      <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open' && !checklist.isDeleted"
+    <div *ngFor="let checklist of checkListItemArray" fxLayout="row">
+      <mat-checkbox fxFlex="5%" *ngIf="checklist.status=='open' && !checklist.isDeleted"
         (click)="checkBox(checklist,data);toggle()">
       </mat-checkbox>
-      <input *ngIf="!checklist.isDeleted && checklist.status=='open' "
-        [(ngModel)]=checklist.itemName fxFlex="90%" class="note" (click)="openDialog(data)"
-        [style.backgroundColor]="data.color">
+      <input *ngIf="!checklist.isDeleted && checklist.status=='open'"
+        [(ngModel)]=checklist.itemName fxFlex="90%" class="note" [ngStyle]="{'background-color':data.color}"
+        [style.backgroundColor]="bgColor" (keyup)="editCard($event,checklist)">
+      <mat-icon fxFlex="5%" *ngIf="checklist.status=='open' && !checklist.isDeleted"
+        (click)="onDelete(checklist)" matTooltip="delete">cancel</mat-icon>
     </div>
-    <div *ngFor="let data of dataArray" fxLayout="row">
-      <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked
-        (click)="isChecked=!isChecked; onCheck()"></mat-checkbox>
-      <input fxFlex="90%" class="checkboxInput" *ngIf="!data.isChecked"
-        [(ngModel)]=data.data [style.backgroundColor]="bgColor">
-      <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete()"
-        matTooltip="delete">cancel</mat-icon>
-    </div>
-    <hr>
-    <div fxLayout="row">
+
+    <!--------------------------------------------------------------------->
+
+    <hr *ngIf="data.noteCheckLists!=0">
+    <div fxLayout="row" *ngIf="data.noteCheckLists!=0">
       <mat-icon fxFlex="5%">add</mat-icon>
       <input [(ngModel)]=data1 fxFlex="95%" class="checkboxInput" placeholder="List Item"
-        (keydown.enter)="onEnter($event)" [style.background-color]="bgColor"
-        (keydown.backspace)="onDelete()" />
+        (keydown.enter)="onEnter($event)" [ngStyle]="{'background-color':data.color}"
+        [style.background-color]="bgColor" (keydown.backspace)="onDelete(checklist)" />
     </div>
-    <hr>
-    <div class="note" *ngFor="let checklist of data.noteCheckLists" fxLayout="row">
-      <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close' && !checklist.isDeleted"
+    <hr *ngIf="data.noteCheckLists!=0">
+    <!--------------------------------------------------------------------->
+
+    <div class="note" *ngFor="let checklist of checkListItemArray" fxLayout="row">
+      <mat-checkbox fxFlex="5%" checked=true *ngIf="checklist.status=='close' && !checklist.isDeleted"
         (click)="checkBox(checklist,data);toggle()"></mat-checkbox>
-      <del *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="openDialog(data)">{{checklist.itemName}}</del>
+      <input *ngIf="checklist.status=='close' && !checklist.isDeleted"
+        [(ngModel)]=checklist.itemName fxFlex="90%" class="note1" [ngStyle]="{'background-color':data.color}"
+        [style.backgroundColor]="bgColor" (keyup)="editCard($event,checklist)">
+      <mat-icon fxFlex="5%" *ngIf="checklist.status=='close' && !checklist.isDeleted"
+        (click)="onDelete(checklist)" matTooltip="delete">cancel</mat-icon>
     </div>
     <!---------------------------------------------------------------------------------------------->
   </mat-card-content>
@@ -54,10 +57,20 @@
       <mat-chip>{{label.label}}</mat-chip>
     </mat-chip-list>
   </div>
-
+  <div *ngIf="data.reminder.length!=0">
+    <div *ngFor="let reminder of reminderArray" fxLayout="row row wrap">
+      <mat-chip-list>
+        <mat-chip *ngIf="!reminder.isDeleted">
+          {{reminder | date:'medium'}}
+          <mat-icon (click)="$event.stopPropagation(); removeReminder(data.id)">
+            cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
   <div flexLayout="row" class="div3">
     <!------------------------Reminder component starts----------------------------------->
-    <app-reminder></app-reminder>
+    <app-reminder [Noteid]=data (ReminderEmit)="refresh($event)"></app-reminder>
     <!------------------------Reminder component ends----------------------------------->
     <!------------------------Collaborator component starts----------------------------------->
     <app-collaborator></app-collaborator>

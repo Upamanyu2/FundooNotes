@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, EventEmitter, Output, Input } from '@angular/core';//Importing the output input and the event emitter for connecting child to parent.
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';//Importing the output input and the event emitter for connecting child to parent.
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file for calling the post api.
 import { MatSnackBar } from '@angular/material';//Importing properties of snackbar.
 
@@ -21,7 +21,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public bgColor = "#ffffff";
   public isArchived = false;
   public LabelObj = []
-  public LabelName = []
+  public LabelObjId=[]
   public dataArray = [];
   public dataArrayApi = [];
   public status;
@@ -29,10 +29,11 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public title;
   public data;
   public adding;
-  public i = 0;
+  public x = 0;
   public isChecked = false;
   public addCheck;
   public description;
+  public apiObj={};
   /*----------------------------------------------------------------------------------------------------------- */
   constructor(
     private _service: NotesServiceService, //Service file reference is made in the constructor to use it.
@@ -46,8 +47,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   /*----------------------------------------------------------------------------------------------------------- */
   ngOnInit() {     //Initialisation function to called while the page is reloaded.
     this.token = localStorage.getItem("token");
-    this.LabelName = [];
-    this.LabelObj = [];
+    console.log(this.LabelObj)
   }
   public pinned() {     //Function used for sending the true and false values while the pin is pressed.
     this.pin = !this.pin;
@@ -60,19 +60,18 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   public addNotes() {             //Used for posting the notes being added.
-    
+    console.log(this.click)
     this.title = document.getElementById("title").innerHTML;
     if (this.click == true) {
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
 
       this.description = document.getElementById("description").innerHTML;
-
+      
 
 
 
       if (this.description == "" && this.title == "") {   //For preventing the api call while the two filds are left empty.
-        this.LabelName = [];
         this.LabelObj = [];
         return;
       }
@@ -83,7 +82,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         'isPined': this.pin,
         'color': changecolor,
         'isArchived': this.isArchived,
-        'labelIdList': JSON.stringify(this.LabelObj)
+        'labelIdList': JSON.stringify(this.LabelObjId)
       }, this.token)
 
         .subscribe(
@@ -91,32 +90,40 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
             this.closeClicked.emit(true);
             this.LabelObj = [];
-            this.LabelName = [];
+          
           },
           error => {  //On failure of api call.
 
-            this.LabelName = [];
             this.LabelObj = [];
           });
     }
-    else {
+    else if(this.click==false){
+      console.log("in")
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
       for (var i = 0; i < this.dataArray.length; i++) {
         if (this.dataArray[i].isChecked == true) {
           this.status = "close"
+          console.log(this.dataArray[i].isChecked);
         }
-        var apiObj = {
+        else{
+         
+            this.status = "open"
+          
+        }
+        this.apiObj = {
           "itemName": this.dataArray[i].data,
           "status": this.status
         }
-        if (this.dataArray[i].isChecked == false || this.dataArray[i].isChecked == undefined) {
-          this.status = "open"
-        }
-        this.dataArrayApi.push(apiObj)
+       
+        this.dataArrayApi.push(this.apiObj)
       
       }
-
+    if(this.title==""){
+      this.dataArray = [];
+      this.dataArrayApi = [];
+      this.LabelObj=[];
+    }
 
       this.body = {
         "title": this.title,
@@ -124,23 +131,23 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         "isPined": this.pin,
         "color": changecolor,
         "isArchived": this.isArchived,
-        "labelIdList": JSON.stringify(this.LabelObj)
+        "labelIdList": JSON.stringify(this.LabelObjId)
       }
     }
     if (this.title != "") {
       this._service.addNotes("notes/addNotes", this.body, this.token)
         .subscribe(response => {
-
+          this.click==false;
           this.LabelObj = []
-          this.LabelName = [];
+         
           this.dataArray = [];
           this.dataArrayApi = [];
           //emitting an event when the note is added
           this.closeClicked.emit(true);
         }, error => {
-
+          this.click==false;
           this.LabelObj = []
-          this.LabelName = [];
+         
           this.dataArray = [];
           this.dataArrayApi = [];
 
@@ -157,12 +164,12 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
     else {
       this.adding = false;
     }
-    this.i++;
+    this.x++;
     this.isChecked = this.addCheck
     if (this.data != null && event.code == "Enter") {
 
       var obj = {
-        "index": this.i,
+        "index": this.x,
         "data": this.data,
         "isChecked": this.isChecked
       }
@@ -174,29 +181,41 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
       this.addCheck = false;
     }
   }
-  onCheck(){
-    for (var i = 0; i < this.dataArray.length; i++) {
-      if (this.dataArray[i].isChecked == true) {
-        this.status = "close"
-      }
-      var apiObj = {
-        "itemName": this.dataArray[i].data,
-        "status": this.status
-      }
-      if (this.dataArray[i].isChecked == false || this.dataArray[i].isChecked == undefined) {
-        this.status = "open"
-      }
-    }
-  }
+  // onCheck(){
+  //   for (let i = 0; i < this.dataArray.length; i++) {
+  //     if (this.dataArray[i].isChecked == true) {
+  //       this.status = "close"
+  //     }
+  //     else{
+  //       this.status="open"
+  //     }
+  //     this.apiObj = {
+  //       "itemName": this.dataArray[i].data,
+  //       "status": this.status
+  //     }
+  //     // if (this.dataArray[i].isChecked == false || this.dataArray[i].isChecked == undefined) {
+  //     //   this.status = "open"
+  //     // }
+      
+  //   }
+  // }
 
-  onDelete(){
-    this.dataArray.pop()
+  onDelete(dataFromArray){
+    for(let i=0;i<this.dataArray.length;i++){
+      if(this.dataArray[i].index==dataFromArray.index)
+      this.dataArray.splice(i,1)
+    }
   }
 
   /*----------------------------------------------------------------------------------------------------------- */
   public toggle1() {
-    this.click = !this.click;
     this.click = false;
+    // this.click = false;
+
+  }
+  public toggle2() {
+    this.click = true;
+    // this.click = false;
 
   }
 
@@ -230,14 +249,30 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   labels(event) {                   //Function for receiving all the datas of from the child more component
+    
     if (event.status == undefined || event.status == false) {
-      this.LabelObj.push(event.labelObject.id)
-      this.LabelName.push(event.labelObject.label)
+      console.log(event.status)
+      this.LabelObj.push(event.labelObject)
+      this.LabelObjId.push(event.labelObject.id);
+      console.log(this.LabelObj)
+     
     }
     else if (event.status == true) {
-      this.LabelObj.pop()
-      this.LabelName.pop()
+      console.log("in")
+      for(let i=0;i<this.LabelObj.length;i++){
+        if(this.LabelObj[i].id==event.labelObject.id) {
+          console.log(this.LabelObj[i].id)
+          console.log(event.labelObject.id)
+           this.LabelObj.splice(i,1)
+           this.LabelObjId.splice(i,1)
+           console.log(this.LabelObj);
+        }
+         
+       }
+     
+      
     }
+    
   }
   /*----------------------------------------------------------------------------------------------------------- */
 

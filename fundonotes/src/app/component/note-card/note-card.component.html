@@ -37,16 +37,33 @@
                     (click)="openDialog(data)">{{checklist.itemName}}</del>
             </div>
 
-            <div *ngFor="let label of data.noteLabels " fxLayout="row row wrap">
+            <div *ngFor="let label of data.noteLabels" fxLayout="row row wrap">
                 <mat-chip-list>
-                    <mat-chip *ngIf="label.isDeleted==false">{{label.label}}</mat-chip>
+                    <mat-chip *ngIf="!label.isDeleted">{{label.label}}</mat-chip>
                 </mat-chip-list>
             </div>
-
-
+            <div *ngIf="data.noteLabels==''">
+                <div *ngFor="let label of data.labelIdList" fxLayout="row row wrap">
+                    <mat-chip-list>
+                        <mat-chip *ngIf="!label.isDeleted && label.isChecked">{{label.label}}</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
+            <div *ngIf="data.reminder.length!=0">
+                <div *ngFor="let reminder of data.reminder" fxLayout="row row wrap">
+                    <mat-chip-list>
+                        <mat-chip *ngIf="!reminder.isDeleted">
+                            {{reminder | date:'medium'}}
+                            <mat-icon (click)="$event.stopPropagation(); removeReminder(data.id)">
+                                cancel</mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
             <div fxLayoutAlign="space-around end" class="buttons">
 
-                <app-reminder [Delete]=data.isDeleted></app-reminder>
+                <app-reminder [Noteid]=data (ReminderEmit)="refresh($event)"
+                    [Delete]=data.isDeleted></app-reminder>
                 <app-collaborator [Delete]=data.isDeleted></app-collaborator>
                 <app-theme [Noteid]=data (ColorClicked)="refresh($event)"
                     [Delete]=data.isDeleted></app-theme>

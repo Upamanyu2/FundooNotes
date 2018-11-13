@@ -46,40 +46,37 @@
 
           <div *ngFor="let data of dataArray" fxLayout="row">
             <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked
-              (click)="isChecked=!isChecked; onCheck()"></mat-checkbox>
+              (click)="isChecked=!isChecked"></mat-checkbox>
             <input fxFlex="90%" class="checkboxInput" *ngIf="!data.isChecked"
               [(ngModel)]=data.data [style.backgroundColor]="bgColor">
-            <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete()"
+            <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete(data)"
               matTooltip="delete">cancel</mat-icon>
-
-
-
           </div>
           <hr>
           <div fxLayout="row">
             <mat-icon fxFlex="5%">add</mat-icon>
             <input [(ngModel)]=data fxFlex="95%" class="checkboxInput"
               placeholder="List Item" (keydown.enter)="onEnter($event)"
-              [style.background-color]="bgColor" (keydown.backspace)="onDelete()" />
+              [style.background-color]="bgColor" (keydown.backspace)="onDelete(data)" />
           </div>
           <hr>
           <div *ngFor="let data of dataArray">
             <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked *ngIf="data.isChecked"
-              (click)="isChecked=!isChecked; onCheck()"></mat-checkbox>
+              (click)="isChecked=!isChecked"></mat-checkbox>
             <input fxFlex="90%" class="checkboxInput" *ngIf="data.isChecked"
               [(ngModel)]=data.data [style.backgroundColor]="bgColor">
-            <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete()"
+            <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete(data)"
               matTooltip="delete">cancel</mat-icon>
           </div>
         </mat-card-content>
-        <div fxLayout="row row wrap" *ngFor="let label of LabelName">
+        <div fxLayout="row row wrap" *ngFor="let label of LabelObj">
           <mat-chip-list>
-            <mat-chip>{{label}}</mat-chip>
+            <mat-chip>{{label.label}}</mat-chip>
           </mat-chip-list>
         </div>
         <mat-card-actions flexLayout="row">
           <!------------------------App reminder starts---------------------------------->
-          <app-reminder></app-reminder>
+          <app-reminder [Noteid]=""  (ReminderEmit)="refresh($event)"></app-reminder>
           <!------------------------App reminder ends---------------------------------->
 
           <!------------------------App collaborator starts---------------------------------->
@@ -129,9 +126,9 @@
 
         </mat-card-content>
 
-        <div fxLayout="row row wrap" *ngFor="let label of LabelName">
+        <div fxLayout="row row wrap" *ngFor="let label of LabelObj">
           <mat-chip-list>
-            <mat-chip>{{label}}</mat-chip>
+            <mat-chip>{{label.label}}</mat-chip>
           </mat-chip-list>
         </div>
 
@@ -161,7 +158,7 @@
             <app-more (LabelObj)="labels($event)"></app-more>
             <!----------------------------More component ends------------------------------------>
           </div>
-          <button fxLayoutAllign="end" mat-button (click)="note1=!note1;toggle1(); addNotes()">
+          <button fxLayoutAllign="end" mat-button (click)="note1=!note1;toggle2(); addNotes()">
             Close</button>
         </mat-card-actions>
 

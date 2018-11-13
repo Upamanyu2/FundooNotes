@@ -22,8 +22,13 @@ export class EditComponent implements OnInit { //Export class to export all the 
   ) { }
   @Output() ColorClicked = new EventEmitter<any>(); //Output decorator used for emitting the function for color being picked with the click function.
   @Output() UpdatingCard = new EventEmitter<any>();
+  @Output() ReminderEmit = new EventEmitter<any>();
   /*------------------------------------------------------------------------------------------------------------ */
   ngOnInit() {
+    this.checkListItemArray = this.data.noteCheckLists;
+    console.log(this.checkListItemArray);
+    this.reminderArray.push(this.data.reminder);
+    console.log(this.data.reminder)
   }
   public bgColor = this.data.color;
 
@@ -35,9 +40,7 @@ export class EditComponent implements OnInit { //Export class to export all the 
   toggle() {
     this.click = true;
   }
-  toggle1() {
 
-  }
 
   /*------------------------------------------------------------------------------------------------------------ */
   updatecard(check) {    //Update card post function is occuring to send the updated card details
@@ -65,7 +68,6 @@ export class EditComponent implements OnInit { //Export class to export all the 
         )
     }
 
-
     else {
       return;
     }
@@ -88,6 +90,7 @@ export class EditComponent implements OnInit { //Export class to export all the 
   }
 
   updatelist(id) {
+
     var apiData = {
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
@@ -95,45 +98,128 @@ export class EditComponent implements OnInit { //Export class to export all the 
     var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
     this._service.postNotes(url, JSON.stringify(apiData), localStorage.getItem('token')).subscribe(response => {
       console.log(response);
-
-    })
+    });
   }
+  editCard(event, checklist) {
+    console.log(event);
+    console.log(checklist)
+    if (event.isTrusted == true) {
+      this.modifiedCheckList = checklist;
+    }
+    this.updatelist(this.data.id)
+  }
+
+
+
+
+
   public data1;
   public adding;
   public isChecked;
-  public i;
+  public status = "open";
   public addCheck;
-  public dataArray=[];
-
+  public checkListItemArray = []
   onEnter(event) {
+    console.log(event);
     if (this.data1 != "") {
       this.adding = true;
     }
     else {
       this.adding = false;
     }
-    this.i++;
     this.isChecked = this.addCheck
-    if (this.data1 != null && event.code == "Enter") {
+    if (event.code == "Enter") {
+      if (this.data.isChecked == true && this.data1 != null) {
+        this.status = "close"
+      } else {
+        this.status = "open";
+      }
 
       var obj = {
-        "index": this.i,
-        "data": this.data1,
-        "isChecked": this.isChecked
+        "itemName": this.data1,
+        "isChecked": this.status
       }
-      this.dataArray.push(obj)
 
-      this.data1 = null;
-      this.adding = false;
-      this.isChecked = false;
-      this.addCheck = false;
+      var url = "notes/" + this.data.id + "/checklist/add";
+      this._service.addNotes(url, obj, localStorage.getItem('token')).subscribe(response => {
+        console.log(response);
+        this.data1 = null;
+        this.adding = false;
+        this.isChecked = false;
+        this.addCheck = false;
+        console.log(response["data"].details);
+        this.checkListItemArray.push(response["data"].details);
+        console.log(this.checkListItemArray);
+      });
+
+
     }
   }
 
+
+
+
+
+  public removedList;
+  onDelete(checklist) {
+    this.removedList = checklist;
+    console.log(this.removedList)
+    this.deleteList()
+
+  }
+  deleteList() {
+    var url = "notes/" + this.data.id + "/checklist/" + this.removedList.id + "/remove"
+    this._service.addNotes(url, {}, localStorage.getItem('token'))
+      .subscribe(response => {
+        console.log(response);
+        for (let i = 0; i < this.checkListItemArray.length; i++) {
+          if (this.checkListItemArray[i].id == this.removedList.id) {
+            console.log("deleting");
+            this.checkListItemArray.splice(i, 1);
+          }
+
+        }
+
+      })
+  }
+
+
+
+
+  public reminderBody = {};
+  public reminderArray = [];
+  removeReminder(id) {
+    this.reminderBody = {
+      "noteIdList": [id]
+    }
+    this._service.postNotes('notes/removeReminderNotes', this.reminderBody, localStorage.getItem('token')).subscribe(result => {
+      
+      for (let i = 0; i < this.reminderArray.length; i++) {
+
+        if (this.data.reminder == this.reminderArray[i]) {
+
+          this.reminderArray.splice(i, 1)
+        }
+      }
+    })
+
+
+  }
   /*------------------------------------------------------------------------------------------------------------ */
   refresh(event) {                //Refresh function for the emitted event(delete, archive and color changing of the card)
-    console.log(event);
-    this.ColorClicked.emit();
+    console.log(event.status==true);
+    // this.ColorClicked.emit();
+    // this.ReminderEmit.emit();
+    for(let i=0;i<this.reminderArray.length;i++){
+          if(this.reminderArray[i]!==this.data.modifiedDate){
+            console.log(this.reminderArray[i])
+            console.log(this.data.modifiedDate);
+            
+            this.reminderArray=[];
+            this.reminderArray.push(event.details)
+          }
+         
+        }
     this.bgColor = event;
   }
 

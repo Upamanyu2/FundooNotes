@@ -23,11 +23,12 @@ export class NoteCardComponent implements OnInit {// Exported class
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   @Output() refreshClicked = new EventEmitter<any>();//Output decorator and event emitter for color change archive and delete operation.
   @Output() updateCard = new EventEmitter<any>(); //Output decorator and event emitter for updated card array.
-  @Input() notesListArray;
+  @Input() notesListArray: any;
   @Input() searchData;
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   ngOnInit() {
     this.view();
+    
   }
   toggle = false;
   view() {
@@ -78,5 +79,18 @@ export class NoteCardComponent implements OnInit {// Exported class
       console.log(response);
 
     })
+  }
+
+public reminderBody={};
+
+  removeReminder(id){
+    this.reminderBody={
+      "noteIdList":[id]
+    }
+    this.service.postNotes('notes/removeReminderNotes',this.reminderBody,localStorage.getItem('token')).subscribe(result=>{
+      this.updateCard.emit(true); 
+    })
+
+
   }
 }
