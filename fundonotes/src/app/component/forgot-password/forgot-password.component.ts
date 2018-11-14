@@ -41,13 +41,13 @@ export class ForgotPasswordComponent implements OnInit {  //Exported class
     this._service.postData("user/reset", {
       "email": this.model.email
     }).subscribe(data => {   //On success of api call
-      console.log("POST request is successful", data);
+     
       this.snackBar.open("Check your mail", "mail sent", {
         duration: 2000
       })
     },
       error => {   //On failure of api call.
-        console.log("Error", error);
+       
         this.snackBar.open("Something bad happened", "please contact the support", {
           duration: 2000
         })

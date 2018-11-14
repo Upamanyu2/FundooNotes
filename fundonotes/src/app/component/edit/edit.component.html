@@ -1,6 +1,8 @@
 <body [ngStyle]="{'background-color':data.color}" class="editBody"
   [style.background-color]="bgColor">
 
+
+  <!---------------------------For displaying the title of the note card----------------------------->
   <mat-card-header>
     <div data-text="Title" id="title" contenteditable="true" class="div2"
       [innerHTML]="data.title">
@@ -9,6 +11,8 @@
       <img src="../../../assets/image/add10.svg">
     </button>
   </mat-card-header>
+  <!------------------------------------------------------------------------------------------------>
+
 
   <mat-card-content class="take_note">
     <!---------------------------For displaying the desctiption-------------------------------------->
@@ -17,6 +21,7 @@
     </div>
     <!------------------------------------------------------------------------------------------------>
     <!-------------------------------For displaying the checklist--------------------------------------->
+    <!--Checklist unchecked area-->
     <div *ngFor="let checklist of checkListItemArray" fxLayout="row">
       <mat-checkbox fxFlex="5%" *ngIf="checklist.status=='open' && !checklist.isDeleted"
         (click)="checkBox(checklist,data);toggle()">
@@ -28,18 +33,18 @@
         (click)="onDelete(checklist)" matTooltip="delete">cancel</mat-icon>
     </div>
 
-    <!--------------------------------------------------------------------->
-
+    <!---------------------------------------------------------------------------------------------->
+    <!--Checklist input area-->
     <hr *ngIf="data.noteCheckLists!=0">
     <div fxLayout="row" *ngIf="data.noteCheckLists!=0">
       <mat-icon fxFlex="5%">add</mat-icon>
       <input [(ngModel)]=data1 fxFlex="95%" class="checkboxInput" placeholder="List Item"
         (keydown.enter)="onEnter($event)" [ngStyle]="{'background-color':data.color}"
-        [style.background-color]="bgColor" (keydown.backspace)="onDelete(checklist)" />
+        [style.background-color]="bgColor" />
     </div>
     <hr *ngIf="data.noteCheckLists!=0">
     <!--------------------------------------------------------------------->
-
+    <!--Checklist checked area-->
     <div class="note" *ngFor="let checklist of checkListItemArray" fxLayout="row">
       <mat-checkbox fxFlex="5%" checked=true *ngIf="checklist.status=='close' && !checklist.isDeleted"
         (click)="checkBox(checklist,data);toggle()"></mat-checkbox>
@@ -52,11 +57,17 @@
     <!---------------------------------------------------------------------------------------------->
   </mat-card-content>
 
+  
+  <!--------------------------------------------------------------------------------------------------------->
+
+  <!--Mat chip for labels-->
   <div fxLayout="row row wrap" *ngFor="let label of data.noteLabels">
     <mat-chip-list *ngIf="label.isDeleted==false">
       <mat-chip>{{label.label}}</mat-chip>
     </mat-chip-list>
   </div>
+
+  <!--Mat chip for reminder-->
   <div *ngIf="data.reminder.length!=0">
     <div *ngFor="let reminder of reminderArray" fxLayout="row row wrap">
       <mat-chip-list>
@@ -69,31 +80,46 @@
     </div>
   </div>
   <div flexLayout="row" class="div3">
+    <!--------------------------------------------------------------------------------------------------------->
+
     <!------------------------Reminder component starts----------------------------------->
-    <app-reminder [Noteid]=data (ReminderEmit)="refresh($event)"></app-reminder>
+    <app-reminder [Noteid]=data (ReminderEmit)="reminderEvent($event)"></app-reminder>
     <!------------------------Reminder component ends----------------------------------->
+
+
     <!------------------------Collaborator component starts----------------------------------->
     <app-collaborator></app-collaborator>
     <!------------------------Collaborator component ends----------------------------------->
+
+
     <!------------------------Theme component starts----------------------------------->
     <app-theme [Noteid]="data" (ColorChanged)="refresh($event)"></app-theme>
     <!------------------------Theme component ends----------------------------------->
+
+
     <!------------------------Image component starts----------------------------------->
     <app-image></app-image>
     <!------------------------Image component ends----------------------------------->
+
+
     <!------------------------Post archive component starts----------------------------------->
     <app-post-archive [Noteid]="data" (ArchiveClicked)="archive($event)"></app-post-archive>
     <!------------------------Post archive component ends----------------------------------->
+
+
     <!------------------------More component starts----------------------------------->
     <app-more [Noteid]="data" (DeleteClicked)="delete($event)"></app-more>
     <!------------------------More component ends----------------------------------->
-
+    <!------------------------------------------------------------------------------------------------>
+    <!--Close button one is hidden an the other is shown-->
     <button mat-button class="editButton" *ngIf="data.noteCheckLists.length>0"
       (click)=" onNoClick();updatecard(false)">
       Close</button>
     <button mat-button class="editButton" *ngIf="data.noteCheckLists.length==0"
       (click)=" onNoClick();updatecard(true)">
       Close</button>
-
+    <!------------------------------------------------------------------------------------------------>
   </div>
+
+
 </body>

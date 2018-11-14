@@ -14,6 +14,17 @@ export class EditComponent implements OnInit { //Export class to export all the 
   public description;
   public title;
   public click: boolean = false;
+  public bgColor = this.data.color;
+  public data1;
+  public adding;
+  public isChecked;
+  public status = "open";
+  public addCheck;
+  public checkListItemArray = [];
+  public removedList;
+  public reminderBody = {};
+  public reminderArray = [];
+  /*------------------------------------------------------------------------------------------------------------ */
   constructor(
     private _service: NotesServiceService, //Service file reference is made.
     public dialogRef: MatDialogRef<NoteCardComponent>, //Reference for dialogue box reference is being made.
@@ -26,11 +37,11 @@ export class EditComponent implements OnInit { //Export class to export all the 
   /*------------------------------------------------------------------------------------------------------------ */
   ngOnInit() {
     this.checkListItemArray = this.data.noteCheckLists;
-    console.log(this.checkListItemArray);
+    
     this.reminderArray.push(this.data.reminder);
-    console.log(this.data.reminder)
+    
   }
-  public bgColor = this.data.color;
+  
 
   /*------------------------------------------------------------------------------------------------------------ */
   onNoClick(): void {        //Function for closing the dialogue or modal box when the datas are contained.
@@ -44,9 +55,9 @@ export class EditComponent implements OnInit { //Export class to export all the 
 
   /*------------------------------------------------------------------------------------------------------------ */
   updatecard(check) {    //Update card post function is occuring to send the updated card details
-    console.log(check)
+   
     if (this.click == false && check == true) {
-      console.log("update card api")
+      
       this.title = document.getElementById("title").innerHTML;  //Used to bind the updated div data.
       this.description = document.getElementById("description").innerHTML; //Used to bind the updated div data.
       var token = localStorage.getItem('token');
@@ -58,11 +69,11 @@ export class EditComponent implements OnInit { //Export class to export all the 
       this._service.postNotes('notes/updateNotes', body, token)  //Update card service is called to call the post api.
         .subscribe(
           data => {  //On success
-            console.log(data);
+           
             this.UpdatingCard.emit(true);
           },
           error => { //On faliure (of api calling)
-            console.log(error);
+            
 
           }
         )
@@ -73,22 +84,21 @@ export class EditComponent implements OnInit { //Export class to export all the 
     }
   }
 
-
+/*------------------------------------------------------------------------------------------------------------ */
 
   checkBox(checkList, note) {
-    console.log(checkList)
-    console.log(note)
+    
     if (checkList.status == "open") {
       checkList.status = "close"
     }
     else {
       checkList.status = "open"
     }
-    console.log(checkList);
+    
     this.modifiedCheckList = checkList;
     this.updatelist(note.id);
   }
-
+/*------------------------------------------------------------------------------------------------------------ */
   updatelist(id) {
 
     var apiData = {
@@ -97,12 +107,13 @@ export class EditComponent implements OnInit { //Export class to export all the 
     }
     var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
     this._service.postNotes(url, JSON.stringify(apiData), localStorage.getItem('token')).subscribe(response => {
-      console.log(response);
+     
     });
   }
+
+
   editCard(event, checklist) {
-    console.log(event);
-    console.log(checklist)
+   
     if (event.isTrusted == true) {
       this.modifiedCheckList = checklist;
     }
@@ -112,15 +123,10 @@ export class EditComponent implements OnInit { //Export class to export all the 
 
 
 
-
-  public data1;
-  public adding;
-  public isChecked;
-  public status = "open";
-  public addCheck;
-  public checkListItemArray = []
+/*------------------------------------------------------------------------------------------------------------ */
+  
   onEnter(event) {
-    console.log(event);
+   
     if (this.data1 != "") {
       this.adding = true;
     }
@@ -142,14 +148,14 @@ export class EditComponent implements OnInit { //Export class to export all the 
 
       var url = "notes/" + this.data.id + "/checklist/add";
       this._service.addNotes(url, obj, localStorage.getItem('token')).subscribe(response => {
-        console.log(response);
+       
         this.data1 = null;
         this.adding = false;
         this.isChecked = false;
         this.addCheck = false;
-        console.log(response["data"].details);
+        
         this.checkListItemArray.push(response["data"].details);
-        console.log(this.checkListItemArray);
+       
       });
 
 
@@ -159,11 +165,11 @@ export class EditComponent implements OnInit { //Export class to export all the 
 
 
 
-
-  public removedList;
+/*------------------------------------------------------------------------------------------------------------ */
+  
   onDelete(checklist) {
     this.removedList = checklist;
-    console.log(this.removedList)
+   
     this.deleteList()
 
   }
@@ -171,10 +177,10 @@ export class EditComponent implements OnInit { //Export class to export all the 
     var url = "notes/" + this.data.id + "/checklist/" + this.removedList.id + "/remove"
     this._service.addNotes(url, {}, localStorage.getItem('token'))
       .subscribe(response => {
-        console.log(response);
+       
         for (let i = 0; i < this.checkListItemArray.length; i++) {
           if (this.checkListItemArray[i].id == this.removedList.id) {
-            console.log("deleting");
+            
             this.checkListItemArray.splice(i, 1);
           }
 
@@ -185,9 +191,8 @@ export class EditComponent implements OnInit { //Export class to export all the 
 
 
 
-
-  public reminderBody = {};
-  public reminderArray = [];
+/*------------------------------------------------------------------------------------------------------------ */
+  
   removeReminder(id) {
     this.reminderBody = {
       "noteIdList": [id]
@@ -207,20 +212,10 @@ export class EditComponent implements OnInit { //Export class to export all the 
   }
   /*------------------------------------------------------------------------------------------------------------ */
   refresh(event) {                //Refresh function for the emitted event(delete, archive and color changing of the card)
-    console.log(event.status==true);
-    // this.ColorClicked.emit();
-    // this.ReminderEmit.emit();
-    for(let i=0;i<this.reminderArray.length;i++){
-          if(this.reminderArray[i]!==this.data.modifiedDate){
-            console.log(this.reminderArray[i])
-            console.log(this.data.modifiedDate);
-            
-            this.reminderArray=[];
-            this.reminderArray.push(event.details)
-          }
-         
-        }
+    
+    this.ColorClicked.emit();
     this.bgColor = event;
+  
   }
 
   archive(event) {                 //Function called while archive function is called in the archiveclicked emitter.
@@ -229,6 +224,12 @@ export class EditComponent implements OnInit { //Export class to export all the 
 
   delete(event) {                 //Function called while archive function is called in the archiveclicked emitter.
     this.dialogRef.close();
+  }
+  reminderEvent(event){
+    if(event.status){
+      this.reminderArray=[];
+      this.reminderArray.push(event.details.reminder);
+    }
   }
   /*------------------------------------------------------------------------------------------------------------ */
 }

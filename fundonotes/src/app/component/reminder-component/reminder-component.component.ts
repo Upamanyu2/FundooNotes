@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 
 @Component({
   selector: 'app-reminder-component',
@@ -6,10 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reminder-component.component.scss']
 })
 export class ReminderComponentComponent implements OnInit {
-
-  constructor() { }
+  private token;
+  public reminder = [];
+  constructor(private service: NotesServiceService) { }
 
   ngOnInit() {
+    this.token = localStorage.getItem('token');
+    this.getReminderNotes();
   }
-
+  getReminderNotes() {
+    this.service.getNotes('notes/getReminderNotesList', this.token)
+      .subscribe(result => {
+        console.log(result);
+        this.reminder = result['data'].data;
+      })
+  }
+  refresh(event) {
+    if (event) {
+      this.getReminderNotes();
+    }
+  }
 }

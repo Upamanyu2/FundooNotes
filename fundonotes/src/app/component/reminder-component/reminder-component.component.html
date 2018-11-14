@@ -1,3 +1,2 @@
-<p>
-  reminder-component works!
-</p>
+<app-note-card [notesListArray]="reminder" (refreshClicked)="refresh($event)"
+    (updateCard)="refresh($event)"></app-note-card>

@@ -25,12 +25,12 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
           for (var i = data['data'].data.length - 1; i >= 0; i--) {
             if (data['data'].data[i].isArchived == true && data['data'].data[i].isDeleted == false) {
               this.notes.push(data['data'].data[i]);
-              console.log(data['data'].data[i].id);
+              
             }
           }
         },
         error => {
-          console.log(error);
+        
         }
       )
   }
@@ -39,7 +39,7 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
     if (event == true) {
       this.getArchive();
     }
-    console.log(event)
+  
   }
   /*------------------------------------------------------------------------------------------------------------------------ */
 

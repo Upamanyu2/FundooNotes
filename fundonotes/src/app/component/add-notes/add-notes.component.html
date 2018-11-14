@@ -57,7 +57,7 @@
             <mat-icon fxFlex="5%">add</mat-icon>
             <input [(ngModel)]=data fxFlex="95%" class="checkboxInput"
               placeholder="List Item" (keydown.enter)="onEnter($event)"
-              [style.background-color]="bgColor" (keydown.backspace)="onDelete(data)" />
+              [style.background-color]="bgColor" />
           </div>
           <hr>
           <div *ngFor="let data of dataArray">
@@ -74,9 +74,21 @@
             <mat-chip>{{label.label}}</mat-chip>
           </mat-chip-list>
         </div>
+
+
+        <div *ngFor="let reminder of reminderArray" fxLayout="row row wrap">
+          <mat-chip-list>
+            <mat-chip >
+              {{reminder | date:'medium'}}
+              <mat-icon (click)="$event.stopPropagation(); removeReminder()">
+                cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+
         <mat-card-actions flexLayout="row">
           <!------------------------App reminder starts---------------------------------->
-          <app-reminder [Noteid]=""  (ReminderEmit)="refresh($event)"></app-reminder>
+          <app-reminder [Noteid]="" (ReminderEmit)="reminderEvent($event)"></app-reminder>
           <!------------------------App reminder ends---------------------------------->
 
           <!------------------------App collaborator starts---------------------------------->
@@ -131,11 +143,21 @@
             <mat-chip>{{label.label}}</mat-chip>
           </mat-chip-list>
         </div>
+        
+        <div *ngFor="let reminder of reminderArray" fxLayout="row row wrap">
+            <mat-chip-list>
+              <mat-chip>
+                {{reminder | date:'medium'}}
+                <mat-icon (click)="$event.stopPropagation(); removeReminder()">
+                  cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
 
         <mat-card-actions flexLayout="row">
           <div fxFlex="90%">
             <!----------------------------Reminder component starts------------------------------------>
-            <app-reminder></app-reminder>
+            <app-reminder [Noteid]="" (ReminderEmit)="reminderEvent($event)"></app-reminder>
             <!----------------------------Reminder component ends------------------------------------>
 
             <!----------------------------Collaborator component starts------------------------------------>

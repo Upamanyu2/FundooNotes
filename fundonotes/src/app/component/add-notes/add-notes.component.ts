@@ -21,7 +21,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public bgColor = "#ffffff";
   public isArchived = false;
   public LabelObj = []
-  public LabelObjId=[]
+  public LabelObjId = []
   public dataArray = [];
   public dataArrayApi = [];
   public status;
@@ -33,7 +33,9 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public isChecked = false;
   public addCheck;
   public description;
-  public apiObj={};
+  public apiObj = {};
+  public reminderBody = {};
+  public reminderArray = [];
   /*----------------------------------------------------------------------------------------------------------- */
   constructor(
     private _service: NotesServiceService, //Service file reference is made in the constructor to use it.
@@ -47,11 +49,11 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   /*----------------------------------------------------------------------------------------------------------- */
   ngOnInit() {     //Initialisation function to called while the page is reloaded.
     this.token = localStorage.getItem("token");
-    console.log(this.LabelObj)
+    
   }
   public pinned() {     //Function used for sending the true and false values while the pin is pressed.
     this.pin = !this.pin;
-    console.log(this.pin);
+    
 
   }
 
@@ -60,18 +62,19 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   public addNotes() {             //Used for posting the notes being added.
-    console.log(this.click)
+    
     this.title = document.getElementById("title").innerHTML;
     if (this.click == true) {
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
 
       this.description = document.getElementById("description").innerHTML;
-      
+
 
 
 
       if (this.description == "" && this.title == "") {   //For preventing the api call while the two filds are left empty.
+        this.reminderArray=[];
         this.LabelObj = [];
         return;
       }
@@ -82,7 +85,8 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         'isPined': this.pin,
         'color': changecolor,
         'isArchived': this.isArchived,
-        'labelIdList': JSON.stringify(this.LabelObjId)
+        'labelIdList': JSON.stringify(this.LabelObjId),
+        'reminder':this.reminderArray
       }, this.token)
 
         .subscribe(
@@ -90,40 +94,42 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
             this.closeClicked.emit(true);
             this.LabelObj = [];
-          
+            this.reminderArray=[];
+
           },
           error => {  //On failure of api call.
-
+            this.reminderArray=[];
             this.LabelObj = [];
           });
     }
-    else if(this.click==false){
-      console.log("in")
+    else if (this.click == false) {
+     
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
       for (var i = 0; i < this.dataArray.length; i++) {
         if (this.dataArray[i].isChecked == true) {
           this.status = "close"
-          console.log(this.dataArray[i].isChecked);
-        }
-        else{
          
-            this.status = "open"
-          
+        }
+        else {
+
+          this.status = "open"
+
         }
         this.apiObj = {
           "itemName": this.dataArray[i].data,
           "status": this.status
         }
-       
+
         this.dataArrayApi.push(this.apiObj)
-      
+
       }
-    if(this.title==""){
-      this.dataArray = [];
-      this.dataArrayApi = [];
-      this.LabelObj=[];
-    }
+      if (this.title == "") {
+        this.dataArray = [];
+        this.dataArrayApi = [];
+        this.LabelObj = [];
+        this.reminderArray=[];
+      }
 
       this.body = {
         "title": this.title,
@@ -131,23 +137,24 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         "isPined": this.pin,
         "color": changecolor,
         "isArchived": this.isArchived,
-        "labelIdList": JSON.stringify(this.LabelObjId)
+        "labelIdList": JSON.stringify(this.LabelObjId),
+        'reminder':this.reminderArray
       }
     }
     if (this.title != "") {
       this._service.addNotes("notes/addNotes", this.body, this.token)
         .subscribe(response => {
-          this.click==false;
+          this.click == false;
           this.LabelObj = []
-         
+          this.reminderArray=[]
           this.dataArray = [];
           this.dataArrayApi = [];
           //emitting an event when the note is added
           this.closeClicked.emit(true);
         }, error => {
-          this.click==false;
+          this.click == false;
           this.LabelObj = []
-         
+          this.reminderArray=[]
           this.dataArray = [];
           this.dataArrayApi = [];
 
@@ -157,7 +164,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   /*----------------------------------------------------------------------------------------------------------- */
-  onEnter(event) {
+  onEnter(event) {        //Function working for pushing in checklist array(dataArray).
     if (this.data != "") {
       this.adding = true;
     }
@@ -181,6 +188,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
       this.addCheck = false;
     }
   }
+  /*----------------------------------------------------------------------------------------------------------- */
   // onCheck(){
   //   for (let i = 0; i < this.dataArray.length; i++) {
   //     if (this.dataArray[i].isChecked == true) {
@@ -196,19 +204,26 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   //     // if (this.dataArray[i].isChecked == false || this.dataArray[i].isChecked == undefined) {
   //     //   this.status = "open"
   //     // }
-      
+
   //   }
   // }
-
-  onDelete(dataFromArray){
-    for(let i=0;i<this.dataArray.length;i++){
-      if(this.dataArray[i].index==dataFromArray.index)
-      this.dataArray.splice(i,1)
+  /*----------------------------------------------------------------------------------------------------------- */
+  onDelete(dataFromArray) {         // Function to delete from the checklist array.
+   
+    for (let i = 0; i < this.dataArray.length; i++) {
+      if (this.dataArray[i].index == dataFromArray.index)
+        this.dataArray.splice(i, 1)
     }
   }
 
+  removeReminder() {
+    this.reminderArray.pop()
+
+
+  }
+
   /*----------------------------------------------------------------------------------------------------------- */
-  public toggle1() {
+  public toggle1() {         //Function for toggling the click variable
     this.click = false;
     // this.click = false;
 
@@ -220,7 +235,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   }
 
 
-  public toggle() {        //Toogling function for toggling the checklist view
+  public toggle() {        //Toggling function for toggling the checklist view
     this.check = !this.check
 
 
@@ -249,30 +264,38 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   labels(event) {                   //Function for receiving all the datas of from the child more component
-    
+
     if (event.status == undefined || event.status == false) {
-      console.log(event.status)
+     
       this.LabelObj.push(event.labelObject)
       this.LabelObjId.push(event.labelObject.id);
-      console.log(this.LabelObj)
-     
+      
+
     }
     else if (event.status == true) {
-      console.log("in")
-      for(let i=0;i<this.LabelObj.length;i++){
-        if(this.LabelObj[i].id==event.labelObject.id) {
-          console.log(this.LabelObj[i].id)
-          console.log(event.labelObject.id)
-           this.LabelObj.splice(i,1)
-           this.LabelObjId.splice(i,1)
-           console.log(this.LabelObj);
-        }
-         
-       }
      
-      
+      for (let i = 0; i < this.LabelObj.length; i++) {
+        if (this.LabelObj[i].id == event.labelObject.id) {
+         
+         
+          this.LabelObj.splice(i, 1)
+          this.LabelObjId.splice(i, 1)
+         
+        }
+
+      }
+
+
     }
     
+
+  }
+  reminderEvent(event){
+    console.log(event)
+    if(event.status==true){
+      this.reminderArray=[];
+      this.reminderArray.push(event.details);
+    }
   }
   /*----------------------------------------------------------------------------------------------------------- */
 

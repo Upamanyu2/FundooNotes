@@ -24,12 +24,12 @@ export class GetDeleteComponent implements OnInit { //Exported class
           for (var i = data['data'].data.length - 1; i >= 0; i--) {
             if (data['data'].data[i].isDeleted == true && data['data'].data[i].isArchived == false) {
               this.notes.push(data['data'].data[i]);
-              console.log(data['data'].data[i].id);
+              
             }
           }
         },
         error => {
-          console.log(error);
+          
         }
       )
   }
