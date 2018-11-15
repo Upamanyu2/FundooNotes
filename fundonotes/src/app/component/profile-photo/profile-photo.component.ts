@@ -34,7 +34,7 @@ export class ProfilePhotoComponent implements OnInit {
   img = environment.baseUrl1 + this.image2;
   onUpload() {
     var token = localStorage.getItem('token');
-    console.log(this.croppedImage);
+   
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
     this._service.httpAddImage('user/uploadProfileImage', uploadData, token).subscribe(res => {

@@ -41,8 +41,14 @@
             <img src="../../../assets/image/add10.svg">
           </button>
         </mat-card-header>
+        <mat-card-content class="take_note" *ngIf="hideCheckbox">
+          <div data-text="Take a note.." id="description" contenteditable="true"
+            class="div2">
+          </div>
 
-        <mat-card-content>
+        </mat-card-content>
+
+        <mat-card-content *ngIf="!hideCheckbox">
 
           <div *ngFor="let data of dataArray" fxLayout="row">
             <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked
@@ -78,7 +84,7 @@
 
         <div *ngFor="let reminder of reminderArray" fxLayout="row row wrap">
           <mat-chip-list>
-            <mat-chip >
+            <mat-chip>
               {{reminder | date:'medium'}}
               <mat-icon (click)="$event.stopPropagation(); removeReminder()">
                 cancel</mat-icon>
@@ -108,7 +114,8 @@
           <!------------------------App Post archive ends---------------------------------->
 
           <!------------------------App more starts---------------------------------->
-          <app-more (LabelObj)="labels($event)"></app-more>
+          <app-more (LabelObj)="labels($event)" [showHideData]="showCheckbox"
+            (ParentEmit)="toggleCheckbox($event)" [checkVariable]="check"></app-more>
           <!------------------------App more ends---------------------------------->
 
 
@@ -131,11 +138,39 @@
           </button>
         </mat-card-header>
 
-        <mat-card-content class="take_note">
+        <mat-card-content class="take_note" *ngIf="showCheckbox">
           <div data-text="Take a note.." id="description" contenteditable="true"
             class="div2">
           </div>
 
+        </mat-card-content>
+
+        <mat-card-content *ngIf="!showCheckbox">
+
+          <div *ngFor="let data of dataArray" fxLayout="row">
+            <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked
+              (click)="isChecked=!isChecked"></mat-checkbox>
+            <input fxFlex="90%" class="checkboxInput" *ngIf="!data.isChecked"
+              [(ngModel)]=data.data [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete(data)"
+              matTooltip="delete">cancel</mat-icon>
+          </div>
+          <hr>
+          <div fxLayout="row">
+            <mat-icon fxFlex="5%">add</mat-icon>
+            <input [(ngModel)]=data fxFlex="95%" class="checkboxInput"
+              placeholder="List Item" (keydown.enter)="onEnter($event)"
+              [style.background-color]="bgColor" />
+          </div>
+          <hr>
+          <div *ngFor="let data of dataArray">
+            <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked *ngIf="data.isChecked"
+              (click)="isChecked=!isChecked"></mat-checkbox>
+            <input fxFlex="90%" class="checkboxInput" *ngIf="data.isChecked"
+              [(ngModel)]=data.data [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete(data)"
+              matTooltip="delete">cancel</mat-icon>
+          </div>
         </mat-card-content>
 
         <div fxLayout="row row wrap" *ngFor="let label of LabelObj">
@@ -143,16 +178,16 @@
             <mat-chip>{{label.label}}</mat-chip>
           </mat-chip-list>
         </div>
-        
+
         <div *ngFor="let reminder of reminderArray" fxLayout="row row wrap">
-            <mat-chip-list>
-              <mat-chip>
-                {{reminder | date:'medium'}}
-                <mat-icon (click)="$event.stopPropagation(); removeReminder()">
-                  cancel</mat-icon>
-              </mat-chip>
-            </mat-chip-list>
-          </div>
+          <mat-chip-list>
+            <mat-chip>
+              {{reminder | date:'medium'}}
+              <mat-icon (click)="$event.stopPropagation(); removeReminder()">
+                cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
 
         <mat-card-actions flexLayout="row">
           <div fxFlex="90%">
@@ -177,7 +212,8 @@
             <!----------------------------Post archive component ends------------------------------------>
 
             <!----------------------------More component starts------------------------------------>
-            <app-more (LabelObj)="labels($event)"></app-more>
+            <app-more (LabelObj)="labels($event)" [showHideData]="showCheckbox"
+              [showHideData1]="hideCheckbox" (ParentEmit)="toggleCheckbox($event)"></app-more>
             <!----------------------------More component ends------------------------------------>
           </div>
           <button fxLayoutAllign="end" mat-button (click)="note1=!note1;toggle2(); addNotes()">

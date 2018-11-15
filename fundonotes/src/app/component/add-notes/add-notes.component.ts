@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';//Importing the output input and the event emitter for connecting child to parent.
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file for calling the post api.
 import { MatSnackBar } from '@angular/material';//Importing properties of snackbar.
-
+import { LoggerServiceService } from '../../core/service/logger/logger-service.service';
 /*----------------------------------------------------------------------------------------------------------- */
 
 @Component({
@@ -36,6 +36,8 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public apiObj = {};
   public reminderBody = {};
   public reminderArray = [];
+  public showCheckbox=true;
+  public hideCheckbox;
   /*----------------------------------------------------------------------------------------------------------- */
   constructor(
     private _service: NotesServiceService, //Service file reference is made in the constructor to use it.
@@ -49,11 +51,11 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   /*----------------------------------------------------------------------------------------------------------- */
   ngOnInit() {     //Initialisation function to called while the page is reloaded.
     this.token = localStorage.getItem("token");
-    
+
   }
   public pinned() {     //Function used for sending the true and false values while the pin is pressed.
     this.pin = !this.pin;
-    
+
 
   }
 
@@ -62,7 +64,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   public addNotes() {             //Used for posting the notes being added.
-    
+
     this.title = document.getElementById("title").innerHTML;
     if (this.click == true) {
       let changecolor = this.bgColor;
@@ -74,7 +76,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
       if (this.description == "" && this.title == "") {   //For preventing the api call while the two filds are left empty.
-        this.reminderArray=[];
+        this.reminderArray = [];
         this.LabelObj = [];
         return;
       }
@@ -86,7 +88,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         'color': changecolor,
         'isArchived': this.isArchived,
         'labelIdList': JSON.stringify(this.LabelObjId),
-        'reminder':this.reminderArray
+        'reminder': this.reminderArray
       }, this.token)
 
         .subscribe(
@@ -94,22 +96,22 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
             this.closeClicked.emit(true);
             this.LabelObj = [];
-            this.reminderArray=[];
+            this.reminderArray = [];
 
           },
           error => {  //On failure of api call.
-            this.reminderArray=[];
+            this.reminderArray = [];
             this.LabelObj = [];
           });
     }
     else if (this.click == false) {
-     
+
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
       for (var i = 0; i < this.dataArray.length; i++) {
         if (this.dataArray[i].isChecked == true) {
           this.status = "close"
-         
+
         }
         else {
 
@@ -128,7 +130,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         this.dataArray = [];
         this.dataArrayApi = [];
         this.LabelObj = [];
-        this.reminderArray=[];
+        this.reminderArray = [];
       }
 
       this.body = {
@@ -138,7 +140,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         "color": changecolor,
         "isArchived": this.isArchived,
         "labelIdList": JSON.stringify(this.LabelObjId),
-        'reminder':this.reminderArray
+        'reminder': this.reminderArray
       }
     }
     if (this.title != "") {
@@ -146,7 +148,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         .subscribe(response => {
           this.click == false;
           this.LabelObj = []
-          this.reminderArray=[]
+          this.reminderArray = []
           this.dataArray = [];
           this.dataArrayApi = [];
           //emitting an event when the note is added
@@ -154,7 +156,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         }, error => {
           this.click == false;
           this.LabelObj = []
-          this.reminderArray=[]
+          this.reminderArray = []
           this.dataArray = [];
           this.dataArrayApi = [];
 
@@ -209,7 +211,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   // }
   /*----------------------------------------------------------------------------------------------------------- */
   onDelete(dataFromArray) {         // Function to delete from the checklist array.
-   
+
     for (let i = 0; i < this.dataArray.length; i++) {
       if (this.dataArray[i].index == dataFromArray.index)
         this.dataArray.splice(i, 1)
@@ -240,7 +242,9 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   }
-
+  public toggle3(){
+    
+  }
 
 
   /*----------------------------------------------------------------------------------------------------------- */
@@ -266,35 +270,50 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   labels(event) {                   //Function for receiving all the datas of from the child more component
 
     if (event.status == undefined || event.status == false) {
-     
+
       this.LabelObj.push(event.labelObject)
       this.LabelObjId.push(event.labelObject.id);
-      
+
 
     }
     else if (event.status == true) {
-     
+
       for (let i = 0; i < this.LabelObj.length; i++) {
         if (this.LabelObj[i].id == event.labelObject.id) {
-         
-         
+
+
           this.LabelObj.splice(i, 1)
           this.LabelObjId.splice(i, 1)
-         
+
         }
 
       }
 
 
     }
-    
+
 
   }
-  reminderEvent(event){
-    console.log(event)
-    if(event.status==true){
-      this.reminderArray=[];
+  reminderEvent(event) {
+  
+    if (event.status == true) {
+      this.reminderArray = [];
       this.reminderArray.push(event.details);
+    }
+  }
+  toggleCheckbox(event) {
+    if (event==true) {
+      this.showCheckbox = event
+      this.hideCheckbox = !event;
+      LoggerServiceService.data(this.showCheckbox)
+      LoggerServiceService.data(this.hideCheckbox)
+     
+    }
+    else {
+      this.showCheckbox = event
+      this.hideCheckbox = !event;
+      LoggerServiceService.data(this.showCheckbox)
+      LoggerServiceService.data(this.hideCheckbox)
     }
   }
   /*----------------------------------------------------------------------------------------------------------- */

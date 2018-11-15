@@ -25,7 +25,7 @@ export class PostArchiveComponent implements OnInit {
 
 
 postArchivedNotes(flag){
-  // console.log(this.Noteid.id);
+
   let noteId=[];
   if(this.Noteid!=null && this.Noteid.noteLabels.length!=undefined){
     noteId.push(this.Noteid.id);
@@ -36,11 +36,11 @@ postArchivedNotes(flag){
     this.token)
     .subscribe(
       data=>{
-      console.log(data);
+      
       this.ArchiveClicked.emit(true);
       },
       error=>{
-     console.log(error);
+   
      
       }
     )

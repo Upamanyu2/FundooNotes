@@ -17,10 +17,11 @@ import { ProfilePhotoComponent } from '../profile-photo/profile-photo.component'
   styleUrls: ['./navigation-bar.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class NavigationBarComponent implements OnInit {
   public labelList = [];
   public imageChangedEvent: any = '';
-
+  public title:any;
   /*--------------------------------------------------------------------------------------------------------------------*/
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -44,6 +45,7 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit() {
     this.firstname.push(localStorage.getItem('FirstName'));
     this.getLabel();
+    this.title="Fundoo";
     this.search.currentMessage.subscribe(message => this.message = message) //Subcribing the search message
   }
   /*--------------------------------------------------------------------------------------------------------------------*/
@@ -51,7 +53,7 @@ export class NavigationBarComponent implements OnInit {
 
     this._service1.getNoteJson("noteLabels/getNoteLabelList", this.token)
       .subscribe((data) => {
-        console.log(data);
+       
         this.labelList = [];
         for (var i = 0; i < data["data"].details.length; i++) {
           if (data["data"].details[i].isDeleted == false) {
@@ -63,7 +65,7 @@ export class NavigationBarComponent implements OnInit {
 
       },
         error => {
-          console.log(error);
+         
 
         })
   }
@@ -98,16 +100,16 @@ export class NavigationBarComponent implements OnInit {
 
   /*--------------------------------------------------------------------------------------------------------------------*/
   public logout() {  //Funtion to call the logout service function.
-    console.log(this.token);
+    
     this._service.logoutService("user/logout", this.token)
       .subscribe(
         data => {          //On success
-          console.log(data);
+         
           localStorage.clear(); //clearing all local storage
           this.router.navigate(['login']); //redirecting to login page
         },
         error => {               //On failure
-          console.log(error);
+         
         }
       )
 
@@ -117,11 +119,11 @@ export class NavigationBarComponent implements OnInit {
   /*--------------------------------------------------------------------------------------------------------------------*/
 
   onKeydown(event) {  //Functiion for catching all the values from the search bar
-    console.log(event.target.value);
+   
     this.search.changeMessage(event.target.value);
   }
   refresh(event) {    //Function for handling the emitted event
-    console.log(event)
+   
   }
   /*--------------------------------------------------------------------------------------------------------------------*/
   grid = 0;
@@ -132,6 +134,12 @@ export class NavigationBarComponent implements OnInit {
   viewGrid() {    //Function for toggling to list view 
     this.grid = 0;
     this.search.changeView(false);
+  }
+  changeTitle(heading){
+    this.title=heading;
+  }
+  label(event){
+    this.title=event;
   }
   /*--------------------------------------------------------------------------------------------------------------------*/
 }

@@ -18,7 +18,7 @@ export class ReminderComponentComponent implements OnInit {
   getReminderNotes() {
     this.service.getNotes('notes/getReminderNotesList', this.token)
       .subscribe(result => {
-        console.log(result);
+
         this.reminder = result['data'].data;
       })
   }

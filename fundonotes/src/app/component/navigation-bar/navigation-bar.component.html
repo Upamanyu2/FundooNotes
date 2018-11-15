@@ -3,7 +3,7 @@
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
-    <span class="title">Fundoo</span>
+    <span class="title">{{title}}</span>
     <button class="search-button" aria-label="Toggle sidenav" mat-icon-button
         aria-label="Toggle sidenav">
         <mat-icon aria-label="Side nav toggle icon">search</mat-icon>
@@ -101,21 +101,21 @@
     <mat-sidenav #drawer class="sidenav" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async)">
         <mat-nav-list>
-            <a mat-list-item routerLink="notes"><span class="Notes"><img src="../../../assets/image/add..svg"></span><span
+            <a mat-list-item routerLink="notes" (click)="changeTitle('Fundoo')"><span class="Notes" ><img src="../../../assets/image/add..svg"></span><span
                     class="Notes">Notes</span></a>
-            <a mat-list-item routerLink="reminder"><span class="Notes"><img src="../../../assets/image/add1.svg"></span><span
+            <a mat-list-item routerLink="reminder" (click)="changeTitle('Reminders')"><span class="Notes" ><img src="../../../assets/image/add1.svg"></span><span
                     class="Notes">Reminder</span></a>
             <hr class="line">
             <a mat-list-item href="#"><span class="label" class="Notes1">Labels</span><span
                     class="edit"><b>EDIT</b></span></a>
             <!-------------------Add label starts---------------------------->
-            <app-add-label></app-add-label>
+            <app-add-label (Name)="label($event)"></app-add-label>
             <!-------------------Add label ends---------------------------->
 
             <hr class="line">
-            <a mat-list-item routerLink="Archive"><span class="Notes"><img src="../../../assets/image/add3.svg"></span><span
+            <a mat-list-item routerLink="Archive" (click)="changeTitle('Archive')"><span class="Notes" ><img src="../../../assets/image/add3.svg"></span><span
                     class="Notes">Archive</span></a>
-            <a mat-list-item routerLink="Trash"><span class="Notes"><img src="../../../assets/image/add4.svg"></span><span
+            <a mat-list-item routerLink="Trash" (click)="changeTitle('Trash')"><span class="Notes"><img src="../../../assets/image/add4.svg"></span><span
                     class="Notes">Trash</span></a>
             <hr class="line">
             <a mat-list-item href="#"><span class="Notes"><img src="../../../assets/image/add5.svg"></span><span

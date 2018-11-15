@@ -20,7 +20,7 @@ export class ThemeComponent implements OnInit {
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   setcolor(str) {   //Function to take the hash codes as input while clicking any color in the color pallete
-    // console.log(this.Noteid.id);
+    
     this.ColorChanged.emit(str)
     if (this.Noteid != null) {
       let noteId = []
@@ -32,11 +32,11 @@ export class ThemeComponent implements OnInit {
         this.token)
         .subscribe(
           data => {
-            console.log(data);
+          
             this.ColorClicked.emit(true);
           },
           error => {
-            console.log(error);
+         
 
           }
         )

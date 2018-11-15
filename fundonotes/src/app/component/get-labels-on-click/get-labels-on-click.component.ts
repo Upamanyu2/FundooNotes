@@ -37,7 +37,7 @@ export class GetLabelsOnClickComponent implements OnInit { //Exported class
         }
       },
         error => {
-          console.log(error);
+          
         })
   }
 

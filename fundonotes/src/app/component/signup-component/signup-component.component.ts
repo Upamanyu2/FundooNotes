@@ -37,13 +37,13 @@ export class SignupComponentComponent implements OnInit {
 
     let obs = this._service.getData("user/service");
     obs.subscribe((response) => {
-      console.log(response);
+      
       var data = response["data"];
       for (var i = 0; i < data.data.length; i++) {
         data.data[i].select = false;
         this.cards.push(data.data[i]);
       }
-      console.log("cards:", this.cards);
+      
     });
   }
 

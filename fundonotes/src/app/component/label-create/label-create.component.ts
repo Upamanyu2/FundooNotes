@@ -56,11 +56,11 @@ public labelList=[];
     },this.token)
     .subscribe(
       data=>{
-        console.log(data); 
         
+       
       },
       error=>{
-        console.log(error)
+       
       }
     ) 
   }
@@ -69,7 +69,7 @@ public labelList=[];
   
       this._service.getNoteJson("noteLabels/getNoteLabelList",this.token)
       .subscribe((data)=>{
-    console.log(data);
+   
     this.labelList=[];
     for(var i=0;i<data["data"].details.length;i++){
       if(data["data"].details[i].isDeleted == false){
@@ -81,7 +81,7 @@ public labelList=[];
     
       },
       error=>{
-    console.log(error);
+  
 
       })
  }
@@ -90,12 +90,12 @@ public labelList=[];
    this._service1.labelDeleteService("noteLabels/"+id+"/deleteNoteLabel")
    .subscribe(
      data=>{
-       console.log(data);
+       
        this.getLabel();
        
      },
      error=>{
-       console.log(error);
+      
        
      }
    )
@@ -109,13 +109,13 @@ updateLabel(id){
   },this.token)
   .subscribe(
     data=>{
-   console.log(data);
+ 
    this.getLabel();
    
    
     },
     error=>{
-   console.log(error);
+  
   
     }
 
@@ -124,7 +124,7 @@ updateLabel(id){
 /*----------------------------------------------------------------------------------------------------- */    
 editLabel(id){
 this.editId=id;
-console.log(this.editId);
+
 }
 
 }

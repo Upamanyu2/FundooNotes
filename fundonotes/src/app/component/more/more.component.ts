@@ -12,6 +12,8 @@ export class MoreComponent implements OnInit {
   private token = localStorage.getItem("token");
   public labelList = [];
   public searchLabel;
+
+
   constructor(
     private _service: NotesServiceService,
     private _service1: LabelServiceService,
@@ -19,11 +21,14 @@ export class MoreComponent implements OnInit {
 
   ) { }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
-
+  @Input() showHideData;
+  @Input() showHideData1;
   @Input() Noteid: any;
   @Input() Delete: any;
+  @Input() checkVariable: boolean
   @Output() DeleteClicked = new EventEmitter<any>(); // Event emitter for emitting the deleted arrray while it is getting posted.
   @Output() LabelObj = new EventEmitter<any>();
+  @Output() ParentEmit = new EventEmitter<any>();
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
 
@@ -45,11 +50,11 @@ export class MoreComponent implements OnInit {
         this.token)
         .subscribe(
           data => {
-            console.log(data);
+            
             this.DeleteClicked.emit(true);
           },
           error => {
-            console.log(error);
+           
 
           }
         )
@@ -73,11 +78,11 @@ export class MoreComponent implements OnInit {
         this.token)
         .subscribe(
           data => {
-            console.log(data);
+           
             this.DeleteClicked.emit(true);
           },
           error => {
-            console.log(error);
+           
 
           }
         )
@@ -91,7 +96,7 @@ export class MoreComponent implements OnInit {
 
     this._service.getNoteJson("noteLabels/getNoteLabelList", this.token)
       .subscribe((data) => {
-        // console.log(data);
+        
         this.labelList = [];
         for (var i = 0; i < data["data"].details.length; i++) {
           if (data["data"].details[i].isDeleted == false) {
@@ -113,7 +118,7 @@ export class MoreComponent implements OnInit {
         }
       },
         error => {
-          console.log(error);
+          
 
         })
   }
@@ -123,11 +128,11 @@ export class MoreComponent implements OnInit {
 
     this._service1.addLabelToNotes("notes/" + noteId + "/addLabelToNotes/" + id + "/add", this.token)
       .subscribe(data => {
-        console.log(data);
+        
         this.DeleteClicked.emit(true);
       },
         error => {
-          console.log(error);
+          
 
         })
   }
@@ -139,11 +144,11 @@ export class MoreComponent implements OnInit {
 
     this._service1.addLabelToNotes("notes/" + noteId + "/addLabelToNotes/" + id + "/remove", this.token)
       .subscribe(data => {
-        console.log(data);
+      
         this.DeleteClicked.emit(true);
       },
         error => {
-          console.log(error);
+         
 
         })
   }
@@ -158,5 +163,39 @@ export class MoreComponent implements OnInit {
     else if (this.Noteid != null && label.isChecked == false)
       this.addNotesToLabelPost(id);
   }
+  public showCheckbox = this.showHideData;
+  public hideButton=false;
+  public toggleShowHideCheckboxes() {
+    if(this.checkVariable==true){
+      this.showCheckbox = true;
+      this.ParentEmit.emit(this.showCheckbox );
+     
+        this.hideButton = !this.hideButton;
+    }
+    else {
+      this.showCheckbox = false
+      this.ParentEmit.emit(this.showCheckbox);
+      this.hideButton = !this.hideButton;
+    }
+   
+
+    
+  }
+  public toggleShowHideCheckboxes1() {
+    if(this.checkVariable==false){
+      this.showCheckbox = false;
+      this.ParentEmit.emit(this.showCheckbox);
+      
+        this.hideButton = !this.hideButton;
+    }
+    else {
+      this.showCheckbox = true;
+      this.ParentEmit.emit(this.showCheckbox);
+      this.hideButton = !this.hideButton;
+    }
+   
+  }
+
+
 
 }  

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';//Importing all the dependencies
+import { Component, OnInit,Output, EventEmitter } from '@angular/core';//Importing all the dependencies
 import { MatDialog } from '@angular/material'; //Importing the mat dialog
 import { LabelCreateComponent } from '../label-create/label-create.component'; //Importing label create component
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service'; //Importing notes service
@@ -11,12 +11,14 @@ import { Router } from '@angular/router';//Importing router
 })
 /*------------------------------------------------------------------------------------------ */
 export class AddLabelComponent implements OnInit {   //Exported class
+ 
   public labelList = [];
   private token = localStorage.getItem("token");
   constructor(
     public dialog: MatDialog,
     private _service: NotesServiceService,
     public router: Router) { this.getLabel(); }
+    @Output() Name = new EventEmitter<any>();
 /*------------------------------------------------------------------------------------------ */
   ngOnInit() {
   }
@@ -28,7 +30,7 @@ export class AddLabelComponent implements OnInit {   //Exported class
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      
       this.getLabel();
     });
   }
@@ -39,17 +41,18 @@ export class AddLabelComponent implements OnInit {   //Exported class
 
     this._service.getNoteJson("noteLabels/getNoteLabelList", this.token)
       .subscribe((data) => {
-        console.log(data);
+       
         this.labelList = [];
         for (var i = 0; i < data["data"].details.length; i++) {
           if (data["data"].details[i].isDeleted == false) {
             this.labelList.push(data["data"].details[i]);
+            
           }
 
         }
       },
         error => {
-          console.log(error);
+        
 
         })
   }
@@ -57,6 +60,8 @@ export class AddLabelComponent implements OnInit {   //Exported class
   labelsClicked(labels) {    //Function for handling all the emitted events
     let labelName = labels.label;
     this.router.navigate(['home/label/' + labelName]);
+    this.Name.emit(labelName);
   }
+  
 /*------------------------------------------------------------------------------------------ */
 }

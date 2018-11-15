@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
   /*------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {                  // function executes while initialization
     this.token = this.route.snapshot.params['token'];
-    console.log(this.token);
+   
 
     this.resetPasswordForm = this.formBuilder.group({
       pass: ['', [Validators.required, Validators.minLength(6)]],
@@ -63,14 +63,14 @@ export class ResetPasswordComponent implements OnInit { //Exported class
     this._service1.postNotes("user/reset-password", { "newPassword": password }, this.token)
       .subscribe(
         data => {
-          console.log("POST Request is successful ", data);
+         
           this.snackBar.open('Password change sucessfull', 'redirecting...', {
             duration: 2000,
           });
           this.router.navigate(['/',]);
         },
         error => {
-          console.log("Error", error);
+          
           this.snackBar.open('Time over', 'try again sending a new mail', {
             duration: 2000,
           });

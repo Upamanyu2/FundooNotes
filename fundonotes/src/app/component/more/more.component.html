@@ -17,5 +17,14 @@
                     <div fxLayout="row"><span><mat-checkbox (click)="$event.stopPropagation();  check(name,name.id)" [(ngModel)]="name.isChecked" >{{name.label}}</mat-checkbox></span></div>
                 </button>
           </mat-menu>
-          <button mat-menu-item *ngIf="!Delete">Show checkbox</button> 
+          <div *ngIf="checkVariable">
+            <button mat-menu-item *ngIf="!Delete && hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes()">Show checkbox</button>
+            <button mat-menu-item *ngIf="!Delete && !hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes1()">Hide checkbox</button>
+          </div>
+          <div *ngIf="!checkVariable">
+            <button mat-menu-item *ngIf="!Delete && !hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes()">Show checkbox</button>
+            <button mat-menu-item *ngIf="!Delete && hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes1()">Hide checkbox</button>
+          </div>
+          
+           
         </mat-menu>

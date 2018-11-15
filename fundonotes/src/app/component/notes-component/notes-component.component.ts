@@ -19,7 +19,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
   ngOnInit() {
     this.token = localStorage.getItem("token");
     this.getNotes();
-    console.log(this.notes);
+  
    
   }
 
@@ -36,7 +36,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
       .subscribe(
         data => {
           this.notes=[];
-          console.log(data['data'].data);
+          
           for (var i = data['data'].data.length - 1; i >= 0; i--) {
             if (data['data'].data[i].isDeleted == false && data['data'].data[i].isArchived == false) {
               this.notes.push(data['data'].data[i]);
@@ -48,7 +48,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
 
         },
         error => {
-          console.log(error);
+          
 
         });
   }
