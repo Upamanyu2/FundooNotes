@@ -69,7 +69,7 @@
           <div *ngFor="let data of dataArray">
             <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked *ngIf="data.isChecked"
               (click)="isChecked=!isChecked"></mat-checkbox>
-            <input fxFlex="90%" class="checkboxInput" *ngIf="data.isChecked"
+            <input fxFlex="90%" class="checkboxInput NotesStriked" *ngIf="data.isChecked"
               [(ngModel)]=data.data [style.backgroundColor]="bgColor">
             <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete(data)"
               matTooltip="delete">cancel</mat-icon>
@@ -166,7 +166,7 @@
           <div *ngFor="let data of dataArray">
             <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked *ngIf="data.isChecked"
               (click)="isChecked=!isChecked"></mat-checkbox>
-            <input fxFlex="90%" class="checkboxInput" *ngIf="data.isChecked"
+            <input fxFlex="90%" class="checkboxInput NotesStriked" *ngIf="data.isChecked"
               [(ngModel)]=data.data [style.backgroundColor]="bgColor">
             <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete(data)"
               matTooltip="delete">cancel</mat-icon>

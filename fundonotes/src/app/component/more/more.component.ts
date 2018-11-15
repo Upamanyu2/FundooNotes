@@ -166,6 +166,7 @@ export class MoreComponent implements OnInit {
   public showCheckbox = this.showHideData;
   public hideButton=false;
   public toggleShowHideCheckboxes() {
+  
     if(this.checkVariable==true){
       this.showCheckbox = true;
       this.ParentEmit.emit(this.showCheckbox );
@@ -182,14 +183,15 @@ export class MoreComponent implements OnInit {
     
   }
   public toggleShowHideCheckboxes1() {
-    if(this.checkVariable==false){
-      this.showCheckbox = false;
+    
+    if(this.checkVariable==false || this.checkVariable==undefined){
+      this.showCheckbox = true;
       this.ParentEmit.emit(this.showCheckbox);
       
         this.hideButton = !this.hideButton;
     }
     else {
-      this.showCheckbox = true;
+      this.showCheckbox = false;
       this.ParentEmit.emit(this.showCheckbox);
       this.hideButton = !this.hideButton;
     }

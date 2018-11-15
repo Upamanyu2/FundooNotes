@@ -66,7 +66,8 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public addNotes() {             //Used for posting the notes being added.
 
     this.title = document.getElementById("title").innerHTML;
-    if (this.click == true) {
+    if (this.click == true && this.showCheckbox==true && this.hideCheckbox==false) {
+      console.log("h")
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
 
@@ -104,7 +105,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
             this.LabelObj = [];
           });
     }
-    else if (this.click == false) {
+    else if (this.click == false && this.showCheckbox==false && this.hideCheckbox==true) {
 
       let changecolor = this.bgColor;
       this.bgColor = '#ffffff';
@@ -305,15 +306,15 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
     if (event==true) {
       this.showCheckbox = event
       this.hideCheckbox = !event;
-      LoggerServiceService.data(this.showCheckbox)
-      LoggerServiceService.data(this.hideCheckbox)
+      console.log(this.showCheckbox)
+      console.log(this.hideCheckbox)
      
     }
     else {
       this.showCheckbox = event
       this.hideCheckbox = !event;
-      LoggerServiceService.data(this.showCheckbox)
-      LoggerServiceService.data(this.hideCheckbox)
+      console.log(this.showCheckbox)
+      console.log(this.hideCheckbox)
     }
   }
   /*----------------------------------------------------------------------------------------------------------- */
