@@ -59,6 +59,7 @@ import { MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/mate
 import { MatMenuModule } from '@angular/material/menu';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ProfilePhotoComponent } from './component/profile-photo/profile-photo.component';
+import { MessagingService } from './core/service/dataService/notifaticationService/messaging.service';
 
 
 /*------------------------------------------------------------------------------ */
@@ -134,7 +135,7 @@ import { ProfilePhotoComponent } from './component/profile-photo/profile-photo.c
     MatNativeDateModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [MessagingService],
   bootstrap: [AppComponent],
   entryComponents: [EditComponent, NoteCardComponent, LabelCreateComponent, AddLabelComponent, NavigationBarComponent, ProfilePhotoComponent]
 

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { ServiceService } from '../../core/service/http/user/service.service'; //Importing the service file
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the notes service file
 import { Router } from '@angular/router';//Importing the  router file
-import { SearchServiceService } from '../../core/service/searchService/search-service.service'//Importing the search service file
+import { SearchServiceService } from '../../core/service/dataService/searchService/search-service.service'//Importing the search service file
 import { environment } from '../../../environments/environment';
 import { MatDialog } from '@angular/material';
 import { ProfilePhotoComponent } from '../profile-photo/profile-photo.component'
@@ -83,7 +83,7 @@ export class NavigationBarComponent implements OnInit {
   public pic;
   openDialog(data): void {       //Function for the dialog box
     const dialogRef = this.dialog.open(ProfilePhotoComponent, {
-      width: '1000px',
+      width: '300px',
       data: data
     });
 

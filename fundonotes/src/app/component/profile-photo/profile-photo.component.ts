@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
 import { ServiceService } from '../../core/service/http/user/service.service';
 import { environment } from '../../../environments/environment';
-import { SearchServiceService } from '../../core/service/searchService/search-service.service'
+import { SearchServiceService } from '../../core/service/dataService/searchService/search-service.service'
 /*-----------------------------------------------------------------------------------*/
 @Component({
   selector: 'app-profile-photo',

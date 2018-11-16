@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ServiceService } from '../../core/service/http/user/service.service' ;
+import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import{ LoggerServiceService } from '../../core/service/logger/logger-service.service'
 @Component({
   selector: 'app-login-component',
   templateUrl: './login-component.component.html',
@@ -13,7 +15,9 @@ export class LoginComponentComponent implements OnInit {
   submitted = false;
   model: any ={};
   loginForm : FormGroup;
+  body={};
   constructor(private _service : ServiceService,
+    private _service1:NotesServiceService,
      private formBuilder : FormBuilder,
       public snackBar: MatSnackBar,
       public router:Router
@@ -66,11 +70,19 @@ export class LoginComponentComponent implements OnInit {
           localStorage.setItem("token",data['id'])
            localStorage.setItem("FirstName",data['firstName']);
            console.log(data['userId']);
-           
            localStorage.setItem("UserId",data['userId']);
            localStorage.setItem("imageUrl",data['imageUrl'])
-           
-          // console.log(data['id']);
+           var pushedToken=localStorage.getItem("pushToken")
+           this.body={
+             "pushToken":pushedToken
+           }
+          this._service1.postNotes("user/registerPushToken",this.body,localStorage.getItem('token'))
+          .subscribe(reult=>{
+           LoggerServiceService.log("Post is successful");
+          },
+          error=>{
+            LoggerServiceService.log("Unsuccesful, rendered some problem");
+          })
           
           this.router.navigate(['../home','notes']);           //for navigating to the home page. 
         },

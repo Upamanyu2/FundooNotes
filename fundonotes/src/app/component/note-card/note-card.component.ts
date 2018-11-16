@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';/
 import { MatDialog } from '@angular/material';//Importing the matdialog
 import { EditComponent } from '../edit/edit.component'//Importing edit component
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file for calling the post api.
-import { SearchServiceService } from 'src/app/core/service/searchService/search-service.service';//Importing search service
+import { SearchServiceService } from 'src/app/core/service/dataService/searchService/search-service.service';//Importing search service
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
 @Component({ //Importing dependency injection of component
@@ -13,7 +13,8 @@ import { SearchServiceService } from 'src/app/core/service/searchService/search-
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 export class NoteCardComponent implements OnInit {// Exported class
   public modifiedCheckList;
-
+  public todayDate=new Date();
+  public tomorrowDate=new Date();
   constructor(
     public dialog: MatDialog,
     private data: SearchServiceService,
@@ -28,6 +29,7 @@ export class NoteCardComponent implements OnInit {// Exported class
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   ngOnInit() {
     this.view();
+    this.tomorrowDate.setDate(this.tomorrowDate.getDate()+1);
     
   }
   toggle = false;

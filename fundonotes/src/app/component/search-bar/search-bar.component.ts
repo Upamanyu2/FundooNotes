@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
-import { SearchServiceService } from '../../core/service/searchService/search-service.service'
+import { SearchServiceService } from '../../core/service/dataService/searchService/search-service.service'
 /*------------------------------------------------------------------------------------------- */
 @Component({      //Injected dependency for component
   selector: 'app-search-bar',

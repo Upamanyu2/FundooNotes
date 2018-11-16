@@ -36,7 +36,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public apiObj = {};
   public reminderBody = {};
   public reminderArray = [];
-  public showCheckbox=true;
+  public showCheckbox = true;
   public hideCheckbox;
   /*----------------------------------------------------------------------------------------------------------- */
   constructor(
@@ -66,11 +66,9 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   public addNotes() {             //Used for posting the notes being added.
 
     this.title = document.getElementById("title").innerHTML;
-    if (this.click == true && this.showCheckbox==true && this.hideCheckbox==false) {
-      console.log("h")
-      let changecolor = this.bgColor;
-      this.bgColor = '#ffffff';
-
+    let changecolor = this.bgColor;
+    this.bgColor = '#ffffff';
+    if (this.click == true) {
       this.description = document.getElementById("description").innerHTML;
 
 
@@ -105,10 +103,11 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
             this.LabelObj = [];
           });
     }
-    else if (this.click == false && this.showCheckbox==false && this.hideCheckbox==true) {
 
-      let changecolor = this.bgColor;
-      this.bgColor = '#ffffff';
+
+    // let changecolor = this.bgColor;
+    // this.bgColor = '#ffffff';
+    else if (this.click == false) {
       for (var i = 0; i < this.dataArray.length; i++) {
         if (this.dataArray[i].isChecked == true) {
           this.status = "close"
@@ -243,8 +242,8 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   }
-  public toggle3(){
-    
+  public toggle3() {
+
   }
 
 
@@ -296,25 +295,28 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
   }
   reminderEvent(event) {
-  
+
     if (event.status == true) {
       this.reminderArray = [];
       this.reminderArray.push(event.details);
     }
   }
+  
   toggleCheckbox(event) {
-    if (event==true) {
+    // this.click==event
+    // LoggerServiceService.data(this.click)
+    if (event == false) {
       this.showCheckbox = event
       this.hideCheckbox = !event;
-      console.log(this.showCheckbox)
-      console.log(this.hideCheckbox)
-     
+      // console.log(this.showCheckbox)
+      // console.log(this.hideCheckbox)
+
     }
     else {
       this.showCheckbox = event
       this.hideCheckbox = !event;
-      console.log(this.showCheckbox)
-      console.log(this.hideCheckbox)
+      // console.log(this.showCheckbox)
+      // console.log(this.hideCheckbox)
     }
   }
   /*----------------------------------------------------------------------------------------------------------- */
