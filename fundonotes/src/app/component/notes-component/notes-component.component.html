@@ -1,24 +1,15 @@
-<!--Outer div starts-->
-<div fxLayout="column">
-    <!---------------------Add note starts------------------------------>
-    <app-add-notes (closeClicked)="displayCard($event)"></app-add-notes>
-    <!---------------------Add note ends------------------------------>
-
-    <div fxLayout="row">
-<div fxFlex="12%" fxShow.lg=true fxShow.md=true fxShow.sm=true fxShow.xs=false></div>
-        <div fxFlex="88%">
+<!---------------------Add note starts------------------------------>
+<app-add-notes (closeClicked)="displayCard($event)"></app-add-notes>
+<!---------------------Add note ends------------------------------>
 
 
-            <!--------------------Note card starts----------------------------->
-            <app-note-card [notesListArray]="notes" (refreshClickedDeleteLabel)="refresh($event)"
-                (refreshClicked)="displayCard($event)" (updateCard)="displayCard($event)">
-            </app-note-card>
-            <!--------------------Note card ends----------------------------->
 
 
-        </div>
-        <!-- <div fxFlex="12%"></div> -->
-    </div>
 
-</div>
-<!--Outer div ends-->
+
+<!--------------------Note card starts----------------------------->
+<app-note-card [notesListArray]="notes" (refreshClickedDeleteLabel)="refresh($event)" 
+(refreshClicked)="displayCard($event)"
+    (updateCard)="displayCard($event)">
+</app-note-card>
+<!--------------------Note card ends----------------------------->

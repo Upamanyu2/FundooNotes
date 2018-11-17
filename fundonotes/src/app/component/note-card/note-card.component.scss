@@ -1,27 +1,102 @@
 .grid-view{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;   
+    flex-wrap: wrap;  
+     
 }
+
 @media only screen and (max-width: 640px){
     .grid-view{
         margin-top: 10% !important;
     }
 }
+
 .list-view{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    padding-left: 5%;
+}
+@media only screen and (min-width: 0px) and  (max-width: 320px){
+    .grid-card{
+        width:270px !important;
+        word-break: break-all;
+    }
+}
+@media only screen and (min-width: 360px) and (max-width: 375px){
+    .grid-card{
+        width:315px!important;
+        word-break: break-all;
+    }
+}
+@media only screen and (min-width: 375px) and (max-width: 411px){
+    .grid-card{
+        width:328px!important;
+        word-break: break-all;
+    }
+}
+@media only screen and (min-width: 411px) and (max-width: 768px){
+    .grid-card{
+        width:360px!important;
+        word-break: break-all;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+    .grid-card{
+        width:270px!important;
+        word-break: break-all;
+    }
+    .list-card{
+        width:450px !important;
+        word-break: break-all; 
+    }
+    
+}
+@media only screen and (min-width: 1024px) and (max-width: 1299px){
+    .grid-card{
+        width:210px!important;
+        word-break: break-all;
+    }
+    .list-card{
+        width:630px !important;
+        word-break: break-all; 
+    }
+    .grid-view{
+        margin-left:5%;
+    }
+    
+}
+@media only screen and (min-width: 1299px) and (max-width: 1360px){
+    .grid-card{
+        width:270px!important;
+        word-break: break-all;
+    }
+    
+    .list-card{
+        width:850px !important;
+        word-break: break-all; 
+    }
+    .grid-view{
+        margin-left:0%;
+    }
+}
+@media only screen and (min-width: 1366px) and (max-width: 1500px){
+    .grid-card{
+        width:270px!important;
+        word-break: break-all;
+    }
+}
+@media only screen and (min-width: 1500px) and (max-width: 4000px){
+    .grid-card{
+        width:270px!important;
+        word-break: break-all;
+    }
 }
 
-.grid-card{
-    width:255px;
-    word-break: break-all;
-}
-.list-card{
-    width:850px;
-    word-break: break-all;
-}
+// .list-card{
+//     width:850px;
+//     word-break: break-all;
+// }
 .buttons:hover{
     opacity: 1;
 }
@@ -35,7 +110,7 @@
 }
 .outsideDivNoteCard{
     padding-bottom:5%;
-    // padding-left:8%;
+   
 }
 .noteCards{
     margin:10px; 

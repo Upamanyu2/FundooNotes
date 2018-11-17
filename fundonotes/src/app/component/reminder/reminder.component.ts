@@ -217,31 +217,7 @@ export class ReminderComponent implements OnInit {
         }
       }
     }
-    else if ((new Date(this.setDate).getFullYear() - new Date(this.currentDate).getFullYear()) > 0) {
-      if ((new Date(this.setDate).getMonth() - new Date(this.currentDate).getMonth()) > 0) {
-        if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) > 0) {
-          if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) == 0) {
-            this.reminders[0].disableStatus = false;
-          }
-          if ((new Date(this.setDate).getHours()) > 13) {
-
-            this.reminders[1].disableStatus = false;
-
-          }
-          if ((new Date(this.setDate).getHours()) > 18) {
-            this.reminders[2].disableStatus = false;
-
-          }
-          if ((new Date(this.setDate).getHours()) > 20) {
-            this.reminders[3].disableStatus = false;
-
-          }
-        }
-
-      }
-    }
   }
-
 
 }
 

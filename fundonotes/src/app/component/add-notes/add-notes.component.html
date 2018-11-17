@@ -1,18 +1,19 @@
-<div fxLayout="column" fxLayoutGap="2%">
-  <div></div>
-  <div fxLayout="row" class="containerDiv">
-    <div fxFlex="20%" fxShow.lg="true" fxShow.md="true" fxShow.sm="false"
-      fxShow.xs="false"></div>
+<div fxLayout="column" fxLayoutGap="5%">
+  <div fxShow.lg="true" fxShow.md="true" fxShow.sm="false" fxShow.xs="false"></div>
+  <div fxShow.lg="false" fxShow.md="false" fxShow.sm="true" fxShow.xs="true"></div>
+  <div fxShow.lg="false" fxShow.md="false" fxShow.sm="true" fxShow.xs="true"></div>
+  <div fxShow.lg="false" fxShow.md="false" fxShow.sm="true" fxShow.xs="true"></div>
+  <div fxShow.lg="false" fxShow.md="false" fxShow.sm="true" fxShow.xs="true"></div>
+  <div fxLayout="row">
+    <div fxFlex="20%" fxShow.lg="true" fxShow.md="true" fxShow.sm="true" fxShow.xs="false"></div>
     <div fxFlex="56%" fxFlex.xs="100%" class="mainAddCardDiv">
       <!----------------------------Mat card on reload starts-------------------------------------->
       <mat-card class="matcard" *ngIf="!note1 && !check">
-        <div data-text="Take a note..." contenteditable="true" class="div2"
-          (click)="note1=!note1">
+        <div data-text="Take a note..." contenteditable="true" class="div2" (click)="note1=!note1">
         </div>
 
         <span class="span">
-          <button mat-icon-button fxShow.xs="false" fxShow.sm="true" fxShow.md="true"
-            (click)="toggle()">
+          <button mat-icon-button (click)="toggle()">
             <i class="material-icons addCardIcons">list</i>
           </button>
 
@@ -34,16 +35,15 @@
 
       <!--------------------------Mat card for checklist starts------------------------------->
       <mat-card *ngIf="check" [style.background-color]="bgColor">
-        <mat-card-header>
-          <div data-text="Title" id="title" contenteditable="true" class="div2">
+        <mat-card-header fxLayout="row">
+          <div data-text="Title" id="title" contenteditable="true" class="div2" fxFlex="90%">
           </div>
-          <button mat-icon-button style="margin-top: -10px" (click)="pinned()">
+          <button mat-icon-button style="margin-top: -10px" (click)="pinned()" fxFlex="10%">
             <img src="../../../assets/image/add10.svg">
           </button>
         </mat-card-header>
         <mat-card-content class="take_note" *ngIf="hideCheckbox">
-          <div data-text="Take a note.." id="description" contenteditable="true"
-            class="div2">
+          <div data-text="Take a note.." id="description" contenteditable="true" class="div2">
           </div>
 
         </mat-card-content>
@@ -51,28 +51,23 @@
         <mat-card-content *ngIf="!hideCheckbox">
 
           <div *ngFor="let data of dataArray" fxLayout="row">
-            <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked
-              (click)="isChecked=!isChecked"></mat-checkbox>
-            <input fxFlex="90%" class="checkboxInput" *ngIf="!data.isChecked"
-              [(ngModel)]=data.data [style.backgroundColor]="bgColor">
-            <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete(data)"
-              matTooltip="delete">cancel</mat-icon>
+            <mat-checkbox fxFlex="10%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked (click)="isChecked=!isChecked"></mat-checkbox>
+            <input fxFlex="85%" class="checkboxInput" *ngIf="!data.isChecked" [(ngModel)]=data.data
+              [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete(data)" matTooltip="delete">cancel</mat-icon>
           </div>
           <hr>
           <div fxLayout="row">
-            <mat-icon fxFlex="5%">add</mat-icon>
-            <input [(ngModel)]=data fxFlex="95%" class="checkboxInput"
-              placeholder="List Item" (keydown.enter)="onEnter($event)"
+            <mat-icon fxFlex="10%">add</mat-icon>
+            <input [(ngModel)]=data fxFlex="90%" class="checkboxInput" placeholder="List Item" (keydown.enter)="onEnter($event)"
               [style.background-color]="bgColor" />
           </div>
           <hr>
           <div *ngFor="let data of dataArray">
-            <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked *ngIf="data.isChecked"
-              (click)="isChecked=!isChecked"></mat-checkbox>
-            <input fxFlex="90%" class="checkboxInput NotesStriked" *ngIf="data.isChecked"
-              [(ngModel)]=data.data [style.backgroundColor]="bgColor">
-            <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete(data)"
-              matTooltip="delete">cancel</mat-icon>
+            <mat-checkbox fxFlex="10%" [(ngModel)]=data.isChecked *ngIf="data.isChecked" (click)="isChecked=!isChecked"></mat-checkbox>
+            <input fxFlex="85%" class="checkboxInput NotesStriked" *ngIf="data.isChecked" [(ngModel)]=data.data
+              [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete(data)" matTooltip="delete">cancel</mat-icon>
           </div>
         </mat-card-content>
         <div fxLayout="row row wrap" *ngFor="let label of LabelObj">
@@ -93,33 +88,46 @@
         </div>
 
         <mat-card-actions flexLayout="row">
-          <!------------------------App reminder starts---------------------------------->
-          <app-reminder [Noteid]="" (ReminderEmit)="reminderEvent($event)"></app-reminder>
-          <!------------------------App reminder ends---------------------------------->
+          <div flexLayout="row" fxFlex="80%">
+            <!------------------------App reminder starts---------------------------------->
+            <div fxFlex="12%">
+              <app-reminder [Noteid]="" (ReminderEmit)="reminderEvent($event)"></app-reminder>
+            </div>
+            <!------------------------App reminder ends---------------------------------->
 
-          <!------------------------App collaborator starts---------------------------------->
-          <app-collaborator></app-collaborator>
-          <!------------------------App collaborator ends---------------------------------->
+            <!------------------------App collaborator starts---------------------------------->
+            <div fxFlex="12%">
+              <app-collaborator></app-collaborator>
+            </div>
+            <!------------------------App collaborator ends---------------------------------->
 
-          <!------------------------App theme starts---------------------------------->
-          <app-theme [Noteid]="" (ColorChanged)="refresh($event)"></app-theme>
-          <!------------------------App theme ends---------------------------------->
+            <!------------------------App theme starts---------------------------------->
+            <div fxFlex="12%">
+              <app-theme [Noteid]="" (ColorChanged)="refresh($event)"></app-theme>
+            </div>
+            <!------------------------App theme ends---------------------------------->
 
-          <!------------------------App image starts---------------------------------->
-          <app-image></app-image>
-          <!------------------------App image ends---------------------------------->
+            <!------------------------App image starts---------------------------------->
+            <div fxFlex="12%">
+              <app-image></app-image>
+            </div>
+            <!------------------------App image ends---------------------------------->
 
-          <!------------------------App Post archive starts---------------------------------->
-          <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
-          <!------------------------App Post archive ends---------------------------------->
+            <!------------------------App Post archive starts---------------------------------->
+            <div fxFlex="12%">
+              <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
+            </div>
+            <!------------------------App Post archive ends---------------------------------->
 
-          <!------------------------App more starts---------------------------------->
-          <app-more (LabelObj)="labels($event)" [showHideData]="showCheckbox"
-            (ParentEmit)="toggleCheckbox($event)" [checkVariable]="check"></app-more>
-          <!------------------------App more ends---------------------------------->
+            <!------------------------App more starts---------------------------------->
+            <div fxFlex="12%">
+              <app-more (LabelObj)="labels($event)" [showHideData]="showCheckbox" (ParentEmit)="toggleCheckbox($event)"
+                [checkVariable]="check"></app-more>
+            </div>
+            <!------------------------App more ends---------------------------------->
+          </div>
 
-
-          <button mat-button style="float:right" (click)="toggle1();check=false;addNotes()">
+          <button fxFlex="20%" fxLayoutAllign="end" mat-button (click)="toggle1();check=false;addNotes()">
             Close</button>
         </mat-card-actions>
       </mat-card>
@@ -139,8 +147,7 @@
         </mat-card-header>
 
         <mat-card-content class="take_note" *ngIf="showCheckbox">
-          <div data-text="Take a note.." id="description" contenteditable="true"
-            class="div2">
+          <div data-text="Take a note.." id="description" contenteditable="true" class="div2">
           </div>
 
         </mat-card-content>
@@ -148,28 +155,23 @@
         <mat-card-content *ngIf="!showCheckbox">
 
           <div *ngFor="let data of dataArray" fxLayout="row">
-            <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked
-              (click)="isChecked=!isChecked"></mat-checkbox>
-            <input fxFlex="90%" class="checkboxInput" *ngIf="!data.isChecked"
-              [(ngModel)]=data.data [style.backgroundColor]="bgColor">
-            <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete(data)"
-              matTooltip="delete">cancel</mat-icon>
+            <mat-checkbox fxFlex="5%" *ngIf="!data.isChecked" [(ngModel)]=data.isChecked (click)="isChecked=!isChecked"></mat-checkbox>
+            <input fxFlex="90%" class="checkboxInput" *ngIf="!data.isChecked" [(ngModel)]=data.data
+              [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" *ngIf="!data.isChecked" (click)="onDelete(data)" matTooltip="delete">cancel</mat-icon>
           </div>
           <hr>
           <div fxLayout="row">
             <mat-icon fxFlex="5%">add</mat-icon>
-            <input [(ngModel)]=data fxFlex="95%" class="checkboxInput"
-              placeholder="List Item" (keydown.enter)="onEnter($event)"
+            <input [(ngModel)]=data fxFlex="95%" class="checkboxInput" placeholder="List Item" (keydown.enter)="onEnter($event)"
               [style.background-color]="bgColor" />
           </div>
           <hr>
           <div *ngFor="let data of dataArray">
-            <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked *ngIf="data.isChecked"
-              (click)="isChecked=!isChecked"></mat-checkbox>
-            <input fxFlex="90%" class="checkboxInput NotesStriked" *ngIf="data.isChecked"
-              [(ngModel)]=data.data [style.backgroundColor]="bgColor">
-            <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete(data)"
-              matTooltip="delete">cancel</mat-icon>
+            <mat-checkbox fxFlex="5%" [(ngModel)]=data.isChecked *ngIf="data.isChecked" (click)="isChecked=!isChecked"></mat-checkbox>
+            <input fxFlex="90%" class="checkboxInput NotesStriked" *ngIf="data.isChecked" [(ngModel)]=data.data
+              [style.backgroundColor]="bgColor">
+            <mat-icon fxFlex="5%" *ngIf="data.isChecked" (click)="onDelete(data)" matTooltip="delete">cancel</mat-icon>
           </div>
         </mat-card-content>
 
@@ -190,33 +192,45 @@
         </div>
 
         <mat-card-actions flexLayout="row">
-          <div fxFlex="90%">
+          <div fxFlex="80%">
             <!----------------------------Reminder component starts------------------------------------>
-            <app-reminder [Noteid]="" (ReminderEmit)="reminderEvent($event)"></app-reminder>
+            <div fxFlex="12%">
+              <app-reminder [Noteid]="" (ReminderEmit)="reminderEvent($event)"></app-reminder>
+            </div>
             <!----------------------------Reminder component ends------------------------------------>
 
             <!----------------------------Collaborator component starts------------------------------------>
-            <app-collaborator></app-collaborator>
+            <div fxFlex="12%">
+              <app-collaborator></app-collaborator>
+            </div>
             <!----------------------------Collaborator component ends------------------------------------>
 
             <!----------------------------Theme component starts------------------------------------>
-            <app-theme [Noteid]="" (ColorChanged)="refresh($event)"></app-theme>
+            <div fxFlex="12%">
+              <app-theme [Noteid]="" (ColorChanged)="refresh($event)"></app-theme>
+            </div>
             <!----------------------------Theme component ends------------------------------------>
 
             <!----------------------------Image component starts------------------------------------>
-            <app-image></app-image>
+            <div fxFlex="12%">
+              <app-image></app-image>
+            </div>
             <!----------------------------Image component ends------------------------------------>
 
             <!----------------------------Post archive component starts------------------------------------>
-            <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
+            <div fxFlex="12%">
+              <app-post-archive [Noteid]="" (ArchiveClicked)="archive($event)"></app-post-archive>
+            </div>
             <!----------------------------Post archive component ends------------------------------------>
 
             <!----------------------------More component starts------------------------------------>
-            <app-more (LabelObj)="labels($event)" [showHideData]="showCheckbox"
-              [showHideData1]="hideCheckbox" (ParentEmit)="toggleCheckbox($event)"></app-more>
+            <div fxFlex="12%">
+              <app-more (LabelObj)="labels($event)" [showHideData]="showCheckbox" [showHideData1]="hideCheckbox"
+                (ParentEmit)="toggleCheckbox($event)"></app-more>
+            </div>
             <!----------------------------More component ends------------------------------------>
           </div>
-          <button fxLayoutAllign="end" mat-button (click)="note1=!note1;toggle2();addNotes()">
+          <button fxFlex="20%" fxLayoutAllign="end" mat-button (click)="note1=!note1;toggle2();addNotes()">
             Close</button>
         </mat-card-actions>
 
@@ -228,8 +242,7 @@
 
 
     </div>
-    <div fxFlex="24%" fxShow.lg="true" fxShow.md="true" fxShow.sm="false"
-      fxShow.xs="false"></div>
+    <div fxFlex="24%" fxShow.lg="true" fxShow.md="true" fxShow.sm="true" fxShow.xs="false"></div>
 
   </div>
 

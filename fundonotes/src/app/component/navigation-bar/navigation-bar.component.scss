@@ -43,6 +43,11 @@
     padding-top:15% !important;
   }
 }
+@media only screen and (max-width: 768px){
+  .mat-nav-list{
+    padding-top:16% !important;
+  }
+}
 .mat-drawer-content{
 
   position: relative;

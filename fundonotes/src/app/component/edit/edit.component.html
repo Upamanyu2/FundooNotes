@@ -1,11 +1,11 @@
-<body [ngStyle]="{'background-color':data.color}" class="editBody"
-  [style.background-color]="bgColor">
+<mat-card [ngStyle]="{'background-color':data.color}" [style.background-color]="bgColor">
+
+  <!-- <body > -->
 
 
   <!---------------------------For displaying the title of the note card----------------------------->
   <mat-card-header>
-    <div data-text="Title" id="title" contenteditable="true" class="div2"
-      [innerHTML]="data.title">
+    <div data-text="Title" id="title" contenteditable="true" class="div2" [innerHTML]="data.title">
     </div>
     <button mat-icon-button (click)="pinned()" class="editPin">
       <img src="../../../assets/image/add10.svg">
@@ -16,48 +16,43 @@
 
   <mat-card-content class="take_note">
     <!---------------------------For displaying the desctiption-------------------------------------->
-    <div data-text="Take a note.." id="description" *ngIf="data.description"
-      contenteditable="true" class="div2" [innerHTML]="data.description">
+    <div data-text="Take a note.." id="description" *ngIf="data.description" contenteditable="true" class="div2"
+      [innerHTML]="data.description">
     </div>
     <!------------------------------------------------------------------------------------------------>
     <!-------------------------------For displaying the checklist--------------------------------------->
     <!--Checklist unchecked area-->
     <div *ngFor="let checklist of checkListItemArray" fxLayout="row">
-      <mat-checkbox fxFlex="5%" *ngIf="checklist.status=='open' && !checklist.isDeleted"
-        (click)="checkBox(checklist,data);toggle()">
+      <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open' && !checklist.isDeleted" (click)="checkBox(checklist,data);toggle()">
       </mat-checkbox>
-      <input *ngIf="!checklist.isDeleted && checklist.status=='open'"
-        [(ngModel)]=checklist.itemName fxFlex="90%" class="note" [ngStyle]="{'background-color':data.color}"
-        [style.backgroundColor]="bgColor" (keyup)="editCard($event,checklist)">
-      <mat-icon fxFlex="5%" *ngIf="checklist.status=='open' && !checklist.isDeleted"
-        (click)="onDelete(checklist)" matTooltip="delete">cancel</mat-icon>
+      <input *ngIf="!checklist.isDeleted && checklist.status=='open'" [(ngModel)]=checklist.itemName fxFlex="80%" class="note"
+        [ngStyle]="{'background-color':data.color}" [style.backgroundColor]="bgColor" (keyup)="editCard($event,checklist)">
+      <mat-icon fxFlex="10%" *ngIf="checklist.status=='open' && !checklist.isDeleted" (click)="onDelete(checklist)"
+        matTooltip="delete">cancel</mat-icon>
     </div>
 
     <!---------------------------------------------------------------------------------------------->
     <!--Checklist input area-->
     <hr *ngIf="data.noteCheckLists!=0">
     <div fxLayout="row" *ngIf="data.noteCheckLists!=0">
-      <mat-icon fxFlex="5%">add</mat-icon>
-      <input [(ngModel)]=data1 fxFlex="95%" class="checkboxInput" placeholder="List Item"
-        (keydown.enter)="onEnter($event)" [ngStyle]="{'background-color':data.color}"
-        [style.background-color]="bgColor" />
+      <mat-icon fxFlex="10%">add</mat-icon>
+      <input [(ngModel)]=data1 fxFlex="90%" class="checkboxInput" placeholder="List Item" (keydown.enter)="onEnter($event)"
+        [ngStyle]="{'background-color':data.color}" [style.background-color]="bgColor" />
     </div>
     <hr *ngIf="data.noteCheckLists!=0">
     <!--------------------------------------------------------------------->
     <!--Checklist checked area-->
     <div class="note" *ngFor="let checklist of checkListItemArray" fxLayout="row">
-      <mat-checkbox fxFlex="5%" checked=true *ngIf="checklist.status=='close' && !checklist.isDeleted"
-        (click)="checkBox(checklist,data);toggle()"></mat-checkbox>
-      <input *ngIf="checklist.status=='close' && !checklist.isDeleted"
-        [(ngModel)]=checklist.itemName fxFlex="90%" class="note1" [ngStyle]="{'background-color':data.color}"
-        [style.backgroundColor]="bgColor" (keyup)="editCard($event,checklist)">
-      <mat-icon fxFlex="5%" *ngIf="checklist.status=='close' && !checklist.isDeleted"
-        (click)="onDelete(checklist)" matTooltip="delete">cancel</mat-icon>
+      <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close' && !checklist.isDeleted" (click)="checkBox(checklist,data);toggle()"></mat-checkbox>
+      <input *ngIf="checklist.status=='close' && !checklist.isDeleted" [(ngModel)]=checklist.itemName fxFlex="80%"
+        class="note1" [ngStyle]="{'background-color':data.color}" [style.backgroundColor]="bgColor" (keyup)="editCard($event,checklist)">
+      <mat-icon fxFlex="10%" *ngIf="checklist.status=='close' && !checklist.isDeleted" (click)="onDelete(checklist)"
+        matTooltip="delete">cancel</mat-icon>
     </div>
     <!---------------------------------------------------------------------------------------------->
   </mat-card-content>
 
-  
+
   <!--------------------------------------------------------------------------------------------------------->
 
   <!--Mat chip for labels-->
@@ -83,43 +78,44 @@
     <!--------------------------------------------------------------------------------------------------------->
 
     <!------------------------Reminder component starts----------------------------------->
-    <app-reminder [Noteid]=data (ReminderEmit)="reminderEvent($event)"></app-reminder>
+    <app-reminder fxFlex="10%" [Noteid]=data (ReminderEmit)="reminderEvent($event)"></app-reminder>
     <!------------------------Reminder component ends----------------------------------->
 
 
     <!------------------------Collaborator component starts----------------------------------->
-    <app-collaborator></app-collaborator>
+    <app-collaborator fxFlex="10%"></app-collaborator>
     <!------------------------Collaborator component ends----------------------------------->
 
 
     <!------------------------Theme component starts----------------------------------->
-    <app-theme [Noteid]="data" (ColorChanged)="refresh($event)"></app-theme>
+    <app-theme fxFlex="10%" [Noteid]="data" (ColorChanged)="refresh($event)"></app-theme>
     <!------------------------Theme component ends----------------------------------->
 
 
     <!------------------------Image component starts----------------------------------->
-    <app-image></app-image>
+    <app-image fxFlex="10%"></app-image>
     <!------------------------Image component ends----------------------------------->
 
 
     <!------------------------Post archive component starts----------------------------------->
-    <app-post-archive [Noteid]="data" (ArchiveClicked)="archive($event)"></app-post-archive>
+    <app-post-archive fxFlex="10%" [Noteid]="data" (ArchiveClicked)="archive($event)"></app-post-archive>
     <!------------------------Post archive component ends----------------------------------->
 
 
     <!------------------------More component starts----------------------------------->
-    <app-more [Noteid]="data" (DeleteClicked)="delete($event)"></app-more>
+    <app-more fxFlex="10%" [Noteid]="data" (DeleteClicked)="delete($event)"></app-more>
     <!------------------------More component ends----------------------------------->
     <!------------------------------------------------------------------------------------------------>
     <!--Close button one is hidden an the other is shown-->
-    <button mat-button class="editButton" *ngIf="data.noteCheckLists.length>0"
-      (click)=" onNoClick();updatecard(false)">
-      Close</button>
-    <button mat-button class="editButton" *ngIf="data.noteCheckLists.length==0"
-      (click)=" onNoClick();updatecard(true)">
-      Close</button>
+    <div fxFlex="40%" fxLayoutAlign="end">
+      <button  mat-button class="editButton" *ngIf="data.noteCheckLists.length>0" (click)=" onNoClick();updatecard(false)">
+        Close</button>
+      <button  mat-button class="editButton" *ngIf="data.noteCheckLists.length==0" (click)=" onNoClick();updatecard(true)">
+        Close</button>
+    </div>
     <!------------------------------------------------------------------------------------------------>
   </div>
 
 
-</body>
+  <!-- </body> -->
+</mat-card>

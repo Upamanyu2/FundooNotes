@@ -15,6 +15,8 @@ export class NoteCardComponent implements OnInit {// Exported class
   public modifiedCheckList;
   public todayDate=new Date();
   public tomorrowDate=new Date();
+  flexValueListCard1=5;
+  flexValueListCard2=95;
   constructor(
     public dialog: MatDialog,
     private data: SearchServiceService,
