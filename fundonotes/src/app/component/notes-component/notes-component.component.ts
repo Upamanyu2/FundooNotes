@@ -11,13 +11,13 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 export class NotesComponentComponent implements OnInit {    //Exported class
   public notes = [];
-  private token;
+  
   constructor(private _service: NotesServiceService) { }
 
 
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
-    this.token = localStorage.getItem("token");
+    
     this.getNotes();
   
    
@@ -32,7 +32,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   getNotes() {     //Function for getting all the notes
     
-    this._service.getNotes("notes/getNotesList", this.token)
+    this._service.getNotes()
       .subscribe(
         data => {
           this.notes=[];

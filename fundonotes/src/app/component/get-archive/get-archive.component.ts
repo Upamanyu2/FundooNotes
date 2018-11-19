@@ -8,7 +8,6 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 })
 /*------------------------------------------------------------------------------------------------------------------------ */
 export class GetArchiveComponent implements OnInit {  //Exporting all the functionalities to use it in the while the initilisation of the page.
-  private token = localStorage.getItem("token");
   public notes = [];
   constructor(private _service: NotesServiceService) { }
   /*------------------------------------------------------------------------------------------------------------------------ */
@@ -18,7 +17,7 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
   /*------------------------------------------------------------------------------------------------------------------------ */
   getArchive() {  //Function for calling the get api.
 
-    this._service.getNotes("notes/getArchiveNotesList", this.token)
+    this._service.getArchiveNotes()
       .subscribe(
         data => {
           this.notes = []

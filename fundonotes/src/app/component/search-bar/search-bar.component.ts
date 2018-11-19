@@ -11,7 +11,6 @@ import { SearchServiceService } from '../../core/service/dataService/searchServi
 export class SearchBarComponent implements OnInit { //Exported class
   public notes = [];
   public searched;
-  private token: any = localStorage.getItem("token");
   constructor(private _service: NotesServiceService, public search: SearchServiceService) { }
   /*------------------------------------------------------------------------------------------- */
   ngOnInit() { //Injected dependency for reloading of page
@@ -21,7 +20,7 @@ export class SearchBarComponent implements OnInit { //Exported class
   /*------------------------------------------------------------------------------------------- */
 
   getNotes() {  //Function for getting all the notes
-    this._service.getNotes("notes/getNotesList", this.token)
+    this._service.getNotes()
       .subscribe(
         data => {
           this.notes = [];

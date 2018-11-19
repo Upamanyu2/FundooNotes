@@ -1,32 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment'
+import { GenaralService } from '../httpServices/genaral.service'
 /*---------------------------------------------------------------------------------------------------------*/
 @Injectable({
-  providedIn: 'root'  
+  providedIn: 'root'
 })
 /*---------------------------------------------------------------------------------------------------------*/
 export class LabelServiceService {
-  private url=environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private service: GenaralService) { }
 
-/*---------------------------------------------------------------------------------------------------------*/
-  public labelDeleteService(name){
-  
-    return this.http.delete(this.url+"/"+name);
+  /*---------------------------------------------------------------------------------------------------------*/
+  public labelDeleteService(id) {
+    let name = "noteLabels/" + id + "/deleteNoteLabel";
+    return this.service.deleteService(name);
   }
-/*---------------------------------------------------------------------------------------------------------*/
+  /*---------------------------------------------------------------------------------------------------------*/
 
-  public addLabelToNotes(name,token){
-    var httpheaders = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': token
-      })
-    };
-    return this.http.post(this.url+"/"+name,{},httpheaders)
+  public addLabelToNotes(noteId, id) {
+    let name = "notes/" + noteId + "/addLabelToNotes/" + id + "/add";
+    return this.service.postWithoutBodyService(name);
   }
-/*---------------------------------------------------------------------------------------------------------*/
+  /*---------------------------------------------------------------------------------------------------------*/
+  public removeLabelFromNotes(noteId, id) {
+    let name = "notes/" + noteId + "/addLabelToNotes/" + id + "/remove";
+    return this.service.postWithoutBodyService(name);
+  }
 }
+

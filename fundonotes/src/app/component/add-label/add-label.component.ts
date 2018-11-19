@@ -13,7 +13,6 @@ import { Router } from '@angular/router';//Importing router
 export class AddLabelComponent implements OnInit {   //Exported class
  
   public labelList = [];
-  private token = localStorage.getItem("token");
   constructor(
     public dialog: MatDialog,
     private _service: NotesServiceService,
@@ -39,7 +38,7 @@ export class AddLabelComponent implements OnInit {   //Exported class
 
   getLabel() {        //Function for getting all the labels
 
-    this._service.getNoteJson("noteLabels/getNoteLabelList", this.token)
+    this._service.getNoteJson()
       .subscribe((data) => {
        
         this.labelList = [];

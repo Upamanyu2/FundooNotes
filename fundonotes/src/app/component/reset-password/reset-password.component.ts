@@ -15,7 +15,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class ResetPasswordComponent implements OnInit { //Exported class
   resetPasswordForm: FormGroup;
   submitted = false;
-  private token;
+  private accessToken;
   model: any = {}
   /*------------------------------------------------------------------------------------------------------------------------------------*/
   constructor(
@@ -28,7 +28,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
   ) { }
   /*------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {                  // function executes while initialization
-    this.token = this.route.snapshot.params['token'];
+    this.accessToken = this.route.snapshot.params['token'];
    
 
     this.resetPasswordForm = this.formBuilder.group({
@@ -60,7 +60,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
       });
       return;
     }
-    this._service1.postNotes("user/reset-password", { "newPassword": password }, this.token)
+    this._service.resetPasswordPost( { "newPassword": password },this.accessToken)
       .subscribe(
         data => {
          

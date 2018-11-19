@@ -13,7 +13,6 @@ import { LoggerServiceService } from '../../core/service/logger/logger-service.s
 
 /*----------------------------------------------------------------------------------------------------------- */
 export class AddNotesComponent implements OnInit {  //Export class top export all the functionalities.
-  private token;
   public notes = [];
   public pin: boolean = false;
   public check: boolean = false;
@@ -50,7 +49,6 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
   /*----------------------------------------------------------------------------------------------------------- */
   ngOnInit() {     //Initialisation function to called while the page is reloaded.
-    this.token = localStorage.getItem("token");
 
   }
   public pinned() {     //Function used for sending the true and false values while the pin is pressed.
@@ -80,7 +78,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         return;
       }
 
-      this._service.addNotes("notes/addNotes", {   //Service file addnotes post api is called with all the parameters.
+      this._service.addNotes( {   //Service file addnotes post api is called with all the parameters.
         'title': this.title,
         'description': this.description,
         'isPined': this.pin,
@@ -88,7 +86,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         'isArchived': this.isArchived,
         'labelIdList': JSON.stringify(this.LabelObjId),
         'reminder': this.reminderArray
-      }, this.token)
+      })
 
         .subscribe(
           data => {    //On success.
@@ -144,7 +142,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
       }
     }
     if (this.title != "") {
-      this._service.addNotes("notes/addNotes", this.body, this.token)
+      this._service.addNotes( this.body)
         .subscribe(response => {
           this.click == false;
           this.LabelObj = []

@@ -4,6 +4,7 @@
 .sidenav-container {
   height: 100%;
   
+ 
 }
 .image{
   float:left ;
@@ -16,6 +17,9 @@
   margin-top: 5%;
   /* position: absolute; */
   position: fixed;
+ 
+ 
+ 
  
 }
 
@@ -42,6 +46,9 @@
   .mat-nav-list{
     padding-top:15% !important;
   }
+  .sideNavBar{
+    margin-top: 15% !important;
+  }
 }
 @media only screen and (max-width: 768px){
   .mat-nav-list{
@@ -66,6 +73,10 @@
 }
 .title{
   padding:2%;
+  width: 120px;
+  white-space: nowrap !important; 
+  text-overflow:ellipsis !important; 
+  overflow: hidden !important;
 }
 .button{
   border: 2px;
@@ -115,16 +126,19 @@ font-size: 83%;
 }
 .mail{
   margin: auto;
+  font-size: 10px;
 }
 .mail1{
+  margin: auto;
   font-weight: 900;
+  
 }
 .inputFile1{
   padding-bottom:5%;
  
 }
 .inputFile{
-  padding-bottom:2%;
+  display: none;
 }
 .image1{
   height: 35px;
@@ -138,4 +152,18 @@ font-size: 83%;
   height: 80px;
   width: 80px;
   border-radius: 50% !important;
+}
+.change_image:hover{
+  background-color: black;
+  background: transparent;
+  opacity: 0.9;
+  color: white;
+  opacity: 0.5;
+  font-weight: 500;
+}
+.change_image{
+  text-align: center;
+  opacity: 0;
+  padding-top: 52px;
+ 
 }

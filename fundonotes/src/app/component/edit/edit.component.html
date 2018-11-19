@@ -66,7 +66,7 @@
   <div *ngIf="data.reminder.length!=0">
     <div *ngFor="let reminder of reminderArray" fxLayout="row row wrap">
       <mat-chip-list>
-        <mat-chip *ngIf="!reminder.isDeleted">
+        <mat-chip>
           {{reminder | date:'medium'}}
           <mat-icon (click)="$event.stopPropagation(); removeReminder(data.id)">
             cancel</mat-icon>

@@ -28,7 +28,7 @@ export class LoginComponentComponent implements OnInit {
         Email : ['', [Validators.required, Validators.email]],
         Password : ['', [Validators.required, Validators.minLength(6)]],
     });
-    this._service.getData("user")
+    this._service.getData()
        .subscribe((data)=>{
          console.log(data);
          
@@ -61,7 +61,7 @@ export class LoginComponentComponent implements OnInit {
         return;
       }
     
-      this._service.postData("user/login",{
+      this._service.postData({
         "email": this.model.email,
         "password": this.model.password
       }).subscribe(
@@ -72,11 +72,12 @@ export class LoginComponentComponent implements OnInit {
            console.log(data['userId']);
            localStorage.setItem("UserId",data['userId']);
            localStorage.setItem("imageUrl",data['imageUrl'])
+           localStorage.setItem("userName",mail)
            var pushedToken=localStorage.getItem("pushToken")
            this.body={
              "pushToken":pushedToken
            }
-          this._service1.postNotes("user/registerPushToken",this.body,localStorage.getItem('token'))
+          this._service1.pushNotificationPost(this.body)
           .subscribe(reult=>{
            LoggerServiceService.log("Post is successful");
           },

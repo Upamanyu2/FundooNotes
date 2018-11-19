@@ -35,7 +35,7 @@ export class SignupComponentComponent implements OnInit {
       ConfirmPassword: ['', [Validators.required, Validators.minLength(6), passValidator]]
     })
 
-    let obs = this._service.getData("user/service");
+    let obs = this._service.getDataService();
     obs.subscribe((response) => {
       
       var data = response["data"];
@@ -96,7 +96,7 @@ export class SignupComponentComponent implements OnInit {
       return;
     }
 
-    this._service.postData("user/userSignUp",
+    this._service.postSignupService(
       {
         "firstName": this.model.fname,
         "lastName": this.model.lname,

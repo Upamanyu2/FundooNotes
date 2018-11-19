@@ -1,71 +1,81 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment'
+import { GenaralService } from '../httpServices/genaral.service'
 /*---------------------------------------------------------------------------------------------------------*/
 @Injectable({
   providedIn: 'root'
 })
 /*---------------------------------------------------------------------------------------------------------*/
 export class ServiceService {
-  private url = environment.baseUrl;
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private service:GenaralService) { }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
-  public getData(name) {                       //service function for getting the data
-    return this.http.get(this.url + "/" + name);
+  public getData() {                       //service function for getting the data
+    let name="user"
+    return this.service.getService(name);
   }
 /*------------------------------------------------------------------------------------------------------------------------------------*/
-  public postData(name, body) {                 //service function for posting the data
-    return this.http.post(this.url + "/" + name, body);
-  }
+public getDataService(){
+let name="user/service"
+return this.service.getService(name);
+}
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 
-  encode(data) {
-    const formBody = [];
-    for (const property in data) {
-      const encodedKey = encodeURIComponent(property);
-      const encodedValue = encodeURIComponent(data[property]);
-      formBody.push(encodedKey + '=' + encodedValue);
-    }
-    return formBody.join('&');
-  }
+public postSignupService(body){
+  let name="user/userSignUp"
+  return this.service.postService(name, body);
+}
 
+
+
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+  public postData(body) {                 //service function for posting the data
+    let name="user/login"
+    return this.service.postService(name, body);
+  }
+/*------------------------------------------------------------------------------------------------------------------------------------*/
+public postDataForgotPaasword(body){
+  let name="user/reset";
+  return this.service.postService(name, body);
+
+}
+
+
+
+
+  
 /*------------------------------------------------------------------------------------------------------------------------------------*/
  
 
-public updateCard(name, body){        //Post function for updating the card.
+// public updateCard(name, body){        //Post function for updating the card.
   
-  var token=localStorage.getItem('token');
+//   var token=localStorage.getItem('token');
   
-  var httpheaders = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': token
-    })
-  };
-  return this.http.post(this.url + "/" + name, body,httpheaders);
-}
+//   var httpheaders = {
+//     headers: new HttpHeaders({
+//       'Content-Type': 'application/json',
+//       'Authorization': token
+//     })
+//   };
+//   return this.http.post(this.url + "/" + name, body,httpheaders);
+// }
 /*----------------------------------------------------------------------------------------------------------------------------------------------- */
-public logoutService(name,token){
-  var httpheaders = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': token
-    })
-  };
-  return this.http.post(this.url + "/" + name,{},httpheaders);
+public logoutService(){
+  let name="user/logout";
+  return this.service.postWithoutBodyService( name);
 }
  /*--------------------------------------------------------------------------------------------------------------------*/
 
- httpAddImage(nexturl,body,token){
- 
-  var httpheaders={
-    headers:new HttpHeaders({
-     
-     'Authorization':token
-    })
-  };
-  return this.http.post(this.url+"/"+nexturl,body,httpheaders)
+ httpAddImage(body){
+  let name='user/uploadProfileImage'
+  return this.service.postWithoutContentTypeService(name,body)
 }
+
+/*-------------------------------------------------------------------------------------------------- */
+
+public resetPasswordPost(body,token){
+  let name="user/reset-password";
+  return this.service.postServiceJsonWithToken(name, body, token);
+}
+
 }

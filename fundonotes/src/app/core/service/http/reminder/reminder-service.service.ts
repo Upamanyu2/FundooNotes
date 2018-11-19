@@ -1,32 +1,22 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
-import { HttpHeaders } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
+import { GenaralService } from '../httpServices/genaral.service'
 @Injectable({
   providedIn: 'root'
 })
 export class ReminderServiceService {
-  private url=environment.baseUrl;
-  constructor(private http: HttpClient) { }
-  httpAddReminder(nexturl,token,body){
-    console.log(token);
-    var httpOptions={
-      headers:new HttpHeaders({
-       
-       'Authorization':token
-      })
-    };
-    return this.http.post(this.url+"/"+nexturl,body,httpOptions)
+
+  constructor(private service: GenaralService) { }
+
+  /*----------------------------------------------------------------------------------- */
+  public getReminderNotes() {
+    let name = 'notes/getReminderNotesList';
+    return this.service.getServiceWithToken(name)
   }
-  
- public httpGetReminder(nexturl,token){
-    console.log(token);
-    var httpOptions={
-      headers:new HttpHeaders({
-       
-       'Authorization':token
-      })
-    };
-    return this.http.get(this.url+"/"+nexturl,httpOptions)
+  /*----------------------------------------------------------------------------------- */
+  httpAddReminder( body) {
+    let name = 'notes/addUpdateReminderNotes'
+    return this.service.postWithoutContentTypeService(name, body)
   }
+  /*----------------------------------------------------------------------------------- */
+
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatDatepickerModule } from "@angular/material";
 import { FormControl } from '@angular/forms';
 import { ReminderServiceService } from '../../core/service/http/reminder/reminder-service.service';
 
@@ -23,7 +22,8 @@ export class ReminderComponent implements OnInit {
   public setDate = this.reminderBody.date.value
   public currentDate = new Date();
   ngOnInit() {
-    this.blockDate();
+    // this.setDate=this.reminderBody.date.value;
+    this.blockDate(this.setDate);
   }
 
   body = {};
@@ -46,7 +46,7 @@ export class ReminderComponent implements OnInit {
         "noteIdList": [this.Noteid.id],
         "reminder": this.reminder
       }
-      this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+      this._service.httpAddReminder(this.body).subscribe((result) => {
         this.ReminderEmit.emit({ status: true, details: this.body });
 
       });
@@ -63,7 +63,7 @@ export class ReminderComponent implements OnInit {
         "noteIdList": [this.Noteid.id],
         "reminder": this.reminder
       }
-      this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+      this._service.httpAddReminder(this.body).subscribe((result) => {
         this.ReminderEmit.emit({ status: true, details: this.body });
 
       });
@@ -80,7 +80,7 @@ export class ReminderComponent implements OnInit {
         "noteIdList": [this.Noteid.id],
         "reminder": this.reminder
       }
-      this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+      this._service.httpAddReminder(this.body).subscribe((result) => {
         this.ReminderEmit.emit({ status: true, details: this.body });
 
       });
@@ -110,7 +110,7 @@ export class ReminderComponent implements OnInit {
           "noteIdList": [this.Noteid.id],
           "reminder": this.reminder
         }
-        this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+        this._service.httpAddReminder(this.body).subscribe((result) => {
 
           this.ReminderEmit.emit({ status: true, details: this.body });
         });
@@ -123,7 +123,7 @@ export class ReminderComponent implements OnInit {
           "noteIdList": [this.Noteid.id],
           "reminder": this.reminder
         }
-        this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+        this._service.httpAddReminder( this.body).subscribe((result) => {
 
           this.ReminderEmit.emit({ status: true, details: this.reminder });
         });
@@ -136,7 +136,7 @@ export class ReminderComponent implements OnInit {
           "noteIdList": [this.Noteid.id],
           "reminder": this.reminder
         }
-        this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+        this._service.httpAddReminder( this.body).subscribe((result) => {
 
           this.ReminderEmit.emit({ status: true, details: this.body });
         })
@@ -149,7 +149,7 @@ export class ReminderComponent implements OnInit {
           "noteIdList": [this.Noteid.id],
           "reminder": this.reminder
         }
-        this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+        this._service.httpAddReminder(this.body).subscribe((result) => {
 
           this.ReminderEmit.emit({ status: true, details: this.body });
         })
@@ -169,7 +169,7 @@ export class ReminderComponent implements OnInit {
             "noteIdList": [this.Noteid.id],
             "reminder": this.reminder
           }
-          this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+          this._service.httpAddReminder(this.body).subscribe((result) => {
 
             this.ReminderEmit.emit({ status: true, details: this.body });
           })
@@ -183,7 +183,7 @@ export class ReminderComponent implements OnInit {
             "reminder": this.reminder
           }
 
-          this._service.httpAddReminder('notes/addUpdateReminderNotes', localStorage.getItem('token'), this.body).subscribe((result) => {
+          this._service.httpAddReminder(this.body).subscribe((result) => {
 
             this.ReminderEmit.emit({ status: true, details: this.body });
           });
@@ -193,30 +193,81 @@ export class ReminderComponent implements OnInit {
     }
   }
 
+  blockDate(time) {
+   
+    this.reminders[0].disableStatus = false;
+    this.reminders[1].disableStatus = false;
+    this.reminders[2].disableStatus = false;
+    this.reminders[3].disableStatus = false;
+    if( new Date(time).getDate() < new Date(this.currentDate).getDate()){
+      this.reminders[0].disableStatus = true;
+      this.reminders[1].disableStatus = true;
+      this.reminders[2].disableStatus = true;
+      this.reminders[3].disableStatus = true;
+    }
 
-  blockDate() {
-    if ((new Date(this.setDate).getFullYear() - new Date(this.currentDate).getFullYear()) == 0) {
-      if ((new Date(this.setDate).getMonth() - new Date(this.currentDate).getMonth()) == 0) {
-        if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) == 0) {
+    if (time == undefined || (new Date(time).getDate() == new Date(this.currentDate).getDate())) {
+      if ((new Date(this.setDate).getFullYear() - new Date(this.currentDate).getFullYear()) == 0) {
+        if ((new Date(this.setDate).getMonth() - new Date(this.currentDate).getMonth()) == 0) {
           if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) == 0) {
-            this.reminders[0].disableStatus = true;
-          }
-          if ((new Date(this.setDate).getHours()) > 13) {
+            if ((new Date(this.setDate).getDate() - new Date(this.currentDate).getDate()) == 0) {
+              if ((new Date(this.setDate).getHours()) > 8) {
+                this.reminders[0].disableStatus = true;
+              }
 
-            this.reminders[1].disableStatus = true;
+            }
+            if ((new Date(this.setDate).getHours()) > 13) {
 
-          }
-          if ((new Date(this.setDate).getHours()) > 18) {
-            this.reminders[2].disableStatus = true;
+              this.reminders[1].disableStatus = true;
 
-          }
-          if ((new Date(this.setDate).getHours()) > 20) {
-            this.reminders[3].disableStatus = true;
+            }
+            if ((new Date(this.setDate).getHours()) > 18) {
+              this.reminders[2].disableStatus = true;
 
+            }
+            if ((new Date(this.setDate).getHours()) > 20) {
+              this.reminders[3].disableStatus = true;
+
+            }
           }
         }
       }
     }
+    if (time != undefined) {
+      if ((new Date(time).getFullYear() - new Date(this.currentDate).getFullYear()) == 0) {
+        if ((new Date(time).getMonth() - new Date(this.currentDate).getMonth()) == 0) {
+          if ((new Date(time).getDate() - new Date(this.currentDate).getDate()) == 0) {
+            if ((new Date(time).getDate() - new Date(this.currentDate).getDate()) == 0) {
+              if ((new Date(time).getHours()) > 8) {
+                this.reminders[0].disableStatus = true;
+              }
+            }
+            if ((new Date(time).getHours()) > 13) {
+
+              this.reminders[1].disableStatus = true;
+
+            }
+            if ((new Date(time).getHours()) > 18) {
+              this.reminders[2].disableStatus = true;
+
+            }
+            if ((new Date(time).getHours()) > 20) {
+              this.reminders[3].disableStatus = true;
+
+            }
+          }
+        }
+        else {
+          this.reminders[0].disableStatus = false;
+          this.reminders[1].disableStatus = false;
+          this.reminders[2].disableStatus = false;
+          this.reminders[3].disableStatus = false;
+
+        }
+      }
+    }
+
+
   }
 
 }

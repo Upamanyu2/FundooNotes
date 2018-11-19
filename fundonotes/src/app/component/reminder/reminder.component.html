@@ -44,7 +44,7 @@
         <hr>
         <mat-form-field>
             <input (click)="$event.stopPropagation()" matInput [matDatepicker]="picker" min='{{currentDate | date:"yyyy-MM-dd"}}'
-                [(ngModel)]="reminderBody.date.value" placeholder="Choose a date">
+                [(ngModel)]="reminderBody.date.value" (change)="blockDate(reminderBody.date.value)" placeholder="Choose a date">
             <mat-datepicker-toggle matSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
             </mat-datepicker-toggle>
@@ -55,7 +55,7 @@
                 <input matInput placeholder="Choose Time" (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu"
                     [(ngModel)]="reminderBody.time">
             </mat-form-field>
-            <mat-icon (click)="$event.stopPropagation()" [matMenuTriggerFor]="timeMenu" class="timeSet">keyboard_arrow_down</mat-icon>
+            <mat-icon (click)="$event.stopPropagation();blockDate(reminderBody.date.value)" [matMenuTriggerFor]="timeMenu" class="timeSet">keyboard_arrow_down</mat-icon>
 
         </div>
         <mat-menu #timeMenu [overlapTrigger]=false>

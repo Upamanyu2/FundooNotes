@@ -78,8 +78,8 @@ export class NoteCardComponent implements OnInit {// Exported class
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
     }
-    var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
-    this.service.postNotes(url, JSON.stringify(apiData), localStorage.getItem('token')).subscribe(response => {
+    
+    this.service.updateCheckList(id,this.modifiedCheckList, JSON.stringify(apiData)).subscribe(response => {
       console.log(response);
 
     })
@@ -91,7 +91,7 @@ public reminderBody={};
     this.reminderBody={
       "noteIdList":[id]
     }
-    this.service.postNotes('notes/removeReminderNotes',this.reminderBody,localStorage.getItem('token')).subscribe(result=>{
+    this.service.removeReminderPost(this.reminderBody).subscribe(result=>{
       this.updateCard.emit(true); 
     })
 

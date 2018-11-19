@@ -1,4 +1,23 @@
-<image-cropper [imageChangedEvent]="data" [maintainAspectRatio]="true"
-  [aspectRatio]="4/4" [resizeToWidth]="" format="png" (imageCropped)="imageCropped($event)">
-</image-cropper>
-<button mat-raised-button color="primary" (click)="onUpload()">Set image as profile picture</button>
+<div fxLayout="column">
+  <div>
+    <image-cropper [imageChangedEvent]="data" [maintainAspectRatio]="true" [aspectRatio]="4/4" [resizeToWidth]=""
+      format="png" (imageCropped)="imageCropped($event)">
+    </image-cropper>
+  </div>
+
+  <div fxLayout="row" >
+<div fxFlex="15%"></div>
+ <div fxFlex="85%" fxLayoutAllign="end">
+  
+      <button mat-raised-button color="primary" (click)="onUpload()">Set as profile picture</button>
+   
+    
+ </div>
+    
+
+
+  </div>
+
+</div>
+
+

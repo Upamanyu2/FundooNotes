@@ -17,7 +17,6 @@ export class GetLabelsOnClickComponent implements OnInit { //Exported class
   /*-------------------------------------------------------------------------------------------- */
   public notes = []
   public label;
-  private token = localStorage.getItem("token");
   /*-------------------------------------------------------------------------------------------- */
   ngOnInit() {
 
@@ -29,7 +28,7 @@ export class GetLabelsOnClickComponent implements OnInit { //Exported class
   }
   /*-------------------------------------------------------------------------------------------- */
   getCard(label) {      //Function for getting all the cards using the label name
-    this._service.postNotes("notes/getNotesListByLabel/" + label, {}, this.token)
+    this._service.postLabelsToGetNotes( label, {})
       .subscribe(data => {
         this.notes = []
         for (let i = data['data'].data.length - 1; i >= 0; i--) {

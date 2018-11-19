@@ -9,7 +9,6 @@ import { LabelServiceService } from '../../core/service/http/label/label-service
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 export class MoreComponent implements OnInit {
-  private token = localStorage.getItem("token");
   public labelList = [];
   public searchLabel;
 
@@ -43,11 +42,10 @@ export class MoreComponent implements OnInit {
 
     if (this.Noteid != undefined && this.Noteid.noteLabels != undefined) {
       noteId.push(this.Noteid.id);
-      this._service.postNotes("notes/trashNotes", {
+      this._service.deleteNotesPost({
         "isDeleted": flag,
         "noteIdList": noteId
-      },
-        this.token)
+      })
         .subscribe(
           data => {
             
@@ -71,11 +69,10 @@ export class MoreComponent implements OnInit {
     noteId.push(this.Noteid.id);
     if (this.Noteid != undefined && this.Noteid.noteLabels != undefined) {
 
-      this._service.postNotes("notes/deleteForeverNotes", {
+      this._service.deleteForeverNotes({
         "isDeleted": flag,
         "noteIdList": noteId
-      },
-        this.token)
+      })
         .subscribe(
           data => {
            
@@ -94,7 +91,7 @@ export class MoreComponent implements OnInit {
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   getLabel() {        //Function for getting all the labels
 
-    this._service.getNoteJson("noteLabels/getNoteLabelList", this.token)
+    this._service.getNoteJson()
       .subscribe((data) => {
         
         this.labelList = [];
@@ -126,7 +123,7 @@ export class MoreComponent implements OnInit {
   addNotesToLabelPost(id) {
     let noteId = this.Noteid.id;
 
-    this._service1.addLabelToNotes("notes/" + noteId + "/addLabelToNotes/" + id + "/add", this.token)
+    this._service1.addLabelToNotes(noteId, id)
       .subscribe(data => {
         
         this.DeleteClicked.emit(true);
@@ -142,7 +139,7 @@ export class MoreComponent implements OnInit {
   deleteNotesfromLabelPost(id) {
     let noteId = this.Noteid.id;
 
-    this._service1.addLabelToNotes("notes/" + noteId + "/addLabelToNotes/" + id + "/remove", this.token)
+    this._service1.removeLabelFromNotes( noteId , id)
       .subscribe(data => {
       
         this.DeleteClicked.emit(true);

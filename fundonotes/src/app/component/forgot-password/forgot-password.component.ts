@@ -38,7 +38,7 @@ export class ForgotPasswordComponent implements OnInit {  //Exported class
       })
       return;
     }
-    this._service.postData("user/reset", {
+    this._service.postDataForgotPaasword({
       "email": this.model.email
     }).subscribe(data => {   //On success of api call
      

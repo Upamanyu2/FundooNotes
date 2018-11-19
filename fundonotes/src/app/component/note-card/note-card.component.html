@@ -2,7 +2,7 @@
 <div fxLayout="column" fxLayoutGap="2%">
     <div></div>
     <div fxLayout="row">
-        <div fxFlex="8%" fxShow.lg=true fxShow.md=true fxShow.sm=true fxShow.xs=false></div>
+        <div fxFlex="13%" fxShow.lg=true fxShow.md=true fxShow.sm=true fxShow.xs=false></div>
         <div fxLayout="row" fxFlex="92%" class="outsideDivNoteCard">
             <div [ngClass]="{
         'grid-view':!toggle,
@@ -60,14 +60,14 @@
                     <!-------------------------------Labels show part--------------------------->
                     <div *ngFor="let label of data.noteLabels" fxLayout="row row wrap">
                         <mat-chip-list>
-                            <mat-chip *ngIf="!label.isDeleted">{{label.label}}</mat-chip>
+                            <mat-chip *ngIf="!label.isDeleted"><span class="labelChips">{{label.label}}</span></mat-chip>
                         </mat-chip-list>
                     </div>
                     <!-------------------------------------------------------------------------->
                     <div *ngIf="data.noteLabels==''">
                         <div *ngFor="let label of data.labelIdList" fxLayout="row row wrap">
                             <mat-chip-list>
-                                <mat-chip *ngIf="!label.isDeleted && label.isChecked">{{label.label}}</mat-chip>
+                                <mat-chip *ngIf="!label.isDeleted && label.isChecked"><span class="labelChips">{{label.label}}</span></mat-chip>
                             </mat-chip-list>
                         </div>
                     </div>
@@ -90,6 +90,14 @@
                             <div *ngIf="(tomorrowDate | date:'dd/MM/yyyy') == (reminder | date:'dd/MM/yyyy')">
                                 <mat-chip>
                                     Tomorrow, {{reminder | date:"mediumTime"}}<span>
+                                        <mat-icon matChipRemove (click)="$event.stopPropagation(); removeReminder(data.id)">cancel</mat-icon>
+                                    </span>
+                                </mat-chip>
+
+                            </div>
+                            <div *ngIf="(reminder | date:'dd/MM/yyyy') > (tomorrowDate | date:'dd/MM/yyyy')">
+                                <mat-chip>
+                                     {{reminder | date:"medium"}}<span>
                                         <mat-icon matChipRemove (click)="$event.stopPropagation(); removeReminder(data.id)">cancel</mat-icon>
                                     </span>
                                 </mat-chip>

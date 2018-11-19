@@ -60,13 +60,12 @@ export class EditComponent implements OnInit { //Export class to export all the 
       
       this.title = document.getElementById("title").innerHTML;  //Used to bind the updated div data.
       this.description = document.getElementById("description").innerHTML; //Used to bind the updated div data.
-      var token = localStorage.getItem('token');
       var body = {
         "noteId": this.data.id,
         "title": this.title,
         "description": this.description
       }
-      this._service.postNotes('notes/updateNotes', body, token)  //Update card service is called to call the post api.
+      this._service.postEditNotes( body)  //Update card service is called to call the post api.
         .subscribe(
           data => {  //On success
            
@@ -105,8 +104,8 @@ export class EditComponent implements OnInit { //Export class to export all the 
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
     }
-    var url = "notes/" + id + "/checklist/" + this.modifiedCheckList.id + "/update";
-    this._service.postNotes(url, JSON.stringify(apiData), localStorage.getItem('token')).subscribe(response => {
+    
+    this._service.postUpdatedNotes(id,this.modifiedCheckList.id , JSON.stringify(apiData)).subscribe(response => {
      
     });
   }
@@ -146,8 +145,8 @@ export class EditComponent implements OnInit { //Export class to export all the 
         "isChecked": this.status
       }
 
-      var url = "notes/" + this.data.id + "/checklist/add";
-      this._service.addNotes(url, obj, localStorage.getItem('token')).subscribe(response => {
+      
+      this._service.editNotes(this.data.id, obj).subscribe(response => {
        
         this.data1 = null;
         this.adding = false;
@@ -174,8 +173,7 @@ export class EditComponent implements OnInit { //Export class to export all the 
 
   }
   deleteList() {
-    var url = "notes/" + this.data.id + "/checklist/" + this.removedList.id + "/remove"
-    this._service.addNotes(url, {}, localStorage.getItem('token'))
+    this._service.deleteCheckList(this.data.id,this.removedList.id, {})
       .subscribe(response => {
        
         for (let i = 0; i < this.checkListItemArray.length; i++) {
@@ -186,7 +184,7 @@ export class EditComponent implements OnInit { //Export class to export all the 
 
         }
 
-      })
+      });
   }
 
 
@@ -197,7 +195,7 @@ export class EditComponent implements OnInit { //Export class to export all the 
     this.reminderBody = {
       "noteIdList": [id]
     }
-    this._service.postNotes('notes/removeReminderNotes', this.reminderBody, localStorage.getItem('token')).subscribe(result => {
+    this._service.postRemoveReminder(this.reminderBody).subscribe(result => {
       
       for (let i = 0; i < this.reminderArray.length; i++) {
 

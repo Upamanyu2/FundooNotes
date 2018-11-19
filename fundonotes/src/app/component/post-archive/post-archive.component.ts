@@ -13,7 +13,7 @@ export class PostArchiveComponent implements OnInit {
   @Input() Delete:any;
 
 
-  private token=localStorage.getItem("token");
+  
   constructor(private _service : NotesServiceService) { }
 
 
@@ -29,11 +29,10 @@ postArchivedNotes(flag){
   let noteId=[];
   if(this.Noteid!=null && this.Noteid.noteLabels.length!=undefined){
     noteId.push(this.Noteid.id);
-    this._service.postNotes("notes/archiveNotes",{
+    this._service.postArchive({
      "isArchived":flag,
      "noteIdList":noteId
-    },
-    this.token)
+    })
     .subscribe(
       data=>{
       

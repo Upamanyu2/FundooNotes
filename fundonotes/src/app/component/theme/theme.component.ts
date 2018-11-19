@@ -8,7 +8,6 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 export class ThemeComponent implements OnInit {
-  private token = localStorage.getItem("token");
   constructor(private _service: NotesServiceService) { }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   @Input() Noteid: any;     //Input decorator used to catch the whole array of the notes from the note-card component
@@ -25,11 +24,10 @@ export class ThemeComponent implements OnInit {
     if (this.Noteid != null) {
       let noteId = []
       noteId.push(this.Noteid.id);
-      this._service.postNotes("notes/changesColorNotes", {
+      this._service.postColorNotes({
         "color": str,
         "noteIdList": noteId
-      },
-        this.token)
+      })
         .subscribe(
           data => {
           

@@ -20,7 +20,6 @@ public show=true;
 public editId: any;
 // public label:boolean =false;
 public userId=localStorage.getItem("UserId");
-private token=localStorage.getItem("token");
 public labelList=[];
 
 /*----------------------------------------------------------------------------------------------------- */
@@ -49,11 +48,11 @@ public labelList=[];
       if(label=="" || label==null){
           return;
       }
-    this._service.postNotes("noteLabels",{
+    this._service.postLabels({
       "userId":this.userId,
       "label":label,
       "isDeleted":false
-    },this.token)
+    })
     .subscribe(
       data=>{
         
@@ -67,7 +66,7 @@ public labelList=[];
 /*----------------------------------------------------------------------------------------------------- */
  getLabel(){        //Function for getting all the labels
   
-      this._service.getNoteJson("noteLabels/getNoteLabelList",this.token)
+      this._service.getNoteJson()
       .subscribe((data)=>{
    
     this.labelList=[];
@@ -87,7 +86,7 @@ public labelList=[];
  }
 /*----------------------------------------------------------------------------------------------------- */
  deleteLabel(id){            //Function for deleting all the labels
-   this._service1.labelDeleteService("noteLabels/"+id+"/deleteNoteLabel")
+   this._service1.labelDeleteService(id)
    .subscribe(
      data=>{
        
@@ -104,9 +103,9 @@ public labelList=[];
 updateLabel(id){
  
  let editLabel=this.labelEditInputRef.nativeElement.value; 
-  this._service.postNotes("noteLabels/"+id+"/updateNoteLabel",{
+  this._service.updateLabels(id,{
    "label":editLabel
-  },this.token)
+  })
   .subscribe(
     data=>{
  

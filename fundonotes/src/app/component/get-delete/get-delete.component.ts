@@ -8,7 +8,6 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 })
 /*---------------------------------------------------------------------------------------- */
 export class GetDeleteComponent implements OnInit { //Exported class
-  private token = localStorage.getItem("token");
   public notes = [];
   constructor(private _service: NotesServiceService) { }
 /*---------------------------------------------------------------------------------------- */
@@ -17,7 +16,7 @@ export class GetDeleteComponent implements OnInit { //Exported class
   }
 /*---------------------------------------------------------------------------------------- */
   getDelete() {  //Function for getting all the deleted notes
-    this._service.getNotes("/notes/getTrashNotesList", this.token)
+    this._service.getTrashNotes()
       .subscribe(
         data => {
           this.notes = []
@@ -36,7 +35,7 @@ export class GetDeleteComponent implements OnInit { //Exported class
 
 /*---------------------------------------------------------------------------------------- */
   refresh(event) {  //Function for handling all the events
-    if (event = true) {
+    if (event == true) {
       this.getDelete();
     }
   }

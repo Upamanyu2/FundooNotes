@@ -27,9 +27,8 @@ export class NavigationBarComponent implements OnInit {
     .pipe(
       map(result => result.matches)
     );
-  private token = localStorage.getItem("token");
   public firstname = [];
-
+  public userName=[]
   public message: String;
   /*--------------------------------------------------------------------------------------------------------------------*/
   constructor(
@@ -47,11 +46,12 @@ export class NavigationBarComponent implements OnInit {
     this.getLabel();
     this.title="Fundoo";
     this.search.currentMessage.subscribe(message => this.message = message) //Subcribing the search message
+    this.userName.push(localStorage.getItem("userName"));
   }
   /*--------------------------------------------------------------------------------------------------------------------*/
   getLabel() {        //Function for getting all the labels
 
-    this._service1.getNoteJson("noteLabels/getNoteLabelList", this.token)
+    this._service1.getNoteJson()
       .subscribe((data) => {
        
         this.labelList = [];
@@ -101,7 +101,7 @@ export class NavigationBarComponent implements OnInit {
   /*--------------------------------------------------------------------------------------------------------------------*/
   public logout() {  //Funtion to call the logout service function.
     
-    this._service.logoutService("user/logout", this.token)
+    this._service.logoutService()
       .subscribe(
         data => {          //On success
          
