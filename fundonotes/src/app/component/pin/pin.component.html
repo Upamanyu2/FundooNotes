@@ -1,0 +1,6 @@
+<button mat-icon-button style="margin-top: -10px" *ngIf="!Noteid.isPined" (click)="pinned()">
+    <img src="../../../assets/image/add10.svg">
+</button>
+<button mat-icon-button style="margin-top: -10px" *ngIf="Noteid.isPined" (click)="pinned()">
+    <img src="../../../assets/image/add11.svg">
+</button>

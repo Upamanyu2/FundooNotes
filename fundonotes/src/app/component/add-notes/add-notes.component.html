@@ -38,8 +38,11 @@
         <mat-card-header fxLayout="row">
           <div data-text="Title" id="title" contenteditable="true" class="div2" fxFlex="90%">
           </div>
-          <button mat-icon-button style="margin-top: -10px" (click)="pinned()" fxFlex="10%">
+          <button mat-icon-button style="margin-top: -10px" *ngIf="!pin" (click)="pinned()" fxFlex="10%">
             <img src="../../../assets/image/add10.svg">
+          </button>
+          <button mat-icon-button style="margin-top: -10px" *ngIf="pin" (click)="pinned()" fxFlex="10%">
+            <img src="../../../assets/image/add11.svg">
           </button>
         </mat-card-header>
         <mat-card-content class="take_note" *ngIf="hideCheckbox">
@@ -141,8 +144,11 @@
         <mat-card-header>
           <div data-text="Title" id="title" contenteditable="true" class="div2">
           </div>
-          <button mat-icon-button class="addCardButton" (click)="pinned()">
+          <button mat-icon-button class="addCardButton" *ngIf="!pin" (click)="pinned()">
             <img src="../../../assets/image/add10.svg">
+          </button>
+          <button mat-icon-button style="margin-top: -10px" *ngIf="pin" (click)="pinned()">
+            <img src="../../../assets/image/add11.svg">
           </button>
         </mat-card-header>
 

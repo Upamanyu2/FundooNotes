@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing all the dialogue box requirements
 import { NoteCardComponent } from '../note-card/note-card.component'; //Note card component is imported to link the edit component and note component.
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Http service file is imported.
-
+import { SearchServiceService } from '../../core/service/dataService/searchService/search-service.service'
 @Component({ //Injecting component dependency
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -24,15 +24,17 @@ export class EditComponent implements OnInit { //Export class to export all the 
   public removedList;
   public reminderBody = {};
   public reminderArray = [];
+  public pinClick=this.data.isPined;
   /*------------------------------------------------------------------------------------------------------------ */
   constructor(
     private _service: NotesServiceService, //Service file reference is made.
+    private service: SearchServiceService,
     public dialogRef: MatDialogRef<NoteCardComponent>, //Reference for dialogue box reference is being made.
 
     @Inject(MAT_DIALOG_DATA) public data: any,  //Used for injecting the datas received by the modal box from the note-card.
   ) { }
   @Output() ColorClicked = new EventEmitter<any>(); //Output decorator used for emitting the function for color being picked with the click function.
-  @Output() UpdatingCard = new EventEmitter<any>();
+  @Output() UpdatingCard = new EventEmitter<any>(); 
   @Output() ReminderEmit = new EventEmitter<any>();
   /*------------------------------------------------------------------------------------------------------------ */
   ngOnInit() {
@@ -51,7 +53,10 @@ export class EditComponent implements OnInit { //Export class to export all the 
   toggle() {
     this.click = true;
   }
-
+  pinned(){
+  this.pinClick=!this.pinClick;
+  this.service.changeView2(this.pinClick);
+  }
 
   /*------------------------------------------------------------------------------------------------------------ */
   updatecard(check) {    //Update card post function is occuring to send the updated card details

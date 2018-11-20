@@ -81,6 +81,7 @@ export class NotesServiceService {
   }
   /*---------------------------------------------------------------------------------------------------------------------------- */
   public pushNotificationPost(body){
+    
     let name ="user/registerPushToken";
     return this.service.postServiceJson(name, body);
   }
@@ -119,6 +120,11 @@ export class NotesServiceService {
   public getNoteJson() {
     let name = "noteLabels/getNoteLabelList"
     return this.service.getServiceJson(name);
+  }
+  /*---------------------------------------------------------------------------------------------------------------------------- */
+  public postPin(body){
+    let name = "notes/pinUnpinNotes"
+    return this.service.postServiceJson(name,body);
   }
 }
 /*---------------------------------------------------------------------------------------------------------------------------- */

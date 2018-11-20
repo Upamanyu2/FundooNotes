@@ -3,17 +3,27 @@
 <!---------------------Add note starts------------------------------>
 <app-add-notes (closeClicked)="displayCard($event)"></app-add-notes>
 <!---------------------Add note ends------------------------------>
+<div fxLayout="row"> 
+    <div fxFlex="50%"></div>
+    <div fxFlex="50%" fxLayoutAlign="end"><h3>PINNED</h3></div>
+</div>
+
+<app-note-card [notesListArray]="pinArray" (refreshClickedDeleteLabel)="refresh($event)" 
+(refreshClicked)="displayCard($event)"
+    (updateCard)="displayCard($event)">
+</app-note-card>
 
 
-
-
-
-
+<div fxLayout="row"> 
+        <div fxFlex="50%"></div>
+        <div fxFlex="50%" fxLayoutAlign="end"><h3>OTHERS</h3></div>
+    </div>
 <!--------------------Note card starts----------------------------->
 <app-note-card [notesListArray]="notes" (refreshClickedDeleteLabel)="refresh($event)" 
 (refreshClicked)="displayCard($event)"
     (updateCard)="displayCard($event)">
 </app-note-card>
 <!--------------------Note card ends----------------------------->
+
 </div>
 

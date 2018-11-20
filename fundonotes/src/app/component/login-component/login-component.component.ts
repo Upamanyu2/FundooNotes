@@ -16,6 +16,7 @@ export class LoginComponentComponent implements OnInit {
   model: any ={};
   loginForm : FormGroup;
   body={};
+  private pushedToken;
   constructor(private _service : ServiceService,
     private _service1:NotesServiceService,
      private formBuilder : FormBuilder,
@@ -30,7 +31,6 @@ export class LoginComponentComponent implements OnInit {
     });
     this._service.getData()
        .subscribe((data)=>{
-         console.log(data);
          
        }) 
   }
@@ -40,6 +40,7 @@ export class LoginComponentComponent implements OnInit {
   }
 /*------------------------------------------------------------------------------------------------------------------------------------*/ 
   login(){                      //function will be called at the time of login.
+    
           this.submitted=true;
         if (this.loginForm.invalid) {
           return;  
@@ -66,16 +67,17 @@ export class LoginComponentComponent implements OnInit {
         "password": this.model.password
       }).subscribe(
         data =>{
-          console.log("POST request is successful", data);
+          console.log("POST request is successful");
           localStorage.setItem("token",data['id'])
            localStorage.setItem("FirstName",data['firstName']);
            console.log(data['userId']);
            localStorage.setItem("UserId",data['userId']);
-           localStorage.setItem("imageUrl",data['imageUrl'])
-           localStorage.setItem("userName",mail)
-           var pushedToken=localStorage.getItem("pushToken")
+           localStorage.setItem("imageUrl",data['imageUrl']);
+           localStorage.setItem("userName",mail);
+           this.pushedToken=localStorage.getItem("pushToken");
+          
            this.body={
-             "pushToken":pushedToken
+             "pushToken":this.pushedToken
            }
           this._service1.pushNotificationPost(this.body)
           .subscribe(reult=>{

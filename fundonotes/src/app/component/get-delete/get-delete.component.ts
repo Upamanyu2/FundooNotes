@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';//Importing all modules for adding dependencies
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing notes service
+import { Note } from '../../core/model/notes/note';
 /*---------------------------------------------------------------------------------------- */
 @Component({  //Injecting the component dependencies
   selector: 'app-get-delete',
@@ -8,7 +9,7 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 })
 /*---------------------------------------------------------------------------------------- */
 export class GetDeleteComponent implements OnInit { //Exported class
-  public notes = [];
+  private notes : Note[]=[];
   constructor(private _service: NotesServiceService) { }
 /*---------------------------------------------------------------------------------------- */
   ngOnInit() {  
@@ -20,9 +21,10 @@ export class GetDeleteComponent implements OnInit { //Exported class
       .subscribe(
         data => {
           this.notes = []
-          for (var i = data['data'].data.length - 1; i >= 0; i--) {
-            if (data['data'].data[i].isDeleted == true && data['data'].data[i].isArchived == false) {
-              this.notes.push(data['data'].data[i]);
+          let myData : Note[]=data['data']['data'];
+          for (var i = myData.length - 1; i >= 0; i--) {
+            if (myData[i].isDeleted == true && myData[i].isArchived == false) {
+              this.notes.push(myData[i]);
               
             }
           }

@@ -22,4 +22,7 @@ describe('NavBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should create', () => {
+    expect(1+1).toEqual(2);
+  });
 });

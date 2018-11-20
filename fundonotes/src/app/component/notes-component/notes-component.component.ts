@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';  //Importing all functions for injecting the dependencies
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing notes service
+import { Note } from '../../core/model/notes/note';
 
+/*---------------------------------------------------------------------------------------------------------------- */
 @Component({  //Dependency injection for component
   selector: 'app-notes-component',
   templateUrl: './notes-component.component.html',
@@ -10,16 +12,17 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 export class NotesComponentComponent implements OnInit {    //Exported class
-  public notes = [];
+   private notes : Note[]=[];
+   private pinArray: Note[]=[];
+/*----------------------------------------------------------------------------------------------------------- */
   
   constructor(private _service: NotesServiceService) { }
-
-
+   
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
     
     this.getNotes();
-  
+    this.getPinnedNotes();
    
   }
 
@@ -27,6 +30,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
   displayCard(event) { //Function for handling the events emitted
     if (event) {
       this.getNotes();
+      this.getPinnedNotes();
     }
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
@@ -36,10 +40,10 @@ export class NotesComponentComponent implements OnInit {    //Exported class
       .subscribe(
         data => {
           this.notes=[];
-          
-          for (var i = data['data'].data.length - 1; i >= 0; i--) {
-            if (data['data'].data[i].isDeleted == false && data['data'].data[i].isArchived == false) {
-              this.notes.push(data['data'].data[i]);
+          let myData : Note[]=data['data']['data'];
+          for (var i = myData.length - 1; i >= 0; i--) {
+            if (myData[i].isDeleted == false && myData[i].isArchived == false && myData[i].isPined==false) {
+              this.notes.push(myData[i]);
              
             }
 
@@ -52,6 +56,29 @@ export class NotesComponentComponent implements OnInit {    //Exported class
 
         });
   }
+
+getPinnedNotes(){
+  this._service.getNotes()
+  .subscribe(
+    data=>{
+    this.pinArray=[];
+    var myData :  Note[]=data['data']['data'];
+      for(var i = myData.length - 1; i >= 0; i--){
+        if (myData[i].isDeleted == false && myData[i].isArchived == false && myData[i].isPined==true){
+          this.pinArray.push(myData[i]);
+        }
+        
+      }
+    },
+    error=>{
+
+    }
+  )
+
+}
+
+
+
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
 
 

@@ -75,6 +75,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
       if (this.description == "" && this.title == "") {   //For preventing the api call while the two filds are left empty.
         this.reminderArray = [];
         this.LabelObj = [];
+        this.pin=false
         return;
       }
 
@@ -90,7 +91,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
         .subscribe(
           data => {    //On success.
-
+            this.pin=false
             this.closeClicked.emit(true);
             this.LabelObj = [];
             this.reminderArray = [];
@@ -125,6 +126,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
       }
       if (this.title == "") {
+        this.pin=false
         this.dataArray = [];
         this.dataArrayApi = [];
         this.LabelObj = [];
@@ -144,6 +146,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
     if (this.title != "") {
       this._service.addNotes( this.body)
         .subscribe(response => {
+          this.pin=false
           this.click == false;
           this.LabelObj = []
           this.reminderArray = []

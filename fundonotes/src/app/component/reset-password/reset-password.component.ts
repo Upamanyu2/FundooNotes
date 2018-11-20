@@ -28,8 +28,8 @@ export class ResetPasswordComponent implements OnInit { //Exported class
   ) { }
   /*------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {                  // function executes while initialization
+    
     this.accessToken = this.route.snapshot.params['token'];
-   
 
     this.resetPasswordForm = this.formBuilder.group({
       pass: ['', [Validators.required, Validators.minLength(6)]],
@@ -45,6 +45,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
 
   /*------------------------------------------------------------------------------------------------------------------------------------*/
   reset() {                     // function called while the reset button is pressed for resetting the password
+    localStorage.setItem("token",this.accessToken)
     this.submitted = true;
     var password = this.model.password;
     var confirmpassword = this.model.confirmpassword;
@@ -63,7 +64,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
     this._service.resetPasswordPost( { "newPassword": password },this.accessToken)
       .subscribe(
         data => {
-         
+          localStorage.removeItem("token");
           this.snackBar.open('Password change sucessfull', 'redirecting...', {
             duration: 2000,
           });
@@ -75,6 +76,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
             duration: 2000,
           });
         });
+       
   }
 
 }

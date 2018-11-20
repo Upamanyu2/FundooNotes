@@ -26,6 +26,7 @@ export class MessagingService {
       return this.messaging.getToken()
     })
     .then(pushToken => {
+    
       localStorage.setItem("pushToken",pushToken)
       LoggerServiceService.data(pushToken)
       

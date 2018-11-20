@@ -105,7 +105,11 @@ export class NavigationBarComponent implements OnInit {
       .subscribe(
         data => {          //On success
          
-          localStorage.clear(); //clearing all local storage
+          localStorage.removeItem("UserId"); //clearing all local storage
+          localStorage.removeItem("imageUrl");
+          localStorage.removeItem("userName");
+          localStorage.removeItem("token");
+          localStorage.removeItem("FirstName")
           this.router.navigate(['login']); //redirecting to login page
         },
         error => {               //On failure

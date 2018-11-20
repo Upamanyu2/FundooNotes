@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../../core/service/http/user/service.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { passValidator } from '../../util/custom';
+import { passValidator } from '../../core/util/custom';
 
 @Component({
   selector: 'app-signup-component',

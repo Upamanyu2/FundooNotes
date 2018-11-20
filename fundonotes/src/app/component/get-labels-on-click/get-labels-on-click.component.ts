@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'; //Importing all the modules for injecting dependencies
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file
 import { ActivatedRoute, Params } from '@angular/router';//Importing the activated route and params
+import { Note } from '../../core/model/notes/note';
 /*-------------------------------------------------------------------------------------------- */
 @Component({   //Injecting the component dependencies
   selector: 'app-get-labels-on-click',
@@ -15,7 +16,7 @@ export class GetLabelsOnClickComponent implements OnInit { //Exported class
     private route: ActivatedRoute
   ) { }
   /*-------------------------------------------------------------------------------------------- */
-  public notes = []
+  private notes : Note[]=[];
   public label;
   /*-------------------------------------------------------------------------------------------- */
   ngOnInit() {
@@ -31,8 +32,9 @@ export class GetLabelsOnClickComponent implements OnInit { //Exported class
     this._service.postLabelsToGetNotes( label, {})
       .subscribe(data => {
         this.notes = []
-        for (let i = data['data'].data.length - 1; i >= 0; i--) {
-          this.notes.push(data['data'].data[i]);
+        let myData : Note[]=data['data']['data']
+        for (let i = myData.length - 1; i >= 0; i--) {
+          this.notes.push(myData[i]);
         }
       },
         error => {

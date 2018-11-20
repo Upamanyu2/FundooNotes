@@ -84,6 +84,7 @@ export class NoteCardComponent implements OnInit {// Exported class
 
     })
   }
+  
 
 public reminderBody={};
 
@@ -97,4 +98,5 @@ public reminderBody={};
 
 
   }
+  
 }

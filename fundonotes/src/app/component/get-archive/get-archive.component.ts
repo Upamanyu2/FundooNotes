@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';  //Importing for injecting all the dependencies.
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service'; //Importing the service file for using the get archive api.
+import { Note } from '../../core/model/notes/note';
 /*------------------------------------------------------------------------------------------------------------------------ */
 @Component({         //Injection of component dependencies
   selector: 'app-get-archive',
@@ -8,7 +9,7 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 })
 /*------------------------------------------------------------------------------------------------------------------------ */
 export class GetArchiveComponent implements OnInit {  //Exporting all the functionalities to use it in the while the initilisation of the page.
-  public notes = [];
+  private notes : Note[]=[];
   constructor(private _service: NotesServiceService) { }
   /*------------------------------------------------------------------------------------------------------------------------ */
   ngOnInit() {   //Initialisation function to called while the page is reloaded.
@@ -21,9 +22,10 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
       .subscribe(
         data => {
           this.notes = []
-          for (var i = data['data'].data.length - 1; i >= 0; i--) {
-            if (data['data'].data[i].isArchived == true && data['data'].data[i].isDeleted == false) {
-              this.notes.push(data['data'].data[i]);
+          let myData : Note[]=data['data']['data']
+          for (var i = myData.length - 1; i >= 0; i--) {
+            if (myData[i].isArchived == true && myData[i].isDeleted == false) {
+              this.notes.push(myData[i]);
               
             }
           }
@@ -34,12 +36,16 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
       )
   }
   /*------------------------------------------------------------------------------------------------------------------------ */
-  refresh(event) {    //Function for handling all the event emitters catched
+  refresh(event)  {    //Function for handling all the event emitters catched
     if (event == true) {
+     
       this.getArchive();
     }
-  
+    if(event.status==true){
+      this.getArchive();
+    }
   }
+
   /*------------------------------------------------------------------------------------------------------------------------ */
 
 

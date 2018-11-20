@@ -19,8 +19,13 @@
 
 
                     <!--------------------------Title part------------------------------------>
-                    <div class="headerNoteCard" [innerHTML]="data.title" (click)="openDialog(data)">
+                    <div flexLayout="row">
+                        <div fxFlex="90%" class="headerNoteCard" [innerHTML]="data.title" (click)="openDialog(data)">
 
+                        </div>
+                        <div fxFlex="10%">
+                            <app-pin [Noteid]=data (pinClicked)="refresh($event)"></app-pin>
+                        </div>
                     </div>
                     <!------------------------------------------------------------------------>
 
@@ -97,7 +102,7 @@
                             </div>
                             <div *ngIf="(reminder | date:'dd/MM/yyyy') > (tomorrowDate | date:'dd/MM/yyyy')">
                                 <mat-chip>
-                                     {{reminder | date:"medium"}}<span>
+                                    {{reminder | date:"medium"}}<span>
                                         <mat-icon matChipRemove (click)="$event.stopPropagation(); removeReminder(data.id)">cancel</mat-icon>
                                     </span>
                                 </mat-chip>

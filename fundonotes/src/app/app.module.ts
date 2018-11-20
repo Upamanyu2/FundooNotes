@@ -30,9 +30,9 @@ import { SmallSearchPipe } from '././core/pipe/searchSmallPipe/small-search.pipe
 import { CollaboratorComponent } from './component/collaborator/collaborator.component';
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ImageComponent } from './component/image/image.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from "@angular/material";
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from "@angular/material";
+import { InterceptService } from './core/service/intercept/services/intercept.service';
 /*------------------------------------------------------------------------------ */
       /*-----------Routing module imported------------------ */
 import { AppRoutingModule } from './app-routing.module';
@@ -51,7 +51,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -60,6 +60,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ProfilePhotoComponent } from './component/profile-photo/profile-photo.component';
 import { MessagingService } from './core/service/dataService/notifaticationService/messaging.service';
+import { PinComponent } from './component/pin/pin.component';
 
 
 /*------------------------------------------------------------------------------ */
@@ -100,7 +101,8 @@ import { MessagingService } from './core/service/dataService/notifaticationServi
     CollaboratorComponent,
     ReminderComponent,
     ImageComponent,
-    ProfilePhotoComponent
+    ProfilePhotoComponent,
+    PinComponent
 
 
 
@@ -135,7 +137,11 @@ import { MessagingService } from './core/service/dataService/notifaticationServi
     MatNativeDateModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers: [MessagingService],
+  providers: [MessagingService,InterceptService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptService,
+    multi: true
+  }],
   bootstrap: [AppComponent],
   entryComponents: [EditComponent, NoteCardComponent, LabelCreateComponent, AddLabelComponent, NavigationBarComponent, ProfilePhotoComponent]
 

@@ -4,7 +4,7 @@ import { NavigationBarComponent } from '../navigation-bar/navigation-bar.compone
 import {ViewChild, ElementRef} from '@angular/core';
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 import { LabelServiceService } from '../../core/service/http/label/label-service.service';
-
+import { Label } from '../../core/model/label/label'
 
 
 /*----------------------------------------------------------------------------------------------------- */
@@ -16,11 +16,10 @@ import { LabelServiceService } from '../../core/service/http/label/label-service
 })
 /*----------------------------------------------------------------------------------------------------- */
 export class LabelCreateComponent implements OnInit {
-public show=true;
+private show=true;
+private userId=localStorage.getItem("UserId");
+private labelList : Label[]=[];
 public editId: any;
-// public label:boolean =false;
-public userId=localStorage.getItem("UserId");
-public labelList=[];
 
 /*----------------------------------------------------------------------------------------------------- */
   constructor(  
@@ -68,11 +67,11 @@ public labelList=[];
   
       this._service.getNoteJson()
       .subscribe((data)=>{
-   
+     let myData : Label[]=data['data']['details']
     this.labelList=[];
-    for(var i=0;i<data["data"].details.length;i++){
-      if(data["data"].details[i].isDeleted == false){
-        this.labelList.push(data["data"].details[i]);
+    for(var i=0;i<myData.length;i++){
+      if(myData[i].isDeleted == false){
+        this.labelList.push(myData[i]);
         }
            
     }
@@ -121,6 +120,7 @@ updateLabel(id){
   ) 
 }
 /*----------------------------------------------------------------------------------------------------- */    
+
 editLabel(id){
 this.editId=id;
 

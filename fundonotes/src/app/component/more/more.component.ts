@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 import { LabelServiceService } from '../../core/service/http/label/label-service.service';
-
+import { Label } from '../../core/model/label/label'
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
@@ -9,7 +9,7 @@ import { LabelServiceService } from '../../core/service/http/label/label-service
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 export class MoreComponent implements OnInit {
-  public labelList = [];
+  private labelList : Label[]=[];
   public searchLabel;
 
 
@@ -95,9 +95,10 @@ export class MoreComponent implements OnInit {
       .subscribe((data) => {
         
         this.labelList = [];
-        for (var i = 0; i < data["data"].details.length; i++) {
-          if (data["data"].details[i].isDeleted == false) {
-            this.labelList.push(data["data"].details[i]);
+        let myData : Label[]=data['data']['details']
+        for (var i = 0; i < myData.length; i++) {
+          if (myData[i].isDeleted == false) {
+            this.labelList.push(myData[i]);
           }
           if (this.Noteid != null) {
             for (let i = 0; i < this.labelList.length; i++) {
