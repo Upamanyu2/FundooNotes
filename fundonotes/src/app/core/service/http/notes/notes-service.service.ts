@@ -99,7 +99,7 @@ export class NotesServiceService {
   /*---------------------------------------------------------------------------------------------------------------------------- */
    public updateCheckList(id,modifiedId,body){
      let name="notes/" + id + "/checklist/" +modifiedId+"/update";
-    return this.service.postServiceJson(name, body);
+    return this.service.postServiceJson(name, JSON.stringify(body));
 
    }
    /*---------------------------------------------------------------------------------------------------------------------------- */

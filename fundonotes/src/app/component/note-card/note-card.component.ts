@@ -60,7 +60,7 @@ export class NoteCardComponent implements OnInit {// Exported class
 
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
-  checkBox(checkList, note) {
+  checkBox(checkList,note) {
 
     if (checkList.status == "open") {
       checkList.status = "close"
@@ -79,7 +79,7 @@ export class NoteCardComponent implements OnInit {// Exported class
       "status": this.modifiedCheckList.status
     }
     
-    this.service.updateCheckList(id,this.modifiedCheckList, JSON.stringify(apiData)).subscribe(response => {
+    this.service.updateCheckList(id,this.modifiedCheckList.id, apiData).subscribe(response => {
       console.log(response);
 
     })

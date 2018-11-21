@@ -53,11 +53,7 @@ export class EditComponent implements OnInit { //Export class to export all the 
   toggle() {
     this.click = true;
   }
-  pinned(){
-  this.pinClick=!this.pinClick;
-  this.service.changeView2(this.pinClick);
-  }
-
+ 
   /*------------------------------------------------------------------------------------------------------------ */
   updatecard(check) {    //Update card post function is occuring to send the updated card details
    
@@ -88,6 +84,38 @@ export class EditComponent implements OnInit { //Export class to export all the 
     }
   }
 
+
+
+  pined() {
+    this.pinClick=!this.pinClick;  
+      if (this.data.isPined == true) {
+        this.pinClick = false;
+        
+      
+      if (this.data.isPined == false ) {
+        this.pinClick = true;
+       
+      }
+    }
+    let noteid = []
+    noteid.push(this.data.id)
+    let body = {
+      "isPined": this.pinClick,
+      "noteIdList": noteid
+    }
+    this._service.postPin(body).subscribe(result => {
+    },
+      error => {
+
+      })
+
+  }
+
+
+
+
+
+  
 /*------------------------------------------------------------------------------------------------------------ */
 
   checkBox(checkList, note) {

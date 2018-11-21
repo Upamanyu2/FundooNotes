@@ -17,17 +17,19 @@ export class PinComponent implements OnInit {
               private service1: SearchServiceService) { }
 
   ngOnInit() {
-   this.service1.currentView2.subscribe(message=>this.pinClick=message)
-   console.log(this.pinClick);
+  
   }
   
   pinned() {
     if (this.Noteid != undefined) {
-      if ((this.Noteid.isPined == true || this.Noteid.isPined == undefined) && this.pinClick==false) {
+       console.log(this.pinClick)
+      if ((this.Noteid.isPined == true || this.Noteid.isPined == undefined)) {
         this.newPin = false;
+        
       }
-      if ((this.Noteid.isPined == false || this.Noteid.isPined == undefined) && this.pinClick==true) {
+      if ((this.Noteid.isPined == false || this.Noteid.isPined == undefined)) {
         this.newPin = true;
+       
       }
     }
     let noteid = []
@@ -44,5 +46,6 @@ export class PinComponent implements OnInit {
       })
 
   }
+  
 
 }

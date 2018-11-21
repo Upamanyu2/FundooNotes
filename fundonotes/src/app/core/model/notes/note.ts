@@ -1,3 +1,6 @@
+import { Label } from "../label/label";
+import { Checklists } from "../checklist/checklist";
+
 export interface Note {
     title: string
     description: string
@@ -10,10 +13,10 @@ export interface Note {
     isDeleted: boolean
     isPined: boolean
     reminder: [Date]
-    noteLabels: Array<Object>
+    noteLabels: Array<Label>
     userId: string
     labelIdList: [Object]
-    noteCheckLists: Array<Object>
+    noteCheckLists: Array<Checklists>
     questionAndAnswerNotes: Array<Object>
     collaborators: Array<Object>
 }
