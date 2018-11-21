@@ -2,6 +2,8 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';/
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file for calling the post api.
 import { MatSnackBar } from '@angular/material';//Importing properties of snackbar.
 import { LoggerServiceService } from '../../core/service/logger/logger-service.service';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 /*----------------------------------------------------------------------------------------------------------- */
 
 @Component({
@@ -13,40 +15,41 @@ import { LoggerServiceService } from '../../core/service/logger/logger-service.s
 
 /*----------------------------------------------------------------------------------------------------------- */
 export class AddNotesComponent implements OnInit {  //Export class top export all the functionalities.
-  public notes = [];
-  public pin: boolean = false;
-  public check: boolean = false;
-  public click: boolean = false;
-  public bgColor = "#ffffff";
-  public isArchived = false;
-  public LabelObj = []
-  public LabelObjId = []
-  public dataArray = [];
-  public dataArrayApi = [];
-  public status;
-  public body = {};
-  public title;
-  public data;
-  public adding;
-  public x = 0;
-  public isChecked = false;
-  public addCheck;
-  public description;
-  public apiObj = {};
-  public reminderBody = {};
-  public reminderArray = [];
-  public showCheckbox = true;
-  public hideCheckbox;
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  notes = [];
+  private pin: boolean = false;
+  private check: boolean = false;
+  private click: boolean = false;
+  private bgColor = "#ffffff";
+  private isArchived = false;
+  private LabelObj = []
+  private LabelObjId = []
+  private dataArray = [];
+  private dataArrayApi = [];
+  private status;
+  private body = {};
+  private title;
+  private data;
+  adding;
+  private x = 0;
+  private isChecked = false;
+  private addCheck;
+  private description;
+  private apiObj = {};
+  reminderBody = {};
+  private reminderArray = [];
+  showCheckbox = true;
+  hideCheckbox;
   /*----------------------------------------------------------------------------------------------------------- */
   constructor(
     private _service: NotesServiceService, //Service file reference is made in the constructor to use it.
-    public snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) { }
   /*----------------------------------------------------------------------------------------------------------- */
   @Output() closeClicked = new EventEmitter<any>(); //Outputting the post function event while the close click is clicked.
   @Output() ArchiveClicked = new EventEmitter<any>(); //Output decorator used for emitting the function for color being picked with the click function.
   @Input() notesListArray: any
-
+  @Output() notesAddedEmit = new EventEmitter<any>();
   /*----------------------------------------------------------------------------------------------------------- */
   ngOnInit() {     //Initialisation function to called while the page is reloaded.
 
@@ -75,11 +78,11 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
       if (this.description == "" && this.title == "") {   //For preventing the api call while the two filds are left empty.
         this.reminderArray = [];
         this.LabelObj = [];
-        this.pin=false
+        this.pin = false
         return;
       }
 
-      this._service.addNotes( {   //Service file addnotes post api is called with all the parameters.
+      this._service.addNotes({   //Service file addnotes post api is called with all the parameters.
         'title': this.title,
         'description': this.description,
         'isPined': this.pin,
@@ -89,9 +92,11 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         'reminder': this.reminderArray
       })
 
+        .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {    //On success.
-            this.pin=false
+            this.notesAddedEmit.emit(data['status'].details)
+            this.pin = false
             this.closeClicked.emit(true);
             this.LabelObj = [];
             this.reminderArray = [];
@@ -104,8 +109,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
     }
 
 
-    // let changecolor = this.bgColor;
-    // this.bgColor = '#ffffff';
+    
     else if (this.click == false) {
       for (var i = 0; i < this.dataArray.length; i++) {
         if (this.dataArray[i].isChecked == true) {
@@ -126,7 +130,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
       }
       if (this.title == "") {
-        this.pin=false
+        this.pin = false
         this.dataArray = [];
         this.dataArrayApi = [];
         this.LabelObj = [];
@@ -144,9 +148,10 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
       }
     }
     if (this.title != "") {
-      this._service.addNotes( this.body)
+      this._service.addNotes(this.body)
+        .pipe(takeUntil(this.destroy$))
         .subscribe(response => {
-          this.pin=false
+          this.pin = false
           this.click == false;
           this.LabelObj = []
           this.reminderArray = []
@@ -192,24 +197,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
     }
   }
   /*----------------------------------------------------------------------------------------------------------- */
-  // onCheck(){
-  //   for (let i = 0; i < this.dataArray.length; i++) {
-  //     if (this.dataArray[i].isChecked == true) {
-  //       this.status = "close"
-  //     }
-  //     else{
-  //       this.status="open"
-  //     }
-  //     this.apiObj = {
-  //       "itemName": this.dataArray[i].data,
-  //       "status": this.status
-  //     }
-  //     // if (this.dataArray[i].isChecked == false || this.dataArray[i].isChecked == undefined) {
-  //     //   this.status = "open"
-  //     // }
 
-  //   }
-  // }
   /*----------------------------------------------------------------------------------------------------------- */
   onDelete(dataFromArray) {         // Function to delete from the checklist array.
 
@@ -302,7 +290,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
       this.reminderArray.push(event.details);
     }
   }
-  
+
   toggleCheckbox(event) {
     // this.click==event
     // LoggerServiceService.data(this.click)
@@ -322,6 +310,9 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   }
   /*----------------------------------------------------------------------------------------------------------- */
 
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

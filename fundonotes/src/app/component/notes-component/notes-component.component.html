@@ -1,7 +1,7 @@
 <div flexLayout="column" fxLayoutGap="50%">
         <div></div>
 <!---------------------Add note starts------------------------------>
-<app-add-notes (closeClicked)="displayCard($event)"></app-add-notes>
+<app-add-notes (closeClicked)="displayCard($event)" (notesAddedEmit)="onNewEntryAdded($event)"></app-add-notes>
 <!---------------------Add note ends------------------------------>
 <div fxLayout="row"> 
     <div fxFlex="50%"></div>

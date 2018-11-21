@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';  //Importing modules to injec
 import { ServiceService } from '../../core/service/http/user/service.service';//Importing the service file
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'; //Importing the form modules
 import { MatSnackBar } from '@angular/material'; //Importing snckbar module
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
+
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 @Component({  //Injected component dependencies
   selector: 'app-forgot-password',
@@ -9,6 +12,7 @@ import { MatSnackBar } from '@angular/material'; //Importing snckbar module
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {  //Exported class
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   forgotPasswordForm: FormGroup;
   model: any = {};
   submitted = false;
@@ -40,7 +44,7 @@ export class ForgotPasswordComponent implements OnInit {  //Exported class
     }
     this._service.postDataForgotPaasword({
       "email": this.model.email
-    }).subscribe(data => {   //On success of api call
+    }).pipe(takeUntil(this.destroy$)).subscribe(data => {   //On success of api call
      
       this.snackBar.open("Check your mail", "mail sent", {
         duration: 2000
@@ -56,6 +60,10 @@ export class ForgotPasswordComponent implements OnInit {  //Exported class
       return;
     }
 
+  }
+  ngOnDestroy(){
+    this.destroy$.next(true)
+    this.destroy$.unsubscribe();
   }
 
 }

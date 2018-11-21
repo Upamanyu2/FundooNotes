@@ -3,25 +3,29 @@ import { ServiceService } from '../../core/service/http/user/service.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { passValidator } from '../../core/util/custom';
-
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
+/*-------------------------------------------------------------------------------------------------- */
 @Component({
   selector: 'app-signup-component',
   templateUrl: './signup-component.component.html',
   styleUrls: ['./signup-component.component.scss']
 })
+/*-------------------------------------------------------------------------------------------------- */
 export class SignupComponentComponent implements OnInit {
-  public buttonDisabled = true;
-  public cards = [];
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  buttonDisabled = true;
+  private cards = [];
   signupForm: FormGroup;
-  public service: string;
-  public submitted: boolean = false;
-  public selectService: boolean;
-  public serviceName: string;
+  private service: string;
+  submitted: boolean = false;
+  private selectService: boolean;
+  private serviceName: string;
   model: any = {};
   constructor(
     private _service: ServiceService,
     private formBuilder: FormBuilder,
-    public snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) { }
   /*------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {    //initialisation function which is called when the page loads
@@ -36,15 +40,16 @@ export class SignupComponentComponent implements OnInit {
     })
 
     let obs = this._service.getDataService();
-    obs.subscribe((response) => {
-      
-      var data = response["data"];
-      for (var i = 0; i < data.data.length; i++) {
-        data.data[i].select = false;
-        this.cards.push(data.data[i]);
-      }
-      
-    });
+    obs.pipe(takeUntil(this.destroy$))
+      .subscribe((response) => {
+
+        var data = response["data"];
+        for (var i = 0; i < data.data.length; i++) {
+          data.data[i].select = false;
+          this.cards.push(data.data[i]);
+        }
+
+      });
   }
 
   /*------------------------------------------------------------------------------------------------------------------------------------*/
@@ -108,7 +113,8 @@ export class SignupComponentComponent implements OnInit {
         "email": this.model.uname,
         "emailVerified": true,
         "password": this.model.pass
-      }).subscribe(
+      }).pipe(takeUntil(this.destroy$))
+      .subscribe(
         data => {
           console.log("POST request is successful", data);
           this.snackBar.open("The user is successfully registered", "signup successful", {
@@ -143,5 +149,10 @@ export class SignupComponentComponent implements OnInit {
       this.cards[i].select = false;
     }
   }
+/*------------------------------------------------------------------------------------------------------------------------------------*/
 
+ngOnDestroy() {
+  this.destroy$.next(true);
+  this.destroy$.unsubscribe();
+}
 }

@@ -5,6 +5,8 @@ import { ServiceService } from '../../core/service/http/user/service.service';
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 @Component({
   selector: 'app-reset-password',
@@ -13,6 +15,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 export class ResetPasswordComponent implements OnInit { //Exported class
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   resetPasswordForm: FormGroup;
   submitted = false;
   private accessToken;
@@ -28,7 +31,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
   ) { }
   /*------------------------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {                  // function executes while initialization
-    
+
     this.accessToken = this.route.snapshot.params['token'];
 
     this.resetPasswordForm = this.formBuilder.group({
@@ -45,7 +48,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
 
   /*------------------------------------------------------------------------------------------------------------------------------------*/
   reset() {                     // function called while the reset button is pressed for resetting the password
-    localStorage.setItem("token",this.accessToken)
+    localStorage.setItem("token", this.accessToken)
     this.submitted = true;
     var password = this.model.password;
     var confirmpassword = this.model.confirmpassword;
@@ -61,7 +64,8 @@ export class ResetPasswordComponent implements OnInit { //Exported class
       });
       return;
     }
-    this._service.resetPasswordPost( { "newPassword": password },this.accessToken)
+    this._service.resetPasswordPost({ "newPassword": password }, this.accessToken)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         data => {
           localStorage.removeItem("token");
@@ -71,13 +75,17 @@ export class ResetPasswordComponent implements OnInit { //Exported class
           this.router.navigate(['/',]);
         },
         error => {
-          
+
           this.snackBar.open('Time over', 'try again sending a new mail', {
             duration: 2000,
           });
         });
-       
-  }
 
+  }
+  /*------------------------------------------------------------------------------------------------------------------------------------*/
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }
 /*------------------------------------------------------------------------------------------------------------------------------------*/

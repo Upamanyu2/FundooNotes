@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core'; //Importing all the modules f
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file
 import { ActivatedRoute, Params } from '@angular/router';//Importing the activated route and params
 import { Note } from '../../core/model/notes/note';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 /*-------------------------------------------------------------------------------------------- */
 @Component({   //Injecting the component dependencies
   selector: 'app-get-labels-on-click',
@@ -10,13 +12,13 @@ import { Note } from '../../core/model/notes/note';
 })
 /*-------------------------------------------------------------------------------------------- */
 export class GetLabelsOnClickComponent implements OnInit { //Exported class
-
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(         //Constructor for making all the instances
     private _service: NotesServiceService,
     private route: ActivatedRoute
   ) { }
   /*-------------------------------------------------------------------------------------------- */
-  private notes : Note[]=[];
+  private notes: Note[] = [];
   public label;
   /*-------------------------------------------------------------------------------------------- */
   ngOnInit() {
@@ -29,16 +31,17 @@ export class GetLabelsOnClickComponent implements OnInit { //Exported class
   }
   /*-------------------------------------------------------------------------------------------- */
   getCard(label) {      //Function for getting all the cards using the label name
-    this._service.postLabelsToGetNotes( label, {})
+    this._service.postLabelsToGetNotes(label, {})
+      .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.notes = []
-        let myData : Note[]=data['data']['data']
+        let myData: Note[] = data['data']['data']
         for (let i = myData.length - 1; i >= 0; i--) {
           this.notes.push(myData[i]);
         }
       },
         error => {
-          
+
         })
   }
 
@@ -49,5 +52,12 @@ export class GetLabelsOnClickComponent implements OnInit { //Exported class
     }
 
 
+  }
+
+  /*-------------------------------------------------------------------------------------------- */
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

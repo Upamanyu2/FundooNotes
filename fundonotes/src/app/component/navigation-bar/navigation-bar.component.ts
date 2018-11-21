@@ -10,6 +10,8 @@ import { SearchServiceService } from '../../core/service/dataService/searchServi
 import { environment } from '../../../environments/environment';
 import { MatDialog } from '@angular/material';
 import { ProfilePhotoComponent } from '../profile-photo/profile-photo.component'
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 /*-------------------------------------------------------------------------------------------------- */
 @Component({   //Injecting component dependency
   selector: 'app-navigation-bar',
@@ -19,41 +21,45 @@ import { ProfilePhotoComponent } from '../profile-photo/profile-photo.component'
 })
 
 export class NavigationBarComponent implements OnInit {
-  public labelList = [];
-  public imageChangedEvent: any = '';
-  public title:any;
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private labelList = [];
+  imageChangedEvent: any = '';
+  title: any;
   /*--------------------------------------------------------------------------------------------------------------------*/
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
   public firstname = [];
-  public userName=[]
+  public userName = []
   public message: String;
   /*--------------------------------------------------------------------------------------------------------------------*/
   constructor(
     private breakpointObserver: BreakpointObserver,
     private _service: ServiceService,
     private _service1: NotesServiceService,
-    public router: Router,
-    public search: SearchServiceService,
-    public dialog: MatDialog
+    private router: Router,
+    private search: SearchServiceService,
+    private dialog: MatDialog
   ) { }
 
   /*--------------------------------------------------------------------------------------------------------------------*/
   ngOnInit() {
     this.firstname.push(localStorage.getItem('FirstName'));
     this.getLabel();
-    this.title="Fundoo";
-    this.search.currentMessage.subscribe(message => this.message = message) //Subcribing the search message
+    this.title = "Fundoo";
+    this.search.currentMessage
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(message => this.message = message) //Subcribing the search message
     this.userName.push(localStorage.getItem("userName"));
   }
   /*--------------------------------------------------------------------------------------------------------------------*/
   getLabel() {        //Function for getting all the labels
 
     this._service1.getNoteJson()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
-       
+
         this.labelList = [];
         for (var i = 0; i < data["data"].details.length; i++) {
           if (data["data"].details[i].isDeleted == false) {
@@ -65,7 +71,7 @@ export class NavigationBarComponent implements OnInit {
 
       },
         error => {
-         
+
 
         })
   }
@@ -87,24 +93,29 @@ export class NavigationBarComponent implements OnInit {
       data: data
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      this.search.currentView1.subscribe(message => this.pic = message)
-      if (this.pic == true) {
-        this.image2 = localStorage.getItem('imageUrl');
-        this.img = environment.baseUrl1 + this.image2;
-      }
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.search.currentView1
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(message => this.pic = message)
+        if (this.pic == true) {
+          this.image2 = localStorage.getItem('imageUrl');
+          this.img = environment.baseUrl1 + this.image2;
+        }
 
-    });
+      });
   }
 
 
   /*--------------------------------------------------------------------------------------------------------------------*/
   public logout() {  //Funtion to call the logout service function.
-    
+
     this._service.logoutService()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(
         data => {          //On success
-         
+
           localStorage.removeItem("UserId"); //clearing all local storage
           localStorage.removeItem("imageUrl");
           localStorage.removeItem("userName");
@@ -113,7 +124,7 @@ export class NavigationBarComponent implements OnInit {
           this.router.navigate(['login']); //redirecting to login page
         },
         error => {               //On failure
-         
+
         }
       )
 
@@ -123,11 +134,11 @@ export class NavigationBarComponent implements OnInit {
   /*--------------------------------------------------------------------------------------------------------------------*/
 
   onKeydown(event) {  //Functiion for catching all the values from the search bar
-   
+
     this.search.changeMessage(event.target.value);
   }
   refresh(event) {    //Function for handling the emitted event
-   
+
   }
   /*--------------------------------------------------------------------------------------------------------------------*/
   grid = 0;
@@ -139,11 +150,20 @@ export class NavigationBarComponent implements OnInit {
     this.grid = 0;
     this.search.changeView(false);
   }
-  changeTitle(heading){
-    this.title=heading;
+  changeTitle(heading) {
+    this.title = heading;
   }
-  label(event){
-    this.title=event;
+  label(event) {
+    this.title = event;
+  }
+  refreshIcon(){
+    location.reload();
+
   }
   /*--------------------------------------------------------------------------------------------------------------------*/
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
 }

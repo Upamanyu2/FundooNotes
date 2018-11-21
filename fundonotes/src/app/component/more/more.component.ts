@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 import { LabelServiceService } from '../../core/service/http/label/label-service.service';
-import { Label } from '../../core/model/label/label'
+import { Label } from '../../core/model/label/label';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
@@ -9,7 +11,8 @@ import { Label } from '../../core/model/label/label'
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------*/
 export class MoreComponent implements OnInit {
-  private labelList : Label[]=[];
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private labelList: Label[] = [];
   public searchLabel;
 
 
@@ -45,14 +48,14 @@ export class MoreComponent implements OnInit {
       this._service.deleteNotesPost({
         "isDeleted": flag,
         "noteIdList": noteId
-      })
+      }).pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
-            
+
             this.DeleteClicked.emit(true);
           },
           error => {
-           
+
 
           }
         )
@@ -72,14 +75,14 @@ export class MoreComponent implements OnInit {
       this._service.deleteForeverNotes({
         "isDeleted": flag,
         "noteIdList": noteId
-      })
+      }).pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
-           
+
             this.DeleteClicked.emit(true);
           },
           error => {
-           
+
 
           }
         )
@@ -92,10 +95,11 @@ export class MoreComponent implements OnInit {
   getLabel() {        //Function for getting all the labels
 
     this._service.getNoteJson()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
-        
+
         this.labelList = [];
-        let myData : Label[]=data['data']['details']
+        let myData: Label[] = data['data']['details']
         for (var i = 0; i < myData.length; i++) {
           if (myData[i].isDeleted == false) {
             this.labelList.push(myData[i]);
@@ -116,7 +120,7 @@ export class MoreComponent implements OnInit {
         }
       },
         error => {
-          
+
 
         })
   }
@@ -125,12 +129,13 @@ export class MoreComponent implements OnInit {
     let noteId = this.Noteid.id;
 
     this._service1.addLabelToNotes(noteId, id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        
+
         this.DeleteClicked.emit(true);
       },
         error => {
-          
+
 
         })
   }
@@ -140,13 +145,14 @@ export class MoreComponent implements OnInit {
   deleteNotesfromLabelPost(id) {
     let noteId = this.Noteid.id;
 
-    this._service1.removeLabelFromNotes( noteId , id)
+    this._service1.removeLabelFromNotes(noteId, id)
+      .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-      
+
         this.DeleteClicked.emit(true);
       },
         error => {
-         
+
 
         })
   }
@@ -161,41 +167,46 @@ export class MoreComponent implements OnInit {
     else if (this.Noteid != null && label.isChecked == false)
       this.addNotesToLabelPost(id);
   }
-  public showCheckbox = this.showHideData;
-  public hideButton=false;
+  /*-------------------------------------------------------------------------------------------------------- */
+  private showCheckbox = this.showHideData;
+  private hideButton = false;
   public toggleShowHideCheckboxes() {
-  
-    if(this.checkVariable==true){
+
+    if (this.checkVariable == true) {
       this.showCheckbox = true;
-      this.ParentEmit.emit(this.showCheckbox );
-     
-        this.hideButton = !this.hideButton;
+      this.ParentEmit.emit(this.showCheckbox);
+
+      this.hideButton = !this.hideButton;
     }
     else {
       this.showCheckbox = false
       this.ParentEmit.emit(this.showCheckbox);
       this.hideButton = !this.hideButton;
     }
-   
 
-    
   }
+  /*-------------------------------------------------------------------------------------------------------- */
   public toggleShowHideCheckboxes1() {
-    
-    if(this.checkVariable==false || this.checkVariable==undefined){
+
+    if (this.checkVariable == false || this.checkVariable == undefined) {
       this.showCheckbox = true;
       this.ParentEmit.emit(this.showCheckbox);
-      
-        this.hideButton = !this.hideButton;
+
+      this.hideButton = !this.hideButton;
     }
     else {
       this.showCheckbox = false;
       this.ParentEmit.emit(this.showCheckbox);
       this.hideButton = !this.hideButton;
     }
-   
+
   }
 
+/*-------------------------------------------------------------------------------------------------------- */
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 
 }  

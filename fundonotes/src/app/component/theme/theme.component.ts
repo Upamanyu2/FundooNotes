@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
+
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 @Component({
   selector: 'app-theme',
@@ -8,6 +11,7 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 export class ThemeComponent implements OnInit {
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   constructor(private _service: NotesServiceService) { }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   @Input() Noteid: any;     //Input decorator used to catch the whole array of the notes from the note-card component
@@ -19,7 +23,7 @@ export class ThemeComponent implements OnInit {
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   setcolor(str) {   //Function to take the hash codes as input while clicking any color in the color pallete
-    
+
     this.ColorChanged.emit(str)
     if (this.Noteid != null) {
       let noteId = []
@@ -28,18 +32,25 @@ export class ThemeComponent implements OnInit {
         "color": str,
         "noteIdList": noteId
       })
+        .pipe(takeUntil(this.destroy$))
         .subscribe(
           data => {
-          
+
             this.ColorClicked.emit(true);
           },
           error => {
-         
+
 
           }
         )
     }
 
+  }
+
+  /*-------------------------------------------------------------------------------------------------------------------------------------- */
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }
 /*-------------------------------------------------------------------------------------------------------------------------------------- */

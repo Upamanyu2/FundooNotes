@@ -4,6 +4,8 @@ import { NavigationBarComponent } from '../navigation-bar/navigation-bar.compone
 import { ServiceService } from '../../core/service/http/user/service.service';
 import { environment } from '../../../environments/environment';
 import { SearchServiceService } from '../../core/service/dataService/searchService/search-service.service'
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 /*-----------------------------------------------------------------------------------*/
 @Component({
   selector: 'app-profile-photo',
@@ -13,6 +15,7 @@ import { SearchServiceService } from '../../core/service/dataService/searchServi
 /*-----------------------------------------------------------------------------------*/
 
 export class ProfilePhotoComponent implements OnInit {
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   public croppedImage: any = '';
   imageChangedEvent: any = '';
   constructor(
@@ -36,7 +39,9 @@ export class ProfilePhotoComponent implements OnInit {
     
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
-    this._service.httpAddImage(uploadData).subscribe(res => {
+    this._service.httpAddImage(uploadData)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(res => {
       localStorage.setItem("imageUrl", res['status'].imageUrl);
       this.dialogRef.close()
       this.service.changeView1(true);
@@ -47,6 +52,9 @@ export class ProfilePhotoComponent implements OnInit {
 
   }
   /*-----------------------------------------------------------------------------------*/
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

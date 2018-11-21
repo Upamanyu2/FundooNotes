@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material';//Importing the matdialog
 import { EditComponent } from '../edit/edit.component'//Importing edit component
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file for calling the post api.
 import { SearchServiceService } from 'src/app/core/service/dataService/searchService/search-service.service';//Importing search service
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
 @Component({ //Importing dependency injection of component
@@ -12,15 +14,16 @@ import { SearchServiceService } from 'src/app/core/service/dataService/searchSer
 })
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 export class NoteCardComponent implements OnInit {// Exported class
-  public modifiedCheckList;
-  public todayDate=new Date();
-  public tomorrowDate=new Date();
-  flexValueListCard1=5;
-  flexValueListCard2=95;
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private modifiedCheckList;
+  todayDate = new Date();
+  private tomorrowDate = new Date();
+  flexValueListCard1 = 5;
+  flexValueListCard2 = 95;
   constructor(
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private data: SearchServiceService,
-    private service : NotesServiceService
+    private service: NotesServiceService
   ) { }
 
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
@@ -31,14 +34,16 @@ export class NoteCardComponent implements OnInit {// Exported class
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   ngOnInit() {
     this.view();
-    this.tomorrowDate.setDate(this.tomorrowDate.getDate()+1);
-    
+    this.tomorrowDate.setDate(this.tomorrowDate.getDate() + 1);
+
   }
   toggle = false;
   view() {
-    this.data.currentView.subscribe(message => {
-      this.toggle = message
-    })
+    this.data.currentView
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(message => {
+        this.toggle = message
+      })
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
   openDialog(data): void {         // Function taking the data of the dialogue box
@@ -46,11 +51,13 @@ export class NoteCardComponent implements OnInit {// Exported class
       width: '700px',
       data: data
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.updateCard.emit(true);    //Updated card emitting here
+    dialogRef.afterClosed().
+      pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        console.log('The dialog was closed');
+        this.updateCard.emit(true);    //Updated card emitting here
 
-    });
+      });
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -60,7 +67,7 @@ export class NoteCardComponent implements OnInit {// Exported class
 
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
-  checkBox(checkList,note) {
+  checkBox(checkList, note) {
 
     if (checkList.status == "open") {
       checkList.status = "close"
@@ -72,31 +79,42 @@ export class NoteCardComponent implements OnInit {// Exported class
     this.modifiedCheckList = checkList;
     this.updatelist(note.id);
   }
-
+/*-------------------------------------------------------------------------------------------------------------------------------------- */
   updatelist(id) {
     var apiData = {
       "itemName": this.modifiedCheckList.itemName,
       "status": this.modifiedCheckList.status
     }
-    
-    this.service.updateCheckList(id,this.modifiedCheckList.id, apiData).subscribe(response => {
+
+    this.service.updateCheckList(id, this.modifiedCheckList.id, apiData)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(response => {
       console.log(response);
 
     })
   }
-  
 
-public reminderBody={};
+/*-------------------------------------------------------------------------------------------------------------------------------------- */
+  private reminderBody = {};
 
-  removeReminder(id){
-    this.reminderBody={
-      "noteIdList":[id]
+  removeReminder(id) {
+    this.reminderBody = {
+      "noteIdList": [id]
     }
-    this.service.removeReminderPost(this.reminderBody).subscribe(result=>{
-      this.updateCard.emit(true); 
+    this.service.removeReminderPost(this.reminderBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
+      this.updateCard.emit(true);
     })
 
 
   }
-  
+
+
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+
 }

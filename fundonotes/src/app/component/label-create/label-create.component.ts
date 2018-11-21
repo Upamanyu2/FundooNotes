@@ -1,129 +1,139 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NavigationBarComponent } from '../navigation-bar/navigation-bar.component';
-import {ViewChild, ElementRef} from '@angular/core';
+import { ViewChild, ElementRef } from '@angular/core';
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 import { LabelServiceService } from '../../core/service/http/label/label-service.service';
 import { Label } from '../../core/model/label/label'
-
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 /*----------------------------------------------------------------------------------------------------- */
 @Component({
   selector: 'app-label-create',
   templateUrl: './label-create.component.html',
   styleUrls: ['./label-create.component.scss'],
-  providers:[]
+  providers: []
 })
 /*----------------------------------------------------------------------------------------------------- */
 export class LabelCreateComponent implements OnInit {
-private show=true;
-private userId=localStorage.getItem("UserId");
-private labelList : Label[]=[];
-public editId: any;
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  private show = true;
+  private userId = localStorage.getItem("UserId");
+  private labelList: Label[] = [];
+  public editId: any;
 
-/*----------------------------------------------------------------------------------------------------- */
-  constructor(  
-   public  dialogRef: MatDialogRef<NavigationBarComponent>,
-   private _service : NotesServiceService, //Service file reference is made.
-   private _service1: LabelServiceService,
+  /*----------------------------------------------------------------------------------------------------- */
+  constructor(
+    public dialogRef: MatDialogRef<NavigationBarComponent>,
+    private _service: NotesServiceService, //Service file reference is made.
+    private _service1: LabelServiceService,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
-    @ViewChild('label') labelInputRef: ElementRef;
-    @ViewChild('labeledit') labelEditInputRef: ElementRef;
+  @ViewChild('label') labelInputRef: ElementRef;
+  @ViewChild('labeledit') labelEditInputRef: ElementRef;
   ngOnInit() {
     this.getLabel();
   }
- 
+
   onNoClick(): void {
     this.dialogRef.close();
   }
-  toggle(){
-    this.show=!this.show;
+  toggle() {
+    this.show = !this.show;
   }
-  
 
-/*----------------------------------------------------------------------------------------------------- */
-  postLabel(){           //Function for posting all the labels
-    let label=this.labelInputRef.nativeElement.value; 
-      if(label=="" || label==null){
-          return;
-      }
+
+  /*----------------------------------------------------------------------------------------------------- */
+  postLabel() {           //Function for posting all the labels
+    let label = this.labelInputRef.nativeElement.value;
+    if (label == "" || label == null) {
+      return;
+    }
     this._service.postLabels({
-      "userId":this.userId,
-      "label":label,
-      "isDeleted":false
+      "userId": this.userId,
+      "label": label,
+      "isDeleted": false
     })
-    .subscribe(
-      data=>{
-        
-       
-      },
-      error=>{
-       
-      }
-    ) 
-  }
-/*----------------------------------------------------------------------------------------------------- */
- getLabel(){        //Function for getting all the labels
-  
-      this._service.getNoteJson()
-      .subscribe((data)=>{
-     let myData : Label[]=data['data']['details']
-    this.labelList=[];
-    for(var i=0;i<myData.length;i++){
-      if(myData[i].isDeleted == false){
-        this.labelList.push(myData[i]);
+      .subscribe(
+        data => {
+
+
+        },
+        error => {
+
         }
-           
-    }
-    
-    
+      )
+  }
+  /*----------------------------------------------------------------------------------------------------- */
+  getLabel() {        //Function for getting all the labels
+
+    this._service.getNoteJson()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        let myData: Label[] = data['data']['details']
+        this.labelList = [];
+        for (var i = 0; i < myData.length; i++) {
+          if (myData[i].isDeleted == false) {
+            this.labelList.push(myData[i]);
+          }
+
+        }
+
+
       },
-      error=>{
-  
+        error => {
 
-      })
- }
-/*----------------------------------------------------------------------------------------------------- */
- deleteLabel(id){            //Function for deleting all the labels
-   this._service1.labelDeleteService(id)
-   .subscribe(
-     data=>{
-       
-       this.getLabel();
-       
-     },
-     error=>{
-      
-       
-     }
-   )
- }
-/*----------------------------------------------------------------------------------------------------- */
-updateLabel(id){
- 
- let editLabel=this.labelEditInputRef.nativeElement.value; 
-  this._service.updateLabels(id,{
-   "label":editLabel
-  })
-  .subscribe(
-    data=>{
- 
-   this.getLabel();
-   
-   
-    },
-    error=>{
-  
-  
-    }
 
-  ) 
-}
-/*----------------------------------------------------------------------------------------------------- */    
+        })
+  }
+  /*----------------------------------------------------------------------------------------------------- */
+  deleteLabel(id) {            //Function for deleting all the labels
+    this._service1.labelDeleteService(id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        data => {
 
-editLabel(id){
-this.editId=id;
+          this.getLabel();
 
-}
+        },
+        error => {
+
+
+        }
+      )
+  }
+  /*----------------------------------------------------------------------------------------------------- */
+  updateLabel(id) {
+
+    let editLabel = this.labelEditInputRef.nativeElement.value;
+    this._service.updateLabels(id, {
+      "label": editLabel
+    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        data => {
+
+          this.getLabel();
+
+
+        },
+        error => {
+
+
+        }
+
+      )
+  }
+  /*----------------------------------------------------------------------------------------------------- */
+
+  editLabel(id) {
+    this.editId = id;
+
+  }
+  /*----------------------------------------------------------------------------------------------------- */
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

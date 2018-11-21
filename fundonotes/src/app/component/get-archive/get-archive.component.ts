@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';  //Importing for injecting all the dependencies.
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service'; //Importing the service file for using the get archive api.
 import { Note } from '../../core/model/notes/note';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 /*------------------------------------------------------------------------------------------------------------------------ */
 @Component({         //Injection of component dependencies
   selector: 'app-get-archive',
@@ -9,6 +11,7 @@ import { Note } from '../../core/model/notes/note';
 })
 /*------------------------------------------------------------------------------------------------------------------------ */
 export class GetArchiveComponent implements OnInit {  //Exporting all the functionalities to use it in the while the initilisation of the page.
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   private notes : Note[]=[];
   constructor(private _service: NotesServiceService) { }
   /*------------------------------------------------------------------------------------------------------------------------ */
@@ -19,7 +22,8 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
   getArchive() {  //Function for calling the get api.
 
     this._service.getArchiveNotes()
-      .subscribe(
+    .pipe(takeUntil(this.destroy$))  
+    .subscribe(
         data => {
           this.notes = []
           let myData : Note[]=data['data']['data']
@@ -47,6 +51,9 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
   }
 
   /*------------------------------------------------------------------------------------------------------------------------ */
-
+ ngOnDestroy(){
+  this.destroy$.next(true);
+  this.destroy$.unsubscribe();
+ }
 
 }

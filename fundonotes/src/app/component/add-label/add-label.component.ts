@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material'; //Importing the mat dialog
 import { LabelCreateComponent } from '../label-create/label-create.component'; //Importing label create component
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service'; //Importing notes service
 import { Router } from '@angular/router';//Importing router
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators'
 /*------------------------------------------------------------------------------------------ */
 @Component({   //Injecting componet dependencies
   selector: 'app-add-label',
@@ -11,12 +13,12 @@ import { Router } from '@angular/router';//Importing router
 })
 /*------------------------------------------------------------------------------------------ */
 export class AddLabelComponent implements OnInit {   //Exported class
- 
-  public labelList = [];
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+  labelList = [];
   constructor(
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private _service: NotesServiceService,
-    public router: Router) { this.getLabel(); }
+    private router: Router) { this.getLabel(); }
     @Output() Name = new EventEmitter<any>();
 /*------------------------------------------------------------------------------------------ */
   ngOnInit() {
@@ -28,7 +30,9 @@ export class AddLabelComponent implements OnInit {   //Exported class
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(result => {
       
       this.getLabel();
     });
@@ -39,6 +43,7 @@ export class AddLabelComponent implements OnInit {   //Exported class
   getLabel() {        //Function for getting all the labels
 
     this._service.getNoteJson()
+    .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
        
         this.labelList = [];
@@ -63,4 +68,8 @@ export class AddLabelComponent implements OnInit {   //Exported class
   }
   
 /*------------------------------------------------------------------------------------------ */
+ngOnDestroy(){
+  this.destroy$.next(true)
+  this.destroy$.unsubscribe();
+}
 }
