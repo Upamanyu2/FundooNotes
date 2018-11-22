@@ -1,0 +1,25 @@
+@import "../scss/variable.scss";
+@mixin text-overflow-hide{
+white-space: nowrap !important; 
+text-overflow:ellipsis !important; 
+overflow: hidden !important;
+}
+
+@mixin noBorder-inputBox {
+border: transparent;
+border: none;
+outline: none;
+    
+}
+@mixin validationText{
+font-size: 13px;
+color: $textColorBlack;
+}
+@mixin labelInputFieldPosition{
+margin-top: 68%;  
+opacity: 0.5
+} 
+@mixin LabelIconPosition{
+margin-left: 3%; 
+opacity: 0.5;
+}

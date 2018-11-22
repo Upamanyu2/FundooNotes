@@ -1,37 +1,40 @@
-<h2 mat-dialog-title style="padding:5%;margin: 0px 0px -19px">Edit labels</h2>
-<div mat-dialog-content>
-
-
-  <div fxLayout="row" fxLayoutAlign="space-between">
+<h2 mat-dialog-title class="headingEditLabels">Edit labels</h2>
+<div fxLayout="row" fxLayoutAlign="space-between">
     <div fxFlex="10%" *ngIf="show" (click)="toggle()">
       <mat-icon class="labelCreateIcon">close</mat-icon>
     </div>
     <div fxFlex="10%" *ngIf="!show" (click)="show=!show">
       <mat-icon class="labelCreateIcon">add</mat-icon>
     </div>
-    <div fxFlex="80%" (click)="!show=show"> <input class="inputLabel" matInput
-        placeholder="Create new label" class="inputLabel1" #label></div>
+    <div fxFlex="80%" (click)="!show=show"> <input class="inputLabel" 
+      matInput placeholder="Create new label" class="inputLabel1"
+        #label></div>
     <div fxFlex="10%" *ngIf="show">
       <mat-icon class="checkLabel" (click)="postLabel(); getLabel()">check</mat-icon>
     </div>
   </div>
-  <div fxLayout="column" *ngFor="let name of labelList">
+<div mat-dialog-content class="labelName">
+<div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between" *ngIf="editId!=name.id">
+ 
+  <div  fxLayout="column" *ngFor="let name of labelList">
+
+    <div  fxLayout="row" fxLayoutAlign="space-between" *ngIf="editId!=name.id">
       <div fxFlex="10%" class="editbox">
         <mat-icon class="editLabelIcon" (click)="editLabel(name.id)">edit</mat-icon>
       </div>
-      <div fxFlex="80%" class="labelInputField">{{name.label}}</div>
+      <div  fxFlex="80%" class="labelInputField">{{name.label}}</div>
       <div fxFlex="10%" class="delete">
         <mat-icon class="deleteIcon" (click)="deleteLabel(name.id)">delete</mat-icon>
       </div>
     </div>
     <div fxLayout="row" *ngIf="editId==name.id">
       <div fxFlex="10%" class="editbox">
-        <mat-icon class="checkLabel1" (click)="updateLabel(name.id); editLabel(false)">check</mat-icon>
+        <mat-icon class="checkLabel1" (click)="updateLabel(name.id); editLabel(false)">
+          check</mat-icon>
       </div>
-      <div fxFlex="80%"> <input class="inputLabel" matInput value="{{name.label}}"
-          class="labelEditBox" #labeledit></div>
+      <div fxFlex="80%"> <input class="inputLabel" matInput value="{{name.label}}" 
+        class="labelEditBox" #labeledit></div>
       <div fxFlex="10%" class="delete">
         <mat-icon class="deleteIcon" (click)="deleteLabel(name.id)">delete</mat-icon>
       </div>
@@ -41,7 +44,7 @@
 
 
   </div>
-
+</div>
 </div>
 
 <mat-card>

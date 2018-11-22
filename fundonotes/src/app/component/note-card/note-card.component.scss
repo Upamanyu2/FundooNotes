@@ -1,3 +1,5 @@
+@import "../../../scss/mixing.scss";
+@import "../../../scss/variable.scss";
 .grid-view{
     display: flex;
     flex-direction: row;
@@ -20,41 +22,41 @@
 @media only screen and (min-width: 0px) and  (max-width: 320px){
     .grid-card{
         width:270px !important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
 }
 @media only screen and (min-width: 360px) and (max-width: 375px){
     .grid-card{
         width:315px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
 }
 @media only screen and (min-width: 375px) and (max-width: 411px){
     .grid-card{
         width:328px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
 }
 @media only screen and (min-width: 411px) and (max-width: 600px){
     .grid-card{
         width:360px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
 }
 @media only screen and (min-width: 600px) and (max-width: 768px){
     .grid-card{
         width:200px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 1024px){
     .grid-card{
         width:270px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
     .list-card{
         width:380px !important;
-        word-break: break-all; 
+        word-break: $wordBreak; 
     }
     .list-view{
         margin-left: 11%!important;
@@ -64,11 +66,11 @@
 @media only screen and (min-width: 1024px) and (max-width: 1225px){
     .grid-card{
         width:210px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
     .list-card{
         width:530px !important;
-        word-break: break-all; 
+        word-break: $wordBreak;
     }
     .grid-view{
         margin-left:5% !important;
@@ -85,12 +87,12 @@
 @media only screen and (min-width: 1225px) and (max-width: 1299px){
     .grid-card{
         width:250px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
     
     .list-card{
         width:850px !important;
-        word-break: break-all; 
+        word-break: $wordBreak; 
     }
     .grid-view{
         margin-left:0%;
@@ -103,12 +105,12 @@
 @media only screen and (min-width: 1299px) and (max-width: 1366px){
     .grid-card{
         width:250px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
     
     .list-card{
         width:850px !important;
-        word-break: break-all; 
+        word-break: $wordBreak; 
     }
     .grid-view{
         margin-left:0%;
@@ -120,12 +122,12 @@
 @media only screen and (min-width: 1345px) and (max-width: 1366px){
     .grid-card{
         width:270px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
     
     .list-card{
         width:850px !important;
-        word-break: break-all; 
+        word-break: $wordBreak; 
     }
     .grid-view{
         margin-left:0%;
@@ -137,7 +139,7 @@
 @media only screen and (min-width: 1366px) and (max-width: 1453px){
     .grid-card{
         width:270px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
     .list-card{
         width: 1000px !important;
@@ -150,7 +152,7 @@
 @media only screen and (min-width: 1453px) and (max-width: 1500px){
     .grid-card{
         width:230px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
     .list-card{
         width: 1000px !important;
@@ -166,7 +168,7 @@
 @media only screen and (min-width: 1500px) and (max-width: 1569px){
     .grid-card{
         width:230px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
     }
     .list-card{
         width: 1000px !important;
@@ -184,7 +186,7 @@
     }
     .grid-card{
         width:250px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
         
     }
     .grid-view{
@@ -208,7 +210,7 @@
     }
     .grid-card{
         width:250px!important;
-        word-break: break-all;
+        word-break: $wordBreak;
         
     }
     .grid-view{
@@ -224,9 +226,7 @@
 }
 .labelChips{
     width: 60px;
-    white-space: nowrap!important;
-    overflow: hidden!important;
-    text-overflow: ellipsis!important;
+    @include text-overflow-hide;
 }
 // .list-card{
 //     width:850px;
@@ -258,5 +258,5 @@
     border: transparent;
     border: none;
     outline:none;
-    word-break: break-all;
+    word-break: $wordBreak;
 }

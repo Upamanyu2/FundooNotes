@@ -1,3 +1,4 @@
+@import "../../../scss/mixing.scss";
 .body{
     border: 1px;
     border-radius: 20px;
@@ -56,13 +57,13 @@ opacity:0;
     padding-bottom: 6px;
 }
 .note{
-    border: transparent;
-    border: none;
-    outline:none;
+    @include noBorder-inputBox;
 }
 .note1{
-    border: transparent;
-    border: none;
-    outline:none;
+    @include noBorder-inputBox;
     text-decoration: line-through!important;
+}
+.labelOverflow{
+    @include text-overflow-hide;
+    width:50px;
 }

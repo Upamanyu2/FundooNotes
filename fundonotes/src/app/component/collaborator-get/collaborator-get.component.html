@@ -1,0 +1,47 @@
+<mat-card class="card">
+  <mat-card-title>
+    <h5 class="heading">Collaborator</h5>
+    <hr>
+  </mat-card-title>
+  <mat-card-content>
+    <div fxLayout="row" class="divMargin">
+      <div fxFlex="10%">
+        <button mat-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+
+        </button>
+      </div>
+      <div fxFlex="15%" fxShow.lg="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="true"></div>
+      <div fxFlex="75%" class="nameEmailDetails">
+        <span class="nameDetails">{{firstName}}</span>
+        <span class="nameDetails">{{lastName}}</span><span class="owner">(Owner)</span>
+        <div>{{email}}</div>
+      </div>
+
+    </div>
+    <div fxLayout="row">
+      <div fxFlex="10%">
+        <button  class="buttonDiv"mat-fab>
+          <i class="material-icons iconPerson"> person_add </i>
+        </button>
+      </div>
+      <div fxFlex="15%" fxShow.lg="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="true"></div>
+      <div fxFlex="75%" fxLayout="column" class="nameEmailDetails">
+        <input class="inputOfCollaborator" matInput placeholder="Person or email to share with"  value="">
+      </div>
+
+    </div>
+
+  </mat-card-content>
+  <mat-card-footer class="footer">
+   
+
+    <div class="buttonMargin">
+        <button mat-button class="buttons">Save</button>
+        <button mat-button class="buttons">Close</button>
+      </div>
+
+    
+
+
+  </mat-card-footer>
+</mat-card>

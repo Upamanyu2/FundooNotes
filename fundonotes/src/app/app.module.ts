@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------------ */
-      /*-----------Componnets module imported------------------ */
+/*-----------Componnets module imported------------------ */
 
 import { AppComponent } from './app.component';
 import { LoginComponentComponent } from './component/login-component/login-component.component';
@@ -34,11 +34,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from "@angular/material";
 import { InterceptService } from './core/service/intercept/services/intercept.service';
 /*------------------------------------------------------------------------------ */
-      /*-----------Routing module imported------------------ */
+/*-----------Routing module imported------------------ */
 import { AppRoutingModule } from './app-routing.module';
 
 /*------------------------------------------------------------------------------ */
-      /*-----------Angular module imported------------------ */
+/*-----------Angular module imported------------------ */
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -61,6 +61,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ProfilePhotoComponent } from './component/profile-photo/profile-photo.component';
 import { MessagingService } from './core/service/dataService/notifaticationService/messaging.service';
 import { PinComponent } from './component/pin/pin.component';
+import { CollaboratorGetComponent } from './component/collaborator-get/collaborator-get.component';
 
 
 /*------------------------------------------------------------------------------ */
@@ -102,7 +103,8 @@ import { PinComponent } from './component/pin/pin.component';
     ReminderComponent,
     ImageComponent,
     ProfilePhotoComponent,
-    PinComponent
+    PinComponent,
+    CollaboratorGetComponent
 
 
 
@@ -136,14 +138,16 @@ import { PinComponent } from './component/pin/pin.component';
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers: [MessagingService,InterceptService,{
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [MessagingService, InterceptService, {
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptService,
     multi: true
   }],
   bootstrap: [AppComponent],
-  entryComponents: [EditComponent, NoteCardComponent, LabelCreateComponent, AddLabelComponent, NavigationBarComponent, ProfilePhotoComponent]
+  entryComponents: [EditComponent, NoteCardComponent,
+                    LabelCreateComponent, AddLabelComponent,
+                    NavigationBarComponent, ProfilePhotoComponent, CollaboratorGetComponent]
 
 })
 export class AppModule { }

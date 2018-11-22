@@ -154,7 +154,7 @@
                     <div fxLayoutAlign="space-around end" class="buttons">
 
                         <app-reminder [Noteid]=data (ReminderEmit)="refresh($event)" [Delete]=data.isDeleted></app-reminder>
-                        <app-collaborator [Delete]=data.isDeleted></app-collaborator>
+                        <app-collaborator  [Delete]=data.isDeleted></app-collaborator>
                         <app-theme [Noteid]=data (ColorClicked)="refresh($event)" [Delete]=data.isDeleted></app-theme>
 
                         <app-image [Delete]=data.isDeleted></app-image>

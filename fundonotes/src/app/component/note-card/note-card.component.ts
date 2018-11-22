@@ -5,6 +5,7 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 import { SearchServiceService } from 'src/app/core/service/dataService/searchService/search-service.service';//Importing search service
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
 @Component({ //Importing dependency injection of component
@@ -59,6 +60,9 @@ export class NoteCardComponent implements OnInit {// Exported class
 
       });
   }
+
+ 
+  
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
   refresh(event) {                //Refresh function for the emitted event(delete, archive and color changing of the card)

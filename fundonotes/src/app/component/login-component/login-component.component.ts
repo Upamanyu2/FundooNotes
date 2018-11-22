@@ -78,6 +78,7 @@ export class LoginComponentComponent implements OnInit {
           console.log("POST request is successful");
           localStorage.setItem("token", data['id'])
           localStorage.setItem("FirstName", data['firstName']);
+          localStorage.setItem("LastName", data['lastName'])
           console.log(data['userId']);
           localStorage.setItem("UserId", data['userId']);
           localStorage.setItem("imageUrl", data['imageUrl']);

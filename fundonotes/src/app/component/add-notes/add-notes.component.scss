@@ -1,3 +1,4 @@
+@import "../../../scss/mixing.scss";
 .mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button{
     min-width: 30px;
 }
@@ -44,9 +45,7 @@ opacity:0;
     margin-right:auto
 }
 ::ng-deep.checkboxInput{
-    border: transparent;
-    outline: none;
-    border: none;
+    @include noBorder-inputBox;
 }
 .NotesStriked{
     text-decoration: line-through!important;

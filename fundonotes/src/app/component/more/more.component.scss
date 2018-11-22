@@ -1,5 +1,4 @@
+@import "../../../scss/mixing.scss";
 .labelinput{
-border: transparent;
-border: none;
-outline: none;
+@include noBorder-inputBox;
 }

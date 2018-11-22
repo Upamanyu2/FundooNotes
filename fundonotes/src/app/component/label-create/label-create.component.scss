@@ -1,3 +1,5 @@
+@import "../../../scss/mixing.scss";
+@import "../../../scss/variable.scss";
 ::ng-deep.mat-dialog-container{
 padding: 0%;
 overflow: hidden;
@@ -7,57 +9,60 @@ overflow: hidden;
     padding: 10px;
 }
 .editbox{
-    opacity:0.3;
+    opacity:$opacity2;
 }
 .editbox:hover{
- opacity: 1;
+ opacity: $opacity;
 }
 .delete{
-    opacity: 0.3;
+    opacity: $opacity2;
 }
 .delete:hover{
-    opacity: 1; 
+    opacity: $opacity;
 }
 ::ng-deep.mat-dialog-content {
     overflow: hidden;
 }
 .inputLabel{
-border: transparent;
-border: none;
-outline: none;
+@include noBorder-inputBox;
 }
 .inputLabel1{
     margin-top:10%; 
     margin-left: 7%; 
-    border: 0px
+    border: 0px;
+    outline: none;
 }
 .labelCreateIcon{
-    margin-top: 68%; 
-    margin-left: 3%; 
-    opacity: 0.5
+    margin-left: 3%;
+    @include labelInputFieldPosition;
 }
 .checkLabel{
-    margin-top: 68%; 
-    opacity: 0.5
+    @include labelInputFieldPosition;
 }
 .editLabelIcon{
-    margin-left: 3%; 
-    opacity: 0.5
+    @include LabelIconPosition;
 }
 .labelInputField{
     margin-left:5%; 
-    white-space: nowrap; 
-    text-overflow:ellipsis; 
-    overflow: hidden;
+    @include text-overflow-hide;
 }
 .deleteIcon{
-    opacity: 0.5;
+    opacity: $opacity1;
 }
 .checkLabel1{
-    margin-left: 3%; 
-    opacity: 0.5
+    @include LabelIconPosition;
 }
 .labelEditBox{
     margin-left: 5%; 
     border: 0px
+}
+.headingEditLabels{
+    padding:5%;
+    margin: 0px 0px -19px
+}
+.labelName{
+    overflow-y: scroll !important;
+}
+.mat-dialog-container{
+    padding: 0px!important;
 }

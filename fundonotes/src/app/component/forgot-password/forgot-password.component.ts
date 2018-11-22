@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {  //Exported class
   mailSend() {                  //Function to send the link to the registered mail.
     this.submitted = true;
     let mail = this.model.email;
-    if (mail.length == 0) {
+    if (mail==undefined) {
       console.log("Please provide an email.");
       this.snackBar.open("Please provide a valid email", "cannot send mail", {
         duration: 2000
