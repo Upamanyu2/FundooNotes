@@ -64,7 +64,7 @@ export class ResetPasswordComponent implements OnInit { //Exported class
       });
       return;
     }
-    this._service.resetPasswordPost({ "newPassword": password }, this.accessToken)
+    this._service.resetPasswordPost({ "newPassword": password })
       .pipe(takeUntil(this.destroy$))
       .subscribe(
         data => {

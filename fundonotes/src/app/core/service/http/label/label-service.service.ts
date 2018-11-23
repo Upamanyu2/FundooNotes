@@ -7,8 +7,7 @@ import { GenaralService } from '../httpServices/genaral.service'
 /*---------------------------------------------------------------------------------------------------------*/
 export class LabelServiceService {
 
-  constructor(
-    private service: GenaralService) { }
+  constructor(private service: GenaralService) { }
 
   /*---------------------------------------------------------------------------------------------------------*/
   public labelDeleteService(id) {

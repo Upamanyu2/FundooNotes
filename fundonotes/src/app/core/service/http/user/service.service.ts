@@ -73,9 +73,9 @@ public logoutService(){
 
 /*-------------------------------------------------------------------------------------------------- */
 
-public resetPasswordPost(body,token){
+public resetPasswordPost(body){
   let name="user/reset-password";
-  return this.service.postServiceJsonWithToken(name, body, token);
+  return this.service.postServiceJson(name, body);
 }
 
 }

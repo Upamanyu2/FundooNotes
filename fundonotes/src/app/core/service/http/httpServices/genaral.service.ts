@@ -34,7 +34,6 @@ export class GenaralService {
 
   }
   public getServiceWithToken(name){
-    let token =localStorage.getItem("token")
 
     var httpheaders = {
       headers: new HttpHeaders({
@@ -46,7 +45,6 @@ export class GenaralService {
   }
   /*---------------------------------------------------------------------------------- */
   public getServiceJson(name){
-    let token =localStorage.getItem("token")
     var httpheaders = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -63,7 +61,6 @@ export class GenaralService {
 
 
   public postWithoutBodyService(name){
-    let token =localStorage.getItem("token")
     var httpheaders = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -75,7 +72,6 @@ export class GenaralService {
   /*---------------------------------------------------------------------------------- */
 
   public postServiceEncoded(name,body){
-    let token =localStorage.getItem("token")
     var httpheaders = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -88,7 +84,6 @@ export class GenaralService {
   /*---------------------------------------------------------------------------------- */
 
   public postServiceJson(name,body){
-    let token =localStorage.getItem("token");
     var httpheaders = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -101,22 +96,9 @@ export class GenaralService {
   }
  
 
-
-  public postServiceJsonWithToken(name,body,token){
-    var httpheaders = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        // 'Authorization': token
-      })
-    };
-    return this.http.post(this.url + "/" + name, body, httpheaders);
-
-  }
-
   /*---------------------------------------------------------------------------------- */
 
   public postWithoutContentTypeService(name,body){
-    let token =localStorage.getItem("token")
 
     var httpheaders={
       headers:new HttpHeaders({

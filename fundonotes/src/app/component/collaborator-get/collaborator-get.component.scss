@@ -43,10 +43,23 @@
 }
 .inputOfCollaborator{
   @include noBorder-inputBox;
+  min-width:350px;
 }
 .buttonDiv{
     background-color: $textColorWhite;
 }
 .iconPerson{
     color: $textColorBlack;
+}
+.space{
+    padding-right: 10px;
+}
+.font{
+    font-weight: 500;
+    width: 150px;
+}
+::ng-deep.mat-menu-panel{
+    overflow-x: hidden !important;
+    min-width:600px!important;
+    cursor: pointer;
 }
