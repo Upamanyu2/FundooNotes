@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { CollaboratorService } from "../../core/service/http/collaborator/collaborator.service";
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { CollaboratorComponent } from '../collaborator/collaborator.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing all the dialogue box requirements
 /*----------------------------------------------------------------------------------------------- */
 @Component({
@@ -13,23 +14,27 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing a
 /*----------------------------------------------------------------------------------------------- */
 export class CollaboratorGetComponent implements OnInit {
   private destroy$: Subject<boolean> = new Subject<boolean>();
-  img;
-  email;
-  firstName;
-  lastName;
   private body;
   userArray;
+  receiverArray = [];
   /*----------------------------------------------------------------------------------------------- */
   constructor(private service: CollaboratorService,
-    @Inject(MAT_DIALOG_DATA) public data: any, ) { }
+    public dialogRef: MatDialogRef<CollaboratorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    this.img = environment.baseUrl1 + localStorage.getItem("imageUrl");
-    this.email = localStorage.getItem("userName");
-    this.firstName = localStorage.getItem("FirstName")
-    this.lastName = localStorage.getItem("LastName")
+    console.log(this.data['collaborators'])
+    for (let i = 0; i < this.data['collaborators'].length; i++) {
+      this.receiverArray.push(this.data['collaborators'][i]);
+    }
+
+
   }
   /*----------------------------------------------------------------------------------------------- */
+  img = environment.baseUrl1 + localStorage.getItem("imageUrl");
+  email = localStorage.getItem("userName");
+  firstName = localStorage.getItem("FirstName")
+  lastName = localStorage.getItem("LastName")
   searchUsers(searchValue) {
     this.body = {
       "searchWord": searchValue
@@ -63,10 +68,14 @@ export class CollaboratorGetComponent implements OnInit {
     this.service.addUserCollabService(this.body, this.data.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
-
+        console.log(this.body);
+        this.receiverArray.push(this.body);
       }, error => {
 
       })
+  }
+  close(){
+    this.dialogRef.close();
   }
   /*----------------------------------------------------------------------------------------------- */
   ngOnDestroy() {
