@@ -5,7 +5,8 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 import { SearchServiceService } from '../../core/service/dataService/searchService/search-service.service'
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators'
-
+import { CollaboratorGetComponent } from '../collaborator-get/collaborator-get.component';
+import { MatDialog } from '@angular/material';
 /*------------------------------------------------------------------------------------------------------------------------- */
 
 @Component({ //Injecting component dependency
@@ -31,8 +32,10 @@ export class EditComponent implements OnInit { //Export class to export all the 
   private reminderBody = {};
   private reminderArray = [];
   private pinClick = this.data.isPined;
+  receiverArray;
   /*------------------------------------------------------------------------------------------------------------ */
   constructor(
+    private dialog: MatDialog,
     private _service: NotesServiceService, //Service file reference is made.
     private service: SearchServiceService,
     public dialogRef: MatDialogRef<NoteCardComponent>, //Reference for dialogue box reference is being made.
@@ -45,7 +48,6 @@ export class EditComponent implements OnInit { //Export class to export all the 
   /*------------------------------------------------------------------------------------------------------------ */
   ngOnInit() {
     this.checkListItemArray = this.data.noteCheckLists;
-
     this.reminderArray.push(this.data.reminder);
 
   }
@@ -121,7 +123,10 @@ export class EditComponent implements OnInit { //Export class to export all the 
      
   }
 
-
+  collaboratorEvent(event){
+    console.log(event);
+ this.receiverArray=event;
+  }
 
 
 
@@ -272,11 +277,24 @@ export class EditComponent implements OnInit { //Export class to export all the 
       this.reminderArray.push(event.details.reminder);
     }
   }
+
+  openDialog1(data): void {
+    const dialogRef = this.dialog.open(CollaboratorGetComponent, {
+      width: '600px',
+      
+      data:data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      
+    });
+  }
   /*------------------------------------------------------------------------------------------------------------ */
 
   ngOnDestroy(){
     this.destroy$.next(true)
     this.destroy$.unsubscribe();
   }
+  
 
 }

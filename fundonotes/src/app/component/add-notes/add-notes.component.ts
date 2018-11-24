@@ -152,7 +152,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         .pipe(takeUntil(this.destroy$))
         .subscribe(response => {
           this.pin = false
-          this.click == false;
+          this.click = false;
           this.LabelObj = []
           this.reminderArray = []
           this.dataArray = [];
@@ -160,7 +160,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
           //emitting an event when the note is added
           this.closeClicked.emit(true);
         }, error => {
-          this.click == false;
+          this.click = false;
           this.LabelObj = []
           this.reminderArray = []
           this.dataArray = [];
@@ -292,20 +292,17 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   }
 
   toggleCheckbox(event) {
-    // this.click==event
-    // LoggerServiceService.data(this.click)
+   
     if (event == false) {
       this.showCheckbox = event
       this.hideCheckbox = !event;
-      // console.log(this.showCheckbox)
-      // console.log(this.hideCheckbox)
+     
 
     }
     else {
       this.showCheckbox = event
       this.hideCheckbox = !event;
-      // console.log(this.showCheckbox)
-      // console.log(this.hideCheckbox)
+     
     }
   }
   /*----------------------------------------------------------------------------------------------------------- */

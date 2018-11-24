@@ -46,7 +46,8 @@
 
                     <!----------------------Checklist part----------------------------------->
                     <div *ngFor="let checklist of data.noteCheckLists" fxLayout="row">
-                        <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open' && !checklist.isDeleted" (click)="checkBox(checklist,data)">
+                        <mat-checkbox fxFlex="10%" *ngIf="checklist.status=='open' && !checklist.isDeleted" 
+                        (click)="checkBox(checklist,data)">
                         </mat-checkbox>
                         <input *ngIf="!checklist.isDeleted && checklist.status=='open' " [(ngModel)]=checklist.itemName
                             fxFlex="90%" class="note" (click)="openDialog(data)" [style.backgroundColor]="data.color">
@@ -55,7 +56,8 @@
                         <mat-checkbox fxFlex="10%" checked=true *ngIf="checklist.status=='close' &&
                  !checklist.isDeleted"
                             (click)="checkBox(checklist,data)"></mat-checkbox>
-                        <del fxFlex="90%" *ngIf="!checklist.isDeleted && checklist.status=='close'" (click)="openDialog(data)">{{checklist.itemName}}</del>
+                        <del fxFlex="90%" *ngIf="!checklist.isDeleted && checklist.status=='close'" 
+                        (click)="openDialog(data)">{{checklist.itemName}}</del>
                     </div>
                     <!----------------------------------------------------------------------->
 
@@ -147,6 +149,16 @@
                     </mat-chip-list>
                     <!-------------------------------------------------------------------------->
 
+                    <!-----------------------------Collaborator part-------------------------------->
+                      <div fxLayoutAlign="row" class="collaborators">
+                          <div *ngFor="let index of data.collaborators" >
+                              <button mat-mini-fab color="accent" (click)="openDialog1(data)">
+                               {{index.email | titlecase | slice:0:1}}
+                              </button>
+                          </div>
+                      </div>
+
+                    <!-------------------------------------------------------------------------------->
 
 
 
@@ -154,7 +166,7 @@
                     <div fxLayoutAlign="space-around end" class="buttons">
 
                         <app-reminder [Noteid]=data (ReminderEmit)="refresh($event)" [Delete]=data.isDeleted></app-reminder>
-                        <app-collaborator [Noteid]=data   [Delete]=data.isDeleted></app-collaborator>
+                        <app-collaborator [Noteid]=data [Delete]=data.isDeleted></app-collaborator>
                         <app-theme [Noteid]=data (ColorClicked)="refresh($event)" [Delete]=data.isDeleted></app-theme>
 
                         <app-image [Delete]=data.isDeleted></app-image>

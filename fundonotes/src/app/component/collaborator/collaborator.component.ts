@@ -16,7 +16,8 @@ export class CollaboratorComponent implements OnInit {
   }
   openDialog1(): void {
     const dialogRef = this.dialog.open(CollaboratorGetComponent, {
-      width: '700px',
+      width: '600px',
+      
       data:this.Noteid
     });
     dialogRef.afterClosed().subscribe(result => {

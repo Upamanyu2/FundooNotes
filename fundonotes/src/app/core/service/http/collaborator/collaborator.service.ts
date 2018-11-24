@@ -18,4 +18,8 @@ export class CollaboratorService {
     return this.service.postServiceJson(name,body);
 
   }
+  removeCollabService(id,collabUserId){
+    let name= "notes/"+id+"/removeCollaboratorsNotes/"+collabUserId;
+    return this.service.deleteService(name);
+  }
 }

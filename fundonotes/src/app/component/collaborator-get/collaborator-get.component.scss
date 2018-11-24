@@ -41,6 +41,7 @@
 .divMargin{
     margin-bottom: 10px;
 }
+
 .inputOfCollaborator{
   @include noBorder-inputBox;
   min-width:350px;
@@ -58,12 +59,39 @@
     font-weight: 500;
     width: 150px;
 }
-::ng-deep.mat-menu-panel{
+::ng-deep.matMenuCollaborator{
     overflow-x: hidden !important;
     min-width:600px!important;
     cursor: pointer;
 }
 .contentScroller{
-    overflow-y:auto;
-    height: 200px;
+    overflow-y:scroll;
+    max-height: 200px;
 }
+@media (max-width: 599px){
+    .contentScroller{
+        font-size: 7px;
+        overflow-x:hidden; 
+    }
+    .input-placeholder{
+        font-size: 10px;
+    }
+    .card{
+        overflow-x:hidden; 
+    }
+}
+
+// @media screen and (min-width: 320px) and (max-width:568px) {
+// /* ADD YOUR CSS ADJUSTMENTS BELOW HERE */
+//     .contentScroller{
+//         font-size: 14px;
+//         overflow-x:hidden; 
+//     }
+//     .input-placeholder{
+//         font-size: 14px;
+//     }
+//     .card{
+//         overflow-x:hidden; 
+//     }
+// }
+
