@@ -23,17 +23,20 @@
     <div class="contentScroller">
       <div fxLayout="row" *ngFor="let users1 of receiverArray">
         <div fxFlex="10%">
-          <button class="buttonDiv" mat-fab>
+          <button class="buttonDiv" mat-mini-fab>
             <i class="material-icons iconPerson"> {{users1.email | titlecase | slice:0:1}} </i>
           </button>
         </div>
 
-        <div fxFlex="15%" fxShow.lg="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="true"></div>
+        <div fxFlex="10%" fxShow.lg="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="true"></div>
         <div fxFlex="70%" fxLayout="column" class="nameEmailDetails">
           <div>{{users1.email}}</div>
         </div>
-        <div fxFlex="5%" ><i class="material-icons">
+        <div fxFlex="10%" ><i class="material-icons" *ngIf="!showSave">
             clear
+          </i>
+          <i class="material-icons" *ngIf="showSave">
+            check
           </i></div>
       </div>
     </div>
@@ -57,7 +60,7 @@
 
 
     <div class="buttonMargin">
-      <button mat-button class="buttons">Save</button>
+      <button mat-button class="buttons"  (click)="addUsers()">Save</button>
       <button mat-button class="buttons" (click)="close()">Close</button>
     </div>
 
@@ -66,9 +69,9 @@
 
   </mat-card-footer>
 
-  <mat-menu #menu="matMenu" (click)="$event.stopPropagation()" yPosition="below" [overlapTrigger]="false">
+  <mat-menu #menu="matMenu" class="matMenuCollaborator" (click)="$event.stopPropagation()" yPosition="below" [overlapTrigger]="false">
     <div *ngFor="let users of userArray">
-      <div fxLayout="row" (click)="addUsers(users)" class="font">
+      <div fxLayout="row" (click)="saveUsers(users)" class="font">
         <div>
           <span class="space">{{users.firstName}}</span>
 

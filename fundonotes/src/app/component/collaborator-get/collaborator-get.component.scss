@@ -58,7 +58,8 @@
     font-weight: 500;
     width: 150px;
 }
-::ng-deep.mat-menu-panel{
+
+::ng-deep.matMenuCollaborator{
     overflow-x: hidden !important;
     min-width:600px!important;
     cursor: pointer;

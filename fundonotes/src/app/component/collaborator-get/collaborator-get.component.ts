@@ -15,6 +15,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing a
 export class CollaboratorGetComponent implements OnInit {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private body;
+  private showSave=false;
   userArray;
   receiverArray = [];
   /*----------------------------------------------------------------------------------------------- */
@@ -56,20 +57,27 @@ export class CollaboratorGetComponent implements OnInit {
     }
 
   }
-
-  addUsers(users) {
-    console.log(this.data.id)
+  saveUsers(users){
+    this.showSave=true;
     this.body = {
       "firstName": users.firstName,
       "lastName": users.lastName,
       "email": users.email,
       "userId": users.userId
     }
+    this.receiverArray.push(this.body);
+   
+  }
+  addUsers() {
+    
+
+    console.log(this.data.id)
+   
     this.service.addUserCollabService(this.body, this.data.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
+        this.showSave=false;
         console.log(this.body);
-        this.receiverArray.push(this.body);
       }, error => {
 
       })
