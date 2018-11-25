@@ -15,9 +15,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing a
 export class CollaboratorGetComponent implements OnInit {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private body;
-  private showSave=false;
   userArray;
   receiverArray = [];
+  showSave = false;
+  receiverArray1 = [];
   /*----------------------------------------------------------------------------------------------- */
   constructor(private service: CollaboratorService,
     public dialogRef: MatDialogRef<CollaboratorComponent>,
@@ -28,7 +29,11 @@ export class CollaboratorGetComponent implements OnInit {
     for (let i = 0; i < this.data['collaborators'].length; i++) {
       this.receiverArray.push(this.data['collaborators'][i]);
     }
-
+    if (this.data.userId != this.data.user.userId) {
+      this.email = this.data.user.email;
+      this.firstName = this.data.user.firstName;
+      this.lastName = this.data.user.lastName;
+    }
 
   }
   /*----------------------------------------------------------------------------------------------- */
@@ -57,32 +62,54 @@ export class CollaboratorGetComponent implements OnInit {
     }
 
   }
-  saveUsers(users){
-    this.showSave=true;
+  saveUsers(users) {
+    this.showSave = true;
     this.body = {
       "firstName": users.firstName,
       "lastName": users.lastName,
       "email": users.email,
       "userId": users.userId
     }
-    this.receiverArray.push(this.body);
-   
+    this.receiverArray1.push(this.body);
+    this.data.collaborators.push(users);
   }
   addUsers() {
-    
+    this.receiverArray1 = []
+    this.showSave = false;
 
     console.log(this.data.id)
-   
+
     this.service.addUserCollabService(this.body, this.data.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
-        this.showSave=false;
-        console.log(this.body);
+        this.receiverArray.push(this.body);
       }, error => {
 
       })
   }
-  close(){
+
+
+  removeUsers(users) {
+    console.log(users);
+    this.service.removeCollabService(this.data.id, users.userId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        for (let i = 0; i < this.receiverArray.length; i++) {
+          if (users.userId == this.receiverArray[i].userId) {
+            this.data.collaborators.splice(i, 1);
+            this.receiverArray.splice(i, 1);
+          }
+        }
+
+      },
+        error => {
+
+        });
+
+
+  }
+
+  close() {
     this.dialogRef.close();
   }
   /*----------------------------------------------------------------------------------------------- */

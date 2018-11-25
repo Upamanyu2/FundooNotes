@@ -146,6 +146,16 @@
                         </div>
                     </mat-chip-list>
                     <!-------------------------------------------------------------------------->
+                    <!-----------------------------Collaborator part-------------------------------->
+                    <div fxLayoutAlign="row" class="collaborators">
+                        <div *ngFor="let index of data.collaborators">
+                            <button mat-mini-fab color="accent" (click)="openDialog1(data)">
+                                {{index.email | titlecase | slice:0:1}}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-------------------------------------------------------------------------------->
 
 
 
@@ -154,7 +164,7 @@
                     <div fxLayoutAlign="space-around end" class="buttons">
 
                         <app-reminder [Noteid]=data (ReminderEmit)="refresh($event)" [Delete]=data.isDeleted></app-reminder>
-                        <app-collaborator [Noteid]=data   [Delete]=data.isDeleted></app-collaborator>
+                        <app-collaborator [Noteid]=data [Delete]=data.isDeleted></app-collaborator>
                         <app-theme [Noteid]=data (ColorClicked)="refresh($event)" [Delete]=data.isDeleted></app-theme>
 
                         <app-image [Delete]=data.isDeleted></app-image>

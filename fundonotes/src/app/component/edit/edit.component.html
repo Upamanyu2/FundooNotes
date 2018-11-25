@@ -81,7 +81,21 @@
       </mat-chip-list>
     </div>
   </div>
+
+
+  <!--Mat chip for collaborators-->
+  <div fxLayoutAlign="row">
+      <div *ngFor="let index of data.collaborators">
+        <button mat-mini-fab color="accent" (click)="openDialog1(data)">
+          {{index.email | titlecase | slice:0:1}}
+        </button>
+      </div>
+    </div>
+
+    
   <div flexLayout="row" class="div3">
+
+    
     <!--------------------------------------------------------------------------------------------------------->
 
     <!------------------------Reminder component starts----------------------------------->
@@ -90,7 +104,7 @@
 
 
     <!------------------------Collaborator component starts----------------------------------->
-    <app-collaborator fxFlex="10%"></app-collaborator>
+    <app-collaborator [Noteid]=data fxFlex="10%"></app-collaborator>
     <!------------------------Collaborator component ends----------------------------------->
 
 

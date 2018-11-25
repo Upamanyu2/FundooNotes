@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core'; //Importing the (inject is used for injecting the avlues to the modal box) output input and the event emitter for connecting child to parent.
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing all the dialogue box requirements
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material'; //Importing all the dialogue box requirements
 import { NoteCardComponent } from '../note-card/note-card.component'; //Note card component is imported to link the edit component and note component.
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Http service file is imported.
 import { SearchServiceService } from '../../core/service/dataService/searchService/search-service.service'
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators'
+import { CollaboratorGetComponent } from '../collaborator-get/collaborator-get.component';
 
 /*------------------------------------------------------------------------------------------------------------------------- */
 
@@ -33,9 +34,10 @@ export class EditComponent implements OnInit { //Export class to export all the 
   private pinClick = this.data.isPined;
   /*------------------------------------------------------------------------------------------------------------ */
   constructor(
+    private dialog: MatDialog,
     private _service: NotesServiceService, //Service file reference is made.
     private service: SearchServiceService,
-    public dialogRef: MatDialogRef<NoteCardComponent>, //Reference for dialogue box reference is being made.
+    private dialogRef: MatDialogRef<NoteCardComponent>, //Reference for dialogue box reference is being made.
 
     @Inject(MAT_DIALOG_DATA) public data: any,  //Used for injecting the datas received by the modal box from the note-card.
   ) { }
@@ -121,6 +123,18 @@ export class EditComponent implements OnInit { //Export class to export all the 
      
   }
 
+
+  openDialog1(data): void {
+    const dialogRef = this.dialog.open(CollaboratorGetComponent, {
+      width: '600px',
+      
+      data:data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      
+    });
+  }
 
 
 

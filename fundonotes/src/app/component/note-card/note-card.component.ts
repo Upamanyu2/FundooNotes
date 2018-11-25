@@ -5,6 +5,7 @@ import { NotesServiceService } from '../../core/service/http/notes/notes-service
 import { SearchServiceService } from 'src/app/core/service/dataService/searchService/search-service.service';//Importing search service
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { CollaboratorGetComponent } from '../collaborator-get/collaborator-get.component';
 
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -112,6 +113,18 @@ export class NoteCardComponent implements OnInit {// Exported class
     })
 
 
+  }
+
+  openDialog1(data): void {
+    const dialogRef = this.dialog.open(CollaboratorGetComponent, {
+      width: '600px',
+      
+      data:data
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      
+    });
   }
 
 

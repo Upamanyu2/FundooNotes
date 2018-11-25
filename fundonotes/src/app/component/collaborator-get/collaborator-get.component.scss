@@ -65,6 +65,18 @@
     cursor: pointer;
 }
 .contentScroller{
-    overflow-y:auto;
-    height: 200px;
+    overflow-y:scroll;
+    max-height: 200px;
+}
+@media (max-width: 599px){
+    .contentScroller{
+        font-size: 7px;
+        overflow-x:hidden; 
+    }
+    .input-placeholder{
+        font-size: 10px;
+    }
+    .card{
+        overflow-x:hidden; 
+    }
 }

@@ -1,10 +1,14 @@
+<!--Mat card starts---->
 <mat-card class="card">
+  <!--Title for the dialogbox starts-->
   <mat-card-title>
     <h5 class="heading">Collaborator</h5>
     <hr>
   </mat-card-title>
+  <!--Title for the dialogbox ends-->
+  <!--Content for the dialogbox starts-->
   <mat-card-content>
-
+    <!--Owner div starts-->
     <div fxLayout="row" class="divMargin">
       <div fxFlex="10%">
         <button mat-fab [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
@@ -20,8 +24,14 @@
       </div>
 
     </div>
+    <!--Owner div ends-->
+
+
+    <!--User div starts-->
+
     <div class="contentScroller">
       <div fxLayout="row" *ngFor="let users1 of receiverArray">
+
         <div fxFlex="10%">
           <button class="buttonDiv" mat-mini-fab>
             <i class="material-icons iconPerson"> {{users1.email | titlecase | slice:0:1}} </i>
@@ -32,14 +42,35 @@
         <div fxFlex="70%" fxLayout="column" class="nameEmailDetails">
           <div>{{users1.email}}</div>
         </div>
-        <div fxFlex="10%" ><i class="material-icons" *ngIf="!showSave">
+        <div fxFlex="10%"><i class="material-icons" (click)="removeUsers(users1)">
             clear
           </i>
-          <i class="material-icons" *ngIf="showSave">
-            check
-          </i></div>
+        </div>
+
       </div>
+
+      <div *ngIf="showSave">
+        <div fxLayout="row" *ngFor="let users1 of receiverArray1">
+          <div fxFlex="10%">
+            <button class="buttonDiv" mat-mini-fab>
+              <i class="material-icons iconPerson"> {{users1.email | titlecase | slice:0:1}} </i>
+            </button>
+          </div>
+
+          <div fxFlex="15%" fxShow.lg="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="true"></div>
+          <div fxFlex="75%" fxLayout="column" class="nameEmailDetails">
+            <div>{{users1.email}}</div>
+          </div>
+
+        </div>
+      </div>
+
+
     </div>
+    <!--User div ends-->
+
+
+    <!--Input div starts-->
     <div fxLayout="row">
       <div fxFlex="10%">
         <button class="buttonDiv" mat-fab>
@@ -54,13 +85,18 @@
       </div>
 
     </div>
+    <!--Input div ends-->
 
   </mat-card-content>
+  <!--Content for the dialogbox ends-->
+
+
+  <!--Footer for the dialog box starts-->
   <mat-card-footer class="footer">
 
 
     <div class="buttonMargin">
-      <button mat-button class="buttons"  (click)="addUsers()">Save</button>
+      <button mat-button class="buttons" (click)="addUsers()">Save</button>
       <button mat-button class="buttons" (click)="close()">Close</button>
     </div>
 
@@ -68,8 +104,12 @@
 
 
   </mat-card-footer>
+  <!--Footer for the dialog box ends-->
 
-  <mat-menu #menu="matMenu" class="matMenuCollaborator" (click)="$event.stopPropagation()" yPosition="below" [overlapTrigger]="false">
+
+  <!--Mat menu starts-->
+  <mat-menu #menu="matMenu" class="matMenuCollaborator" (click)="$event.stopPropagation()" yPosition="below"
+    [overlapTrigger]="false">
     <div *ngFor="let users of userArray">
       <div fxLayout="row" (click)="saveUsers(users)" class="font">
         <div>
@@ -85,5 +125,8 @@
       </div>
     </div>
   </mat-menu>
+  <!--Mat menu ends-->
+
 
 </mat-card>
+<!--Mat card ends--->
