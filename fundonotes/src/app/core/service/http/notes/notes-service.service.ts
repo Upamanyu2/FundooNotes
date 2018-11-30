@@ -144,5 +144,11 @@ export class NotesServiceService {
     let name="questionAndAnswerNotes/rate/"+qAId
     return this.service.postServiceJson(name,body);
   }
+  public reply(body,parentId){
+    console.log(parentId);
+    console.log(body);
+    let name="questionAndAnswerNotes/reply/"+parentId;
+    return this.service.postServiceJson(name,body);
+  }
 }
 /*---------------------------------------------------------------------------------------------------------------------------- */

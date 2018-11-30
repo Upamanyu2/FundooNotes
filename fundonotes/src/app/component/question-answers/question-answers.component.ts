@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';
 import { Subject } from 'rxjs/Subject';
@@ -10,10 +10,13 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./question-answers.component.scss']
 })
 export class QuestionAnswersComponent implements OnInit {
+  @ViewChild('replyText') public replyTextRef: ElementRef;
 
   constructor(private route: ActivatedRoute,
     private service: NotesServiceService,
-    private router: Router) { }
+    private router: Router) {
+
+     }
   private destroy$: Subject<boolean> = new Subject<boolean>();
   noteId;
   color;
@@ -26,24 +29,27 @@ export class QuestionAnswersComponent implements OnInit {
   lastNameUser;
   img;
   date;
+  parentId;
   questionAnswerId;
   rate = 0;
   hasAsked: boolean = false;
+  replyMessage:boolean = false;
   likeClick: boolean;
   count = 0;
+  replfirstStageArray=[];
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.noteId = params['noteId']
     });
     this.getNotes();
-
+    
   }
+
   getNotes() {
     this.service.getNotesQA(this.noteId)
       .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         console.log(result);
-        console.log(result['data']['data'][0].noteCheckLists);
         this.title = result['data']['data'][0].title;
         this.description = result['data']['data'][0].description;
         if (result['data']['data'][0].questionAndAnswerNotes[0] != undefined) {
@@ -53,7 +59,14 @@ export class QuestionAnswersComponent implements OnInit {
           this.img = environment.baseUrl1 + result['data']['data'][0].questionAndAnswerNotes[0].user.imageUrl;
           this.date = result['data']['data'][0].questionAndAnswerNotes[0].user.modifiedDate;
           this.questionAnswerId = result['data']['data'][0].questionAndAnswerNotes[0].id;
-
+          
+          this.parentId=result['data']['data'][0].questionAndAnswerNotes[0].id;
+          for(let k=0;k<result['data']['data'][0].questionAndAnswerNotes.length;k++){
+            if(this.parentId==result['data']['data'][0].questionAndAnswerNotes[k].parentId){
+              this.replfirstStageArray.push(result['data']['data'][0].questionAndAnswerNotes[k]);
+            }
+          }
+         
 
 
           if (result['data']['data'][0].questionAndAnswerNotes[0].like != undefined) {
@@ -69,6 +82,8 @@ export class QuestionAnswersComponent implements OnInit {
               }
             }
           }
+
+
           if (result['data']['data'][0].questionAndAnswerNotes[0].rate != undefined) {
             this.rate=0
             for(let j=0;j<result['data']['data'][0].questionAndAnswerNotes[0].rate.length;j++){
@@ -135,6 +150,9 @@ export class QuestionAnswersComponent implements OnInit {
       })
 
   }
+
+
+
   body2;
   rating(event) {
     console.log("My rating",event);
@@ -151,8 +169,23 @@ export class QuestionAnswersComponent implements OnInit {
 
   }
 
+reply(){
+this.replyMessage=true;
+}
 
+body3={};
+replyGiven(){ 
+  console.log(this.replfirstStageArray);
+  this.replyMessage=false;
+  console.log(this.replyTextRef.nativeElement.innerHTML);
+  this.body3={"message":this.replyTextRef.nativeElement.innerHTML}
+  this.service.reply(this.body3,this.parentId)
+  .pipe(takeUntil(this.destroy$))
+      .subscribe(result=>{
+        console.log(result);
 
+      })
+}
   returnBack() {
     this.router.navigate(['home/notes'])
   }

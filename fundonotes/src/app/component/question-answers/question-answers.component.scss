@@ -29,7 +29,7 @@
   
 }
 .questionsAskedInput{
-    margin-top:2%;
+    margin-top:1%;
     height: auto;
     margin-bottom: 2%;
 }
@@ -44,6 +44,8 @@
 }
 .cardQA{
     padding: 0px;
+    
+    
 }
 .picButton{
     margin-left:2%;
@@ -105,7 +107,7 @@
     margin-left: 4px;
 }
 .detailsQA{
-    margin-top: 3%;
+    margin-top: 2%;
 }
 ::ng-deep.mat-card:not([class*=mat-elevation-z]) 
 {
@@ -114,3 +116,38 @@
     0 2px 2px 0 rgba(0, 0, 0, 0), 
     0 1px 5px 0 rgba(0,0,0,.12)!important;
 }
+@media only screen and (max-width:600px){
+    .scrollDiv{
+        margin-top:281px!important;
+        padding-bottom:23%!important;
+    }
+    .cardContent{
+        height: 40px!important;
+        overflow-y: auto;
+    }
+}
+.scrollDiv{
+    margin-top:345px;
+    padding-bottom:7%;
+}
+.fixedDiv{
+    position:fixed;
+    width:100%; 
+    background-color:white;
+}
+.cardContent{
+    height: 78px;
+    overflow-y: auto;
+}
+.reply_Div{
+    height:50px;
+    width:300px;
+    border:1px solid black;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.reply_Div:empty:not(:focus):before {
+    content: attr(placeholder);
+    opacity: 0.5!important;
+    
+  }
