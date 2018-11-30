@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LoggerServiceService } from '../../logger/logger-service.service'
 import {
   HttpEvent, 
   HttpInterceptor, 
@@ -34,10 +35,10 @@ export class InterceptService  implements HttpInterceptor {
 	        tap(event => {
 	          if (event instanceof HttpResponse) {
 	             
-	          
+	          // LoggerServiceService.log("Successful")
 	          }
 	        }, error => {
-	   		
+						// LoggerServiceService.log("Some error has occured")
 
 	        })
 	      )

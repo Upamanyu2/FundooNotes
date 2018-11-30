@@ -1,9 +1,13 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';//Importing the output input and the event emitter for connecting child to parent.
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Importing the service file for calling the post api.
 import { MatSnackBar } from '@angular/material';//Importing properties of snackbar.
-import { LoggerServiceService } from '../../core/service/logger/logger-service.service';
+// import { LoggerServiceService } from '../../core/service/logger/logger-service.service';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { CollaboratorService } from "../../core/service/http/collaborator/collaborator.service";
+// import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
+// import { JsonPipe } from '@angular/common';
 /*----------------------------------------------------------------------------------------------------------- */
 
 @Component({
@@ -16,7 +20,14 @@ import { takeUntil } from 'rxjs/operators';
 /*----------------------------------------------------------------------------------------------------------- */
 export class AddNotesComponent implements OnInit {  //Export class top export all the functionalities.
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  tempTitle: string;
+  tempDescription: string;
+  showSave = false;
   notes = [];
+  userArray = [];
+  receiverArray = [];
+  receiverArray1 = []
+  private collaboratorShow = false;
   private pin: boolean = false;
   private check: boolean = false;
   private click: boolean = false;
@@ -43,7 +54,9 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   /*----------------------------------------------------------------------------------------------------------- */
   constructor(
     private _service: NotesServiceService, //Service file reference is made in the constructor to use it.
-    private snackBar: MatSnackBar
+    private service: CollaboratorService,
+    private snackBar: MatSnackBar,
+
   ) { }
   /*----------------------------------------------------------------------------------------------------------- */
   @Output() closeClicked = new EventEmitter<any>(); //Outputting the post function event while the close click is clicked.
@@ -59,11 +72,61 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   }
-
+  img = environment.baseUrl1 + localStorage.getItem("imageUrl");
+  email = localStorage.getItem("userName");
+  firstName = localStorage.getItem("FirstName")
+  lastName = localStorage.getItem("LastName")
 
   /*----------------------------------------------------------------------------------------------------------- */
 
+  searchUsers(searchValue) {
+    this.body = {
+      "searchWord": searchValue
+    }
+    if (searchValue != "") {
+      this.service.searchUserCollabService(this.body)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(result => {
+          this.userArray = [];
+          this.userArray = (result['data'].details);
+        },
+          error => {
 
+          })
+    }
+    else {
+      return
+    }
+
+  }
+
+  saveUsers(users) {
+    this.showSave = true;
+    this.receiverArray1.push(users);
+  }
+
+  addUser() {
+    this.showSave = false;
+    this.receiverArray.push(this.receiverArray1[0]);
+    this.receiverArray1 = []
+
+
+  }
+
+  removeUsers(users) {
+    for (let i = 0; i < this.receiverArray.length; i++) {
+      if (users.userId == this.receiverArray[i].userId) {
+        this.receiverArray.splice(i, 1);
+        this.receiverArray1.splice(i, 1);
+      }
+    }
+
+  }
+
+
+
+
+  /*-------------------------------------------------------------------------------------------------------------------- */
   public addNotes() {             //Used for posting the notes being added.
 
     this.title = document.getElementById("title").innerHTML;
@@ -78,6 +141,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
       if (this.description == "" && this.title == "") {   //For preventing the api call while the two filds are left empty.
         this.reminderArray = [];
         this.LabelObj = [];
+        this.receiverArray = []
         this.pin = false
         return;
       }
@@ -89,7 +153,8 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         'color': changecolor,
         'isArchived': this.isArchived,
         'labelIdList': JSON.stringify(this.LabelObjId),
-        'reminder': this.reminderArray
+        'reminder': this.reminderArray,
+        'collaberators': JSON.stringify(this.receiverArray)
       })
 
         .pipe(takeUntil(this.destroy$))
@@ -100,16 +165,21 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
             this.closeClicked.emit(true);
             this.LabelObj = [];
             this.reminderArray = [];
+            this.receiverArray = []
+            this.tempTitle = null;
+            this.tempDescription = null;
 
           },
           error => {  //On failure of api call.
             this.reminderArray = [];
             this.LabelObj = [];
+            this.receiverArray = [];
+            throw new Error("Internal server error");
           });
     }
 
 
-    
+
     else if (this.click == false) {
       for (var i = 0; i < this.dataArray.length; i++) {
         if (this.dataArray[i].isChecked == true) {
@@ -135,6 +205,7 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         this.dataArrayApi = [];
         this.LabelObj = [];
         this.reminderArray = [];
+        this.receiverArray = []
       }
 
       this.body = {
@@ -144,7 +215,8 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
         "color": changecolor,
         "isArchived": this.isArchived,
         "labelIdList": JSON.stringify(this.LabelObjId),
-        'reminder': this.reminderArray
+        'reminder': this.reminderArray,
+        'collaberators': JSON.stringify(this.receiverArray)
       }
     }
     if (this.title != "") {
@@ -157,15 +229,17 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
           this.reminderArray = []
           this.dataArray = [];
           this.dataArrayApi = [];
+          this.receiverArray = []
           //emitting an event when the note is added
           this.closeClicked.emit(true);
         }, error => {
           this.click = false;
-          this.LabelObj = []
+          this.LabelObj = [];
           this.reminderArray = []
           this.dataArray = [];
           this.dataArrayApi = [];
-
+          this.receiverArray = [];
+          throw new Error(error);
         })
     }
   }
@@ -231,10 +305,17 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
 
 
   }
-  public toggle3() {
+  collaboratorShowHide() {
+    this.collaboratorShow = !this.collaboratorShow;
+
 
   }
-
+  collaboratorDetails() {
+    this.tempTitle = document.getElementById("title").innerText;
+    if (this.click == false) {
+      this.tempDescription = document.getElementById("description").innerText;
+    }
+  }
 
   /*----------------------------------------------------------------------------------------------------------- */
   refresh(event) {                //Refresh function for the emitted event(delete, archive and color changing of the card)
@@ -292,17 +373,17 @@ export class AddNotesComponent implements OnInit {  //Export class top export al
   }
 
   toggleCheckbox(event) {
-   
+
     if (event == false) {
       this.showCheckbox = event
       this.hideCheckbox = !event;
-     
+
 
     }
     else {
       this.showCheckbox = event
       this.hideCheckbox = !event;
-     
+
     }
   }
   /*----------------------------------------------------------------------------------------------------------- */

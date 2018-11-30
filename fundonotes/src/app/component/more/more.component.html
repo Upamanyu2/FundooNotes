@@ -1,30 +1,38 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" >
+<button mat-icon-button [matMenuTriggerFor]="menu">
   <i class="material-icons" style="opacity: 0.5;"> more_vert </i>
-  </button>
-  <mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
-          <button mat-menu-item (click)="deleteNotes(true)" *ngIf="!Delete">Delete Note</button>
-          <button mat-menu-item (click)="deleteNotes(false)" *ngIf="Delete">Restore</button>
-          <button mat-menu-item (click)="deleteForeverNotes(false)" *ngIf="Delete">Delete permanently</button>
-          <button mat-menu-item [matMenuTriggerFor]="menu1" (click)="getLabel();" *ngIf="!Delete">Add label</button>
-          <mat-menu #menu1="matMenu" yPosition="below" [overlapTrigger]="false"> 
-              <button mat-menu-item>
-                  <div (click)="$event.stopPropagation()">Label Note</div>
-                </button>
-              <button mat-menu-item>
-                  <div fxLayout="row"><i class="material-icons">search</i><input [(ngModel)]="searchLabel" type="search" class="labelinput" placeholder="Enter label name" (click)="$event.stopPropagation()"></div>
-              </button>
-              <button mat-menu-item *ngFor="let name of labelList | smallSearch:searchLabel">
-                    <div fxLayout="row"><span><mat-checkbox (click)="$event.stopPropagation();  check(name,name.id)" [(ngModel)]="name.isChecked" >{{name.label}}</mat-checkbox></span></div>
-                </button>
-          </mat-menu>
-          <div *ngIf="checkVariable">
-            <button mat-menu-item *ngIf="!Delete && hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes()">Show checkbox</button>
-            <button mat-menu-item *ngIf="!Delete && !hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes1()">Hide checkbox</button>
-          </div>
-          <div *ngIf="!checkVariable">
-            <button mat-menu-item *ngIf="!Delete && !hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes()">Show checkbox</button>
-            <button mat-menu-item *ngIf="!Delete && hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes1()">Hide checkbox</button>
-          </div>
-          
-           
-        </mat-menu>
+</button>
+<mat-menu #menu="matMenu" yPosition="below" [overlapTrigger]="false">
+  <button mat-menu-item (click)="deleteNotes(true)" *ngIf="!Delete">Delete Note</button>
+  <button mat-menu-item (click)="deleteNotes(false)" *ngIf="Delete">Restore</button>
+  <button mat-menu-item (click)="deleteForeverNotes(false)" *ngIf="Delete">Delete permanently</button>
+  <button mat-menu-item [matMenuTriggerFor]="menu1" (click)="getLabel();" *ngIf="!Delete">Add label</button>
+  <button mat-menu-item (click)="questionAnswerMode()">Ask questions</button>
+  <mat-menu #menu1="matMenu" yPosition="below" [overlapTrigger]="false">
+    <button mat-menu-item>
+      <div (click)="$event.stopPropagation()">Label Note</div>
+    </button>
+    <button mat-menu-item>
+      <div fxLayout="row"><i class="material-icons">search</i><input [(ngModel)]="searchLabel" type="search" class="labelinput"
+          placeholder="Enter label name" (click)="$event.stopPropagation()"></div>
+    </button>
+    <button mat-menu-item *ngFor="let name of labelList | smallSearch:searchLabel">
+      <div fxLayout="row"><span>
+          <mat-checkbox (click)="$event.stopPropagation();  check(name,name.id)" [(ngModel)]="name.isChecked">{{name.label}}</mat-checkbox>
+        </span></div>
+    </button>
+  </mat-menu>
+  <div *ngIf="checkVariable">
+    <button mat-menu-item *ngIf="!Delete && hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes()">Show
+      checkbox</button>
+    <button mat-menu-item *ngIf="!Delete && !hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes1()">Hide
+      checkbox</button>
+  </div>
+  <div *ngIf="!checkVariable">
+    <button mat-menu-item *ngIf="!Delete && !hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes()">Show
+      checkbox</button>
+    <button mat-menu-item *ngIf="!Delete && hideButton" (click)="$event.stopPropagation();toggleShowHideCheckboxes1()">Hide
+      checkbox</button>
+  </div>
+
+
+</mat-menu>

@@ -4,6 +4,7 @@ import { LabelServiceService } from '../../core/service/http/label/label-service
 import { Label } from '../../core/model/label/label';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-more',
   templateUrl: './more.component.html',
@@ -19,7 +20,7 @@ export class MoreComponent implements OnInit {
   constructor(
     private _service: NotesServiceService,
     private _service1: LabelServiceService,
-
+    private router: Router
 
   ) { }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
@@ -202,7 +203,11 @@ export class MoreComponent implements OnInit {
 
   }
 
-/*-------------------------------------------------------------------------------------------------------- */
+  questionAnswerMode(){
+    this.router.navigate(['/home/notes/'+this.Noteid.id+'/questionAnswers']);
+  }
+
+  /*-------------------------------------------------------------------------------------------------------- */
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();

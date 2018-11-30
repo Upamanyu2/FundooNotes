@@ -28,7 +28,7 @@ export class NotesServiceService {
 
   /*---------------------------------------------------------------------------------------------------------------------------- */
   public getTrashNotes() {    //Get service for getting the note list after deletion
-    let name = "/notes/getTrashNotesList";
+    let name = "notes/getTrashNotesList";
     return this.service.getServiceWithToken(name);
   }
   /*---------------------------------------------------------------------------------------------------------------------------- */
@@ -124,6 +124,24 @@ export class NotesServiceService {
   /*---------------------------------------------------------------------------------------------------------------------------- */
   public postPin(body){
     let name = "notes/pinUnpinNotes"
+    return this.service.postServiceJson(name,body);
+  }
+  /*---------------------------------------------------------------------------------------------------------------------------- */
+  public getNotesQA(noteId){
+   let name="notes/getNotesDetail/"+noteId;
+   return this.service.getServiceJson(name);
+  }
+  /*---------------------------------------------------------------------------------------------------------------------------- */
+  public postNotesQA(body){
+  let name="questionAndAnswerNotes/addQuestionAndAnswer"
+  return this.service.postServiceJson(name,body)
+  }
+  public postLike(body,qAId){
+    let name="questionAndAnswerNotes/like/"+qAId;
+    return this.service.postServiceJson(name,body);
+  }
+  public postRateQA(body,qAId){
+    let name="questionAndAnswerNotes/rate/"+qAId
     return this.service.postServiceJson(name,body);
   }
 }

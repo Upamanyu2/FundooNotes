@@ -1,4 +1,5 @@
 @import "../../../scss/mixing.scss";
+@import "../../../scss/variable.scss";
 .mat-button, .mat-flat-button, .mat-icon-button, .mat-stroked-button{
     min-width: 30px;
 }
@@ -49,4 +50,76 @@ opacity:0;
 }
 .NotesStriked{
     text-decoration: line-through!important;
+}
+
+
+.heading{
+    margin:0px;
+  
+}
+.nameDetails{
+    font-weight: 700;
+}
+.nameEmailDetails{
+    padding:8px;
+}
+.owner{
+    font-style: italic;
+}
+.buttons{
+    float: right;
+    margin-top: 18px;
+}
+.footer{
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.116)!important;
+    display: block;
+    margin: 0 -20px -20px -20px;
+    
+}
+.buttonMargin{
+    margin-top:18px;
+    
+}
+.divMargin{
+    margin-bottom: 10px;
+}
+
+.inputOfCollaborator{
+  @include noBorder-inputBox;
+  min-width:350px;
+}
+.buttonDiv{
+    background-color: $textColorWhite;
+}
+.iconPerson{
+    color: $textColorBlack;
+}
+.space{
+    padding-right: 10px;
+}
+.font{
+    font-weight: 500;
+    width: 150px;
+}
+::ng-deep.matMenuCollaborator{
+    overflow-x: hidden !important;
+    min-width:600px!important;
+    cursor: pointer;
+}
+.contentScroller{
+    overflow-y:scroll;
+    max-height: 200px;
+}
+@media (max-width: 599px){
+    .contentScroller{
+        font-size: 7px;
+        overflow-x:hidden; 
+    }
+    .input-placeholder{
+        font-size: 10px;
+    }
+    .card{
+        overflow-x:hidden; 
+    }
 }

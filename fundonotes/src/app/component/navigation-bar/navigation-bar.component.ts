@@ -94,11 +94,11 @@ export class NavigationBarComponent implements OnInit {
     });
 
     dialogRef.afterClosed()
-    .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         this.search.currentView1
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(message => this.pic = message)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(message => this.pic = message)
         if (this.pic == true) {
           this.image2 = localStorage.getItem('imageUrl');
           this.img = environment.baseUrl1 + this.image2;
@@ -156,7 +156,7 @@ export class NavigationBarComponent implements OnInit {
   label(event) {
     this.title = event;
   }
-  refreshIcon(){
+  refreshIcon() {
     location.reload();
 
   }

@@ -30,7 +30,12 @@ import { SmallSearchPipe } from '././core/pipe/searchSmallPipe/small-search.pipe
 import { CollaboratorComponent } from './component/collaborator/collaborator.component';
 import { ReminderComponent } from './component/reminder/reminder.component';
 import { ImageComponent } from './component/image/image.component';
+import { ProfilePhotoComponent } from './component/profile-photo/profile-photo.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { PinComponent } from './component/pin/pin.component';
+import { CollaboratorGetComponent } from './component/collaborator-get/collaborator-get.component';
+import { InternetLostComponent } from './component/internet-lost/internet-lost.component';
+import { QuestionAnswersComponent } from './component/question-answers/question-answers.component';
 import { MatNativeDateModule } from "@angular/material";
 import { InterceptService } from './core/service/intercept/services/intercept.service';
 /*------------------------------------------------------------------------------ */
@@ -41,7 +46,7 @@ import { AppRoutingModule } from './app-routing.module';
 /*-----------Angular module imported------------------ */
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -58,11 +63,13 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material/menu';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { ProfilePhotoComponent } from './component/profile-photo/profile-photo.component';
-import { MessagingService } from './core/service/dataService/notifaticationService/messaging.service';
-import { PinComponent } from './component/pin/pin.component';
-import { CollaboratorGetComponent } from './component/collaborator-get/collaborator-get.component';
+import { BarRatingModule } from "ngx-bar-rating";
 
+
+/*------------------------------------------------------------------------------ */
+/*-----------Angular service imported------------------ */
+import { MessagingService } from './core/service/dataService/notifaticationService/messaging.service';
+import { ErrorsHandler } from './core/service/error-handler/error-handler';
 
 /*------------------------------------------------------------------------------ */
 
@@ -104,7 +111,9 @@ import { CollaboratorGetComponent } from './component/collaborator-get/collabora
     ImageComponent,
     ProfilePhotoComponent,
     PinComponent,
-    CollaboratorGetComponent
+    CollaboratorGetComponent,
+    InternetLostComponent,
+    QuestionAnswersComponent
 
 
 
@@ -136,13 +145,17 @@ import { CollaboratorGetComponent } from './component/collaborator-get/collabora
     MatChipsModule,
     ImageCropperModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    BarRatingModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [MessagingService, InterceptService, {
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptService,
     multi: true
+  },{
+    provide: ErrorHandler,
+    useClass: ErrorsHandler
   }],
   bootstrap: [AppComponent],
   entryComponents: [EditComponent, NoteCardComponent,

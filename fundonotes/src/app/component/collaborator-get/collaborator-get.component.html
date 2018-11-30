@@ -28,9 +28,9 @@
 
 
 
-    <div  class="contentScroller">
+    <div class="contentScroller">
       <div fxLayout="row" *ngFor="let users1 of receiverArray">
-         
+
         <div fxFlex="10%">
           <button class="buttonDiv" mat-mini-fab>
             <i class="material-icons iconPerson"> {{users1.email | titlecase | slice:0:1}} </i>
@@ -45,25 +45,25 @@
             clear
           </i>
         </div>
-     
+
       </div>
 
-     <div *ngIf="showSave">
-      <div fxLayout="row" *ngFor="let users1 of receiverArray1">
-        <div fxFlex="10%">
-          <button class="buttonDiv" mat-mini-fab>
-            <i class="material-icons iconPerson"> {{users1.email | titlecase | slice:0:1}} </i>
-          </button>
-        </div>
+      <div *ngIf="showSave">
+        <div fxLayout="row" *ngFor="let users1 of receiverArray1">
+          <div fxFlex="10%">
+            <button class="buttonDiv" mat-mini-fab>
+              <i class="material-icons iconPerson"> {{users1.email | titlecase | slice:0:1}} </i>
+            </button>
+          </div>
 
-        <div fxFlex="15%" fxShow.lg="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="true"></div>
-        <div fxFlex="75%" fxLayout="column" class="nameEmailDetails">
-          <div>{{users1.email}}</div>
+          <div fxFlex="15%" fxShow.lg="false" fxShow.md="false" fxShow.sm="false" fxShow.xs="true"></div>
+          <div fxFlex="75%" fxLayout="column" class="nameEmailDetails">
+            <div>{{users1.email}}</div>
+          </div>
+
         </div>
-        
       </div>
-     </div>
-      
+
 
     </div>
 

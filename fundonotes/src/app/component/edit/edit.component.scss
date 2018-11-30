@@ -67,3 +67,6 @@ opacity:0;
     @include text-overflow-hide;
     width:50px;
 }
+::ng-deep.cdk-overlay-dark-backdrop {
+    background: rgba(226, 221, 221, 0.788);
+}

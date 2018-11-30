@@ -1,0 +1,94 @@
+<div fxLayout="column"  fxLayoutGap="0%">
+
+
+  <!--Mat card starts for displaying the card-->
+  <mat-card class="cardQA">
+    <div>
+
+      <div fxLayout="row" class="marginQA1">
+        <div class="titleQA" fxFlex="90%">{{title}}</div>
+        <div><button mat-button fxFlex="10%" (click)="returnBack()">Close</button></div>
+      </div>
+
+      <div class="descriptionQA marginQA" *ngIf="description!=''" [innerHtml]="description"></div>
+      <div class="marginQA3">
+        <div *ngFor="let list of checklist" class="marginQA">
+          <mat-checkbox [ngModel]="true" *ngIf="list.status=='close' && list.isDeleted==false"></mat-checkbox>
+          <span class="marginQA" *ngIf="list.status=='close' && list.isDeleted==false">{{list.itemName}}</span>
+        </div>
+        <div *ngFor="let list of checklist" class="marginQA">
+          <mat-checkbox [ngModel]="false" *ngIf="list.status=='open' && list.isDeleted==false"></mat-checkbox>
+          <span class="marginQA" *ngIf="list.status=='open' && list.isDeleted==false">{{list.itemName}}</span>
+        </div>
+      </div>
+
+
+    </div>
+  </mat-card>
+  <!--Mat card ends for displaying the card-->
+
+  <!--Question asked starts-->
+  <div class="questionsAsked">Question Asked</div>
+  <div fxLayout="row">
+    <div fxFlex="2%"></div>
+    <div fxFlex="96%" class="questionsAskedInput" *ngIf="question==null">
+      <input matInput placeholder="Ask a question" [(ngModel)]="questionAsked" (keydown.enter)="askQuestion(questionAsked)"
+        class="inputPart">
+
+    </div>
+    <div>{{question}}</div>
+    <div fxFlex="2%"></div>
+
+  </div>
+  <!--Question asked ends-->
+
+  <!--Qusetion displayed starts-->
+  <div class="detailsQA" fxLayout="row" *ngIf="question!=null">
+    <div fxFlex.lg="5%" fxFlex.md="7%" fxFlex.sm="10%" fxFLex.xs="20%" class="picButton"><button mat-fab disabled
+        [ngStyle]="{'background-image':'url(' +img+ ')','background-size':'cover'}">
+
+      </button>
+    </div>
+
+    <div fxFlex.lg="95%" fxFlex.md="93%" fxFlex.sm="90%" fxFlex.xs="80%" class="quetionAskedDiv">
+      <div class="userNameDate">
+        <span class="firstName">{{firstNameUser}}</span>
+        <span class="lastName">{{lastNameUser}}</span>
+        <span class="date">{{date | date:"medium"}}</span>
+      </div>
+      <div fxLayout="row wrap">
+        <div class="quesAskedDiv">
+          <div class="quesAsked">{{question}}
+          </div>
+        </div>
+
+        <div fxLayout="row">
+          <div fxFlex="40%" class="iconsQA" fxLayout="row">
+            <i class="material-icons replyIcon replyIcon1">
+              reply
+            </i>
+            <i class="material-icons likeIcon likeIcon1" (click)="like()">
+              thumb_up_alt
+            </i>
+            {{count}}
+          </div>
+          <div fxFlex="60%">
+            <bar-rating [(rate)]="rate" [max]="5" (rateChange)="rating($event)">
+            </bar-rating>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div fxFlex="5%">
+
+    </div>
+
+  </div>
+  <!--Qusetion displayed ends-->
+
+
+</div>

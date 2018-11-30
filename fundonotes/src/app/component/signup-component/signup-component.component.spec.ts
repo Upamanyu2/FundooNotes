@@ -22,7 +22,7 @@ describe('SignupComponentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('form should be invalid ', ()=>{
+  it('form should be invalid', ()=>{
     component.signupForm.controls['Fname'].setValue('');
     component.signupForm.controls['Lname'].setValue('');
     component.signupForm.controls['Uname'].setValue('');
@@ -31,7 +31,7 @@ describe('SignupComponentComponent', () => {
     component.signupForm.controls['Confirm password'].setValue('');
     expect(component.signupForm.valid).toBeFalsy();
   });
-  it('form should be invalid ', ()=>{
+  it('form should be valid', ()=>{
     component.signupForm.controls['Fname'].setValue('asdd');
     component.signupForm.controls['Lname'].setValue('asdd');
     component.signupForm.controls['Uname'].setValue('asd@asd.com');

@@ -26,8 +26,8 @@ export class LoginComponentComponent implements OnInit {
   constructor(private _service: ServiceService,
     private _service1: NotesServiceService,
     private formBuilder: FormBuilder,
-    public snackBar: MatSnackBar,
-    public router: Router
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
   /*------------------------------------------------------------------------------------------ */
   ngOnInit() {
@@ -84,7 +84,7 @@ export class LoginComponentComponent implements OnInit {
           localStorage.setItem("imageUrl", data['imageUrl']);
           localStorage.setItem("userName", mail);
           this.pushedToken = localStorage.getItem("pushToken");
-
+          this.router.navigate(['/home']); //for navigating to the home page.
           this.body = {
             "pushToken": this.pushedToken
           }
@@ -92,12 +92,13 @@ export class LoginComponentComponent implements OnInit {
             .pipe(takeUntil(this.destroy$))
             .subscribe(reult => {
               LoggerServiceService.log("Post is successful");
+
             },
               error => {
                 LoggerServiceService.log("Unsuccesful, rendered some problem");
               })
 
-          this.router.navigate(['../home', 'notes']);           //for navigating to the home page. 
+
         },
         error => {
           console.log("Error", error);

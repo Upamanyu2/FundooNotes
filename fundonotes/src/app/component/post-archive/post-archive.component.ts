@@ -12,53 +12,53 @@ import { takeUntil } from 'rxjs/operators';
 export class PostArchiveComponent implements OnInit {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   @Output() ArchiveClicked = new EventEmitter<any>();
-  @Input() Noteid:any;
-  @Input() Archive:any;
-  @Input() Delete:any;
+  @Input() Noteid: any;
+  @Input() Archive: any;
+  @Input() Delete: any;
 
-/*----------------------------------------------------------------------------------------------------------- */
-  
-  constructor(private _service : NotesServiceService) { }
+  /*----------------------------------------------------------------------------------------------------------- */
 
-/*----------------------------------------------------------------------------------------------------------- */
-  
+  constructor(private _service: NotesServiceService) { }
+
+  /*----------------------------------------------------------------------------------------------------------- */
+
   ngOnInit() {
-   
-  
+
+
   }
-/*----------------------------------------------------------------------------------------------------------- */
+  /*----------------------------------------------------------------------------------------------------------- */
 
-postArchivedNotes(flag){
+  postArchivedNotes(flag) {
 
-  let noteId=[];
-  if(this.Noteid!=null && this.Noteid.noteLabels.length!=undefined){
-    noteId.push(this.Noteid.id);
-    this._service.postArchive({
-     "isArchived":flag,
-     "noteIdList":noteId
-    })
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(
-      data=>{
-      
+    let noteId = [];
+    if (this.Noteid != null && this.Noteid.noteLabels.length != undefined) {
+      noteId.push(this.Noteid.id);
+      this._service.postArchive({
+        "isArchived": flag,
+        "noteIdList": noteId
+      })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          data => {
+
+            this.ArchiveClicked.emit(true);
+          },
+          error => {
+
+
+          }
+        )
+    }
+    else {
       this.ArchiveClicked.emit(true);
-      },
-      error=>{
-   
-     
-      }
-    )
-  }
-  else{
-    this.ArchiveClicked.emit(true);
-  }
-   
-}
-/*----------------------------------------------------------------------------------------------------------- */  
+    }
 
-ngOnDestroy() {
-  this.destroy$.next(true);
-  this.destroy$.unsubscribe();
-}
+  }
+  /*----------------------------------------------------------------------------------------------------------- */
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

@@ -11,11 +11,11 @@
       <div>
         <button mat-icon-button style="margin-top: -10px" *ngIf="!pinClick" (click)="pined()">
           <img src="../../../assets/image/add10.svg">
-      </button>
-      <button mat-icon-button style="margin-top: -10px" *ngIf="pinClick" (click)="pined()">
+        </button>
+        <button mat-icon-button style="margin-top: -10px" *ngIf="pinClick" (click)="pined()">
           <img src="../../../assets/image/add11.svg">
-      </button>
-    </div>
+        </button>
+      </div>
     </div>
   </mat-card-header>
   <!------------------------------------------------------------------------------------------------>
@@ -68,19 +68,14 @@
       <mat-chip><span class="labelOverflow">{{label.label}}</span></mat-chip>
     </mat-chip-list>
   </div>
-
-
   <!--Mat chip for collaborators-->
-  <div fxLayoutAlign="row" class="collaborators">
-      <div *ngFor="let index of receiverArray" >
-          <button mat-mini-fab color="accent" (click)="openDialog1(data)">
-           {{index.email | titlecase | slice:0:1}}
-          </button>
-      </div>
+  <div fxLayoutAlign="row">
+    <div *ngFor="let index of data.collaborators">
+      <button mat-mini-fab color="accent" (click)="openDialog1(data)">
+        {{index.email | titlecase | slice:0:1}}
+      </button>
+    </div>
   </div>
-
-
-
 
   <!--Mat chip for reminder-->
   <div *ngIf="data.reminder.length!=0">
@@ -95,6 +90,11 @@
     </div>
   </div>
   <div flexLayout="row" class="div3">
+
+
+
+
+
     <!--------------------------------------------------------------------------------------------------------->
 
     <!------------------------Reminder component starts----------------------------------->
@@ -103,7 +103,7 @@
 
 
     <!------------------------Collaborator component starts----------------------------------->
-    <app-collaborator  [Noteid]=data fxFlex="10%" (collaboratorArray)="collaboratorEvent($event)"></app-collaborator>
+    <app-collaborator [Noteid]=data fxFlex="10%"></app-collaborator>
     <!------------------------Collaborator component ends----------------------------------->
 
 
@@ -128,9 +128,9 @@
     <!------------------------------------------------------------------------------------------------>
     <!--Close button one is hidden an the other is shown-->
     <div fxFlex="40%" fxLayoutAlign="end">
-      <button  mat-button class="editButton" *ngIf="data.noteCheckLists.length>0" (click)=" onNoClick();updatecard(false)">
+      <button mat-button class="editButton" *ngIf="data.noteCheckLists.length>0" (click)=" onNoClick();updatecard(false)">
         Close</button>
-      <button  mat-button class="editButton" *ngIf="data.noteCheckLists.length==0" (click)=" onNoClick();updatecard(true)">
+      <button mat-button class="editButton" *ngIf="data.noteCheckLists.length==0" (click)=" onNoClick();updatecard(true)">
         Close</button>
     </div>
     <!------------------------------------------------------------------------------------------------>

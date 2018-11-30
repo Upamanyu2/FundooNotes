@@ -50,6 +50,7 @@ export class NoteCardComponent implements OnInit {// Exported class
   openDialog(data): void {         // Function taking the data of the dialogue box
     const dialogRef = this.dialog.open(EditComponent, {
       width: '700px',
+      maxWidth: 'auto',
       data: data
     });
     dialogRef.afterClosed().
@@ -61,8 +62,8 @@ export class NoteCardComponent implements OnInit {// Exported class
       });
   }
 
- 
-  
+
+
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
   refresh(event) {                //Refresh function for the emitted event(delete, archive and color changing of the card)
@@ -83,7 +84,7 @@ export class NoteCardComponent implements OnInit {// Exported class
     this.modifiedCheckList = checkList;
     this.updatelist(note.id);
   }
-/*-------------------------------------------------------------------------------------------------------------------------------------- */
+  /*-------------------------------------------------------------------------------------------------------------------------------------- */
   updatelist(id) {
     var apiData = {
       "itemName": this.modifiedCheckList.itemName,
@@ -91,14 +92,14 @@ export class NoteCardComponent implements OnInit {// Exported class
     }
 
     this.service.updateCheckList(id, this.modifiedCheckList.id, apiData)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(response => {
-      console.log(response);
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(response => {
+        console.log(response);
 
-    })
+      })
   }
 
-/*-------------------------------------------------------------------------------------------------------------------------------------- */
+  /*-------------------------------------------------------------------------------------------------------------------------------------- */
   private reminderBody = {};
 
   removeReminder(id) {
@@ -106,10 +107,10 @@ export class NoteCardComponent implements OnInit {// Exported class
       "noteIdList": [id]
     }
     this.service.removeReminderPost(this.reminderBody)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-      this.updateCard.emit(true);
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.updateCard.emit(true);
+      })
 
 
   }
@@ -123,12 +124,12 @@ export class NoteCardComponent implements OnInit {// Exported class
   openDialog1(data): void {
     const dialogRef = this.dialog.open(CollaboratorGetComponent, {
       width: '600px',
-      
-      data:data
+      maxWidth: 'auto',
+      data: data
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      
+
     });
   }
 }

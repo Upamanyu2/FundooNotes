@@ -35,7 +35,7 @@ export class ForgotPasswordComponent implements OnInit {  //Exported class
   mailSend() {                  //Function to send the link to the registered mail.
     this.submitted = true;
     let mail = this.model.email;
-    if (mail==undefined) {
+    if (mail == undefined) {
       console.log("Please provide an email.");
       this.snackBar.open("Please provide a valid email", "cannot send mail", {
         duration: 2000
@@ -45,13 +45,13 @@ export class ForgotPasswordComponent implements OnInit {  //Exported class
     this._service.postDataForgotPaasword({
       "email": this.model.email
     }).pipe(takeUntil(this.destroy$)).subscribe(data => {   //On success of api call
-     
+
       this.snackBar.open("Check your mail", "mail sent", {
         duration: 2000
       })
     },
       error => {   //On failure of api call.
-       
+
         this.snackBar.open("Something bad happened", "please contact the support", {
           duration: 2000
         })
@@ -61,7 +61,7 @@ export class ForgotPasswordComponent implements OnInit {  //Exported class
     }
 
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy$.next(true)
     this.destroy$.unsubscribe();
   }

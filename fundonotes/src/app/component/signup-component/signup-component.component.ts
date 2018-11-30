@@ -77,7 +77,7 @@ export class SignupComponentComponent implements OnInit {
     let password = this.model.pass;
     let confirmpassword = this.model.Cpass;
     if (firstName.length == 0 || lastName.length == 0 || username.length == 0 ||
-      password.length == 0 || this.service.length == 0) {
+      password.length == 0 || this.service.length == 0 || email.length == 0) {
       this.buttonDisabled = false;
       console.log("fill all the details");
       this.snackBar.open("fill in all the details", "signup failed", {
@@ -149,10 +149,10 @@ export class SignupComponentComponent implements OnInit {
       this.cards[i].select = false;
     }
   }
-/*------------------------------------------------------------------------------------------------------------------------------------*/
+  /*------------------------------------------------------------------------------------------------------------------------------------*/
 
-ngOnDestroy() {
-  this.destroy$.next(true);
-  this.destroy$.unsubscribe();
-}
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 }

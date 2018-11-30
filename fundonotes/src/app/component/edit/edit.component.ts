@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Output, EventEmitter, Input } from '@angular/core'; //Importing the (inject is used for injecting the avlues to the modal box) output input and the event emitter for connecting child to parent.
+import { Component, OnInit, Inject, Output, EventEmitter, Input, ErrorHandler } from '@angular/core'; //Importing the (inject is used for injecting the avlues to the modal box) output input and the event emitter for connecting child to parent.
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing all the dialogue box requirements
 import { NoteCardComponent } from '../note-card/note-card.component'; //Note card component is imported to link the edit component and note component.
 import { NotesServiceService } from '../../core/service/http/notes/notes-service.service';//Http service file is imported.
@@ -7,6 +7,7 @@ import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators'
 import { CollaboratorGetComponent } from '../collaborator-get/collaborator-get.component';
 import { MatDialog } from '@angular/material';
+
 /*------------------------------------------------------------------------------------------------------------------------- */
 
 @Component({ //Injecting component dependency
@@ -38,8 +39,7 @@ export class EditComponent implements OnInit { //Export class to export all the 
     private dialog: MatDialog,
     private _service: NotesServiceService, //Service file reference is made.
     private service: SearchServiceService,
-    public dialogRef: MatDialogRef<NoteCardComponent>, //Reference for dialogue box reference is being made.
-
+    private dialogRef: MatDialogRef<NoteCardComponent>, //Reference for dialogue box reference is being made.
     @Inject(MAT_DIALOG_DATA) public data: any,  //Used for injecting the datas received by the modal box from the note-card.
   ) { }
   @Output() ColorClicked = new EventEmitter<any>(); //Output decorator used for emitting the function for color being picked with the click function.
@@ -80,11 +80,10 @@ export class EditComponent implements OnInit { //Export class to export all the 
           data => {  //On success
 
             this.UpdatingCard.emit(true);
-          },
-          error => { //On faliure (of api calling)
-
+          }, error => {
 
           }
+
         )
     }
 
@@ -113,19 +112,16 @@ export class EditComponent implements OnInit { //Export class to export all the 
       "noteIdList": noteid
     }
     this._service.postPin(body).pipe(takeUntil(this.destroy$))
-    .subscribe(result => {
-    },
-      error => {
+      .subscribe(result => {
+      });
 
-      })
-   
 
-     
+
   }
 
-  collaboratorEvent(event){
+  collaboratorEvent(event) {
     console.log(event);
- this.receiverArray=event;
+    this.receiverArray = event;
   }
 
 
@@ -153,9 +149,12 @@ export class EditComponent implements OnInit { //Export class to export all the 
       "status": this.modifiedCheckList.status
     }
 
-    this._service.postUpdatedNotes(id, this.modifiedCheckList.id, JSON.stringify(apiData)).subscribe(response => {
+    this._service.postUpdatedNotes(id, this.modifiedCheckList.id, JSON.stringify(apiData))
+      .subscribe(response => {
 
-    });
+      }, error => {
+
+      });
   }
 
 
@@ -281,20 +280,20 @@ export class EditComponent implements OnInit { //Export class to export all the 
   openDialog1(data): void {
     const dialogRef = this.dialog.open(CollaboratorGetComponent, {
       width: '600px',
-      
-      data:data
+      maxWidth: 'auto',
+      data: data
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      
+
     });
   }
   /*------------------------------------------------------------------------------------------------------------ */
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.destroy$.next(true)
     this.destroy$.unsubscribe();
   }
-  
+
 
 }

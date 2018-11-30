@@ -31,24 +31,22 @@ export class ProfilePhotoComponent implements OnInit {
   /*-----------------------------------------------------------------------------------*/
   imageCropped(event: any) {
     this.croppedImage = event.file;
+    console.log("image is here", event)
   }
   /*-----------------------------------------------------------------------------------*/
   public image2 = localStorage.getItem('imageUrl');
   img = environment.baseUrl1 + this.image2;
   onUpload() {
-    
+
     const uploadData = new FormData();
     uploadData.append('file', this.croppedImage);
     this._service.httpAddImage(uploadData)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(res => {
-      localStorage.setItem("imageUrl", res['status'].imageUrl);
-      this.dialogRef.close()
-      this.service.changeView1(true);
-    }, error => {
-
-
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        localStorage.setItem("imageUrl", res['status'].imageUrl);
+        this.dialogRef.close()
+        this.service.changeView1(true);
+      });
 
   }
   /*-----------------------------------------------------------------------------------*/

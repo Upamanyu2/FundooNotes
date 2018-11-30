@@ -1,0 +1,116 @@
+@import "../../../scss/mixing.scss";
+.titleQA{
+    font-weight: 500;
+    font-size: 20px;
+}
+.descriptionQA{
+    font-size: 15px
+}
+.marginQA{
+    margin-left:2%;
+    margin-bottom: 0%!important;
+}
+.marginQA1{
+    margin-left:2%; 
+    margin-top:2%;
+}
+// .marginQA2{
+//     margin-top: 2%;
+// }
+.marginQA3{
+    margin-bottom:2%;
+}
+.questionsAsked{
+    margin-top: 2%;
+    margin-left:2%; 
+    font-size: 28px;
+    font-weight: 500;
+    min-width:244px;
+  
+}
+.questionsAskedInput{
+    margin-top:2%;
+    height: auto;
+    margin-bottom: 2%;
+}
+.inputPart{
+    border: transparent;
+    outline: none;
+    font-size: 18px;
+    width: 100%;
+}
+::placeholder{
+    font-size: 18px;
+}
+.cardQA{
+    padding: 0px;
+}
+.picButton{
+    margin-left:2%;
+}
+.iconsQA{
+    margin-left:2%;
+}
+.quesAsked{
+    font-size: 22px;
+    max-width: 100%!important;
+}
+.userNameDate{
+    font-size: 12px;
+}
+.replyIcon{
+    @include iconsQA;
+}
+.replyIcon1:hover{
+    opacity: 1;
+}
+.likeIcon{
+    @include iconsQA;
+}
+.likeIcon1:hover{
+    opacity: 1;
+}
+::ng-deep.br{
+    margin: 0px!important;
+}
+@media only screen and (max-width:600px){
+    .quesAsked{
+        padding-left: 0%;
+        font-size: 12px;
+    }  
+    .userName{
+        font-size: 7px!important;
+    }
+}
+@media only screen and (max-width:900px){
+    .quesAsked{
+        padding-left: 0%;
+        font-size: 16px;
+    }  
+    .userName{
+        font-size: 10px!important;
+    }
+}
+.quesAskedDiv{
+    max-width: 244px!important;
+}
+.firstName{
+    font-weight: 700;
+}
+.lastName{
+    margin-left: 4px;
+    font-weight: 700;
+}
+.date{
+    margin-left: 4px;
+}
+.detailsQA{
+    margin-top: 3%;
+}
+::ng-deep.mat-card:not([class*=mat-elevation-z]) 
+{
+    box-shadow: 
+    0 3px 1px -2px rgba(0,0,0,.2), 
+    0 2px 2px 0 rgba(0, 0, 0, 0), 
+    0 1px 5px 0 rgba(0,0,0,.12)!important;
+}

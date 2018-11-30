@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { CollaboratorService } from "../../core/service/http/collaborator/collaborator.service";
 import { Subject } from 'rxjs/Subject';
@@ -15,11 +15,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material'; //Importing a
 export class CollaboratorGetComponent implements OnInit {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private body;
-  userArray;
+  userArray = [];
   receiverArray = [];
-  receiverArray1=[]
-  showSave=false;
-  @Output()collaboratorArray=new EventEmitter<any>();
+  receiverArray1 = []
+  showSave = false;
+  @Output() collaboratorArray = new EventEmitter<any>();
   /*----------------------------------------------------------------------------------------------- */
   constructor(private service: CollaboratorService,
     public dialogRef: MatDialogRef<CollaboratorComponent>,
@@ -30,6 +30,12 @@ export class CollaboratorGetComponent implements OnInit {
     for (let i = 0; i < this.data['collaborators'].length; i++) {
       this.receiverArray.push(this.data['collaborators'][i]);
     }
+    if (this.data.userId != this.data.user.userId) {
+      this.email = this.data.user.email;
+      this.firstName = this.data.user.firstName;
+      this.lastName = this.data.user.lastName;
+      this.img = environment.baseUrl1 + this.data.user.imageUrl;
+    }
   }
   /*----------------------------------------------------------------------------------------------- */
   img = environment.baseUrl1 + localStorage.getItem("imageUrl");
@@ -37,6 +43,9 @@ export class CollaboratorGetComponent implements OnInit {
   firstName = localStorage.getItem("FirstName")
   lastName = localStorage.getItem("LastName")
   searchUsers(searchValue) {
+
+
+
     this.body = {
       "searchWord": searchValue
     }
@@ -55,27 +64,31 @@ export class CollaboratorGetComponent implements OnInit {
       return
     }
 
+
+
+
   }
 
 
-  saveUsers(users){
-    this.showSave=true;
+  saveUsers(users) {
+    this.showSave = true;
     this.body = {
       "firstName": users.firstName,
       "lastName": users.lastName,
       "email": users.email,
       "userId": users.userId
     }
+    this.data.collaborators.push(users);
     this.receiverArray1.push(this.body);
-   
+
   }
- 
-  
+
+
 
 
   addUsers() {
-    this.receiverArray1=[]
-    this.showSave=false;
+    this.receiverArray1 = []
+    this.showSave = false;
     console.log(this.data.id)
     this.service.addUserCollabService(this.body, this.data.id)
       .pipe(takeUntil(this.destroy$))
@@ -83,34 +96,30 @@ export class CollaboratorGetComponent implements OnInit {
         console.log(this.body);
         this.receiverArray.push(this.body);
         this.collaboratorArray.emit(this.receiverArray)
-      }, error => {
-
-      })
+      });
   }
 
 
 
-  removeUsers(users){
-  console.log(users);
-  this.service.removeCollabService(this.data.id,users.userId)
-  .pipe(takeUntil(this.destroy$))
-  .subscribe(result=>{
-  for(let i=0; i<this.receiverArray.length;i++){
-    if(users.userId==this.receiverArray[i].userId){
-      this.receiverArray.splice(i,1);
-    }
-  }
-  this.collaboratorArray.emit(this.receiverArray)
-  },
-  error=>{
-
-  });
+  removeUsers(users) {
+    console.log(users);
+    this.service.removeCollabService(this.data.id, users.userId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        for (let i = 0; i < this.receiverArray.length; i++) {
+          if (users.userId == this.receiverArray[i].userId) {
+            this.data.collaborators.splice(i, 1);
+            this.receiverArray.splice(i, 1);
+          }
+        }
+        this.collaboratorArray.emit(this.receiverArray)
+      });
 
 
   }
 
 
-  close(){
+  close() {
     this.dialogRef.close();
   }
   /*----------------------------------------------------------------------------------------------- */

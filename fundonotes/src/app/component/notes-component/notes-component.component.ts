@@ -57,10 +57,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
           }
 
         },
-        error => {
-
-
-        });
+      );
   }
 
   getPinnedNotes() {

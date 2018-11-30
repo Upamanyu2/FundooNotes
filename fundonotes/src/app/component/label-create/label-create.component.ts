@@ -80,11 +80,7 @@ export class LabelCreateComponent implements OnInit {
         }
 
 
-      },
-        error => {
-
-
-        })
+      })
   }
   /*----------------------------------------------------------------------------------------------------- */
   deleteLabel(id) {            //Function for deleting all the labels

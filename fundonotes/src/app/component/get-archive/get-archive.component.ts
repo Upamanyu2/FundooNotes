@@ -12,7 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 /*------------------------------------------------------------------------------------------------------------------------ */
 export class GetArchiveComponent implements OnInit {  //Exporting all the functionalities to use it in the while the initilisation of the page.
   private destroy$: Subject<boolean> = new Subject<boolean>();
-  private notes : Note[]=[];
+  private notes: Note[] = [];
   constructor(private _service: NotesServiceService) { }
   /*------------------------------------------------------------------------------------------------------------------------ */
   ngOnInit() {   //Initialisation function to called while the page is reloaded.
@@ -22,38 +22,38 @@ export class GetArchiveComponent implements OnInit {  //Exporting all the functi
   getArchive() {  //Function for calling the get api.
 
     this._service.getArchiveNotes()
-    .pipe(takeUntil(this.destroy$))  
-    .subscribe(
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
         data => {
           this.notes = []
-          let myData : Note[]=data['data']['data']
+          let myData: Note[] = data['data']['data']
           for (var i = myData.length - 1; i >= 0; i--) {
             if (myData[i].isArchived == true && myData[i].isDeleted == false) {
               this.notes.push(myData[i]);
-              
+
             }
           }
         },
         error => {
-        
+
         }
       )
   }
   /*------------------------------------------------------------------------------------------------------------------------ */
-  refresh(event)  {    //Function for handling all the event emitters catched
+  refresh(event) {    //Function for handling all the event emitters catched
     if (event == true) {
-     
+
       this.getArchive();
     }
-    if(event.status==true){
+    if (event.status == true) {
       this.getArchive();
     }
   }
 
   /*------------------------------------------------------------------------------------------------------------------------ */
- ngOnDestroy(){
-  this.destroy$.next(true);
-  this.destroy$.unsubscribe();
- }
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

@@ -17,12 +17,12 @@ export class CollaboratorComponent implements OnInit {
   openDialog1(): void {
     const dialogRef = this.dialog.open(CollaboratorGetComponent, {
       width: '600px',
-      
-      data:this.Noteid
+      maxWidth: 'auto',
+      data: this.Noteid
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      
+
     });
   }
 }
