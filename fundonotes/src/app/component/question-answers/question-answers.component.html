@@ -6,8 +6,8 @@
     <div>
 
       <div fxLayout="row" class="marginQA1">
-        <div class="titleQA" fxFlex="90%">{{title}}</div>
-        <div><button mat-button fxFlex="10%" (click)="returnBack()">Close</button></div>
+        <div class="titleQA" fxFlex="50%">{{title}}</div>
+        <button mat-button fxFlex="50%" (click)="returnBack()">Close</button>
       </div>
       <div class="cardContent">
         <div class="descriptionQA marginQA" *ngIf="description!=''" [innerHtml]="description"></div>
@@ -63,7 +63,7 @@
         </div>
 
         <div fxLayout="row">
-          <div fxFlex="40%" class="iconsQA" fxLayout="row">
+          <div fxFlex="40%" class="iconsQA" fxLayout="row" *ngIf="likeCount(firstLike)">
             <i class="material-icons replyIcon replyIcon1" (click)="reply()">
               reply
             </i>
@@ -80,15 +80,15 @@
         </div>
       </div>
       <div *ngIf="replyMessage" fxLayout="row">
-        <div class="reply_Div" fxFlex="50%"  contenteditable="true" placeholder="Reply..." #replyText>
+        <div class="reply_Div" fxFlex="50%" contenteditable="true" placeholder="Reply..." #replyText>
 
         </div>
         <div fxFlex="50%">
-            <button mat-button (click)="replyGiven()">
-                Send
-              </button>
+          <button mat-button (click)="replyGiven()">
+            Send
+          </button>
         </div>
-        
+
       </div>
     </div>
 
@@ -104,23 +104,88 @@
 </div>
 
 <div class="scrollDiv">
-  <div fxLayout=row *ngFor="let reply of replfirstStageArray">
-    <div fxFlex.lg="10%" fxFlex.md="7%" fxFlex.sm="10%" fxFLex.xs="20%"></div>
-    <div fxFlex.lg="80%" fxFlex.md="86%" fxFlex.sm="80%" fxFLex.xs="60%">
-      <div fxLayout=row>
+  <div>
+    <div fxFlex.lg="100%" fxFlex.md="100%" fxFlex.sm="100%" fxFLex.xs="100%">
+      <div fxLayout=row *ngFor="let reply of replfirstStageArray; let i=index">
         <div fxFlex.lg="5%" fxFlex.md="7%" fxFlex.sm="10%" fxFLex.xs="20%"></div>
-        <div fxFlex.lg="95%" fxFlex.md="93%" fxFlex.sm="90%" fxFlex.xs="80%" fxLayout=row>
-          <div fxFlex="20%">
-            <button mat-fab disabled [ngStyle]="{'background-image':'url(' ++ ')','background-size':'cover'}"></button>
+        <div fxFlex.lg="95%" fxFlex.md="93%" fxFlex.sm="90%" fxFlex.xs="80%" class="replyDetailsFirstStage" fxLayout=row>
+          <div>
+            <button mat-fab disabled [ngStyle]="{'background-image':'url(' +img1+reply.user.imageUrl+ ')','background-size':'cover'}"></button>
           </div>
-          <div fxFlex="80%">
+          <div class="replyMessageFirstStageDiv">
+            <div class="userName1" fxLayout.xs=column>
+              <span class="firstName">{{firstNameUser1}}
+                <span class="lastName">{{lastNameUser1}}</span>
+              </span>
+              <span class="date">{{reply.user.modifiedDate | date:"medium"}}</span>
+            </div>
+            <div fxLayout="row wrap">
+              <div>
+                {{reply.message}}
+              </div>
+              <div fxLayout="row" class="iconsFirstStageReply">
+                <div fxFlex="40%" class="iconsQA" fxLayout="row">
+                  <i class="material-icons replyIcon replyIcon1" (click)="reply1(reply.id)">
+                    reply
+                  </i>
+                  <i class="material-icons likeIcon likeIcon1" (click)="likeFirstStage(reply.id)">
+                    thumb_up_alt
+                  </i>
+                  <span *ngIf="likeCount(reply.like)">{{count1}}</span>
+                </div>
+                <div fxFlex="60%" *ngIf="rateAverage(reply.rate)">
+                  <bar-rating [(rate)]="rate1" [max]="5" (rateChange)="rating1($event,reply.id)">
+                  </bar-rating>
+                </div>
+              </div>
+            </div>
+
+
+<!--Reply div 2nd stage-->
+            <div *ngIf="replyMessage1 && reply.id==replyId1" fxLayout="row">
+              <div class="reply_Div1" fxFlex="50%" contenteditable="true" placeholder="Reply..." #replyText1>
+
+              </div>
+              <div fxFlex="50%">
+                <button mat-button (click)="replyGiven1(reply.id)">
+                  Send
+                </button>
+              </div>
+
+            </div>
+<!--Reply div 2nd stage-->
+<!---Message div of 2nd stage starts--->
+<div *ngIf="reply2ndStage(reply)">
+<div fxLayout="row" *ngFor="let reply1 of replyArray2ndStage" class="reply2ndStageDiv">
+    <div fxFlex="20%">
+      <button mat-mini-fab disabled></button>
+    </div>
+    <div fxFlex="60%" class="reply2ndStage">
+      <div class="userName2">
+       <span class="firstName">{{reply1.user.firstName}}<span class="lastName">{{reply1.user.lastName}}</span></span>
+      </div>
+        {{reply1.message}}
+    </div>
+    <div fxFlex="20%">
+  
+    </div>
+  
+  </div>
+</div>
+  <!---Message div of 2nd stage ends--->
+  
+
 
           </div>
+          
+
         </div>
+        
         <div fxFlex.lg="5%" fxFlex.md="7%" fxFlex.sm="10%" fxFLex.xs="20%"></div>
+        
       </div>
 
     </div>
-    <div fxFlex.lg="10%" fxFlex.md="7%" fxFlex.sm="10%" fxFLex.xs="20%"></div>
+
   </div>
 </div>
