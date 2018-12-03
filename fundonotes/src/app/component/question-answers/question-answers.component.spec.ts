@@ -21,5 +21,15 @@ describe('QuestionAnswersComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-});
+    });
+    it('should return true when there is a like by user', () => {
+    let likeArray = [{
+    like : true,
+    userId:localStorage.getItem('userId')
+    }]
+    let questionAnswersArray = {
+    like : likeArray
+    }
+    
+    });
+    });

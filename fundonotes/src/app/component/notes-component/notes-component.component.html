@@ -11,8 +11,12 @@
 <app-note-card [notesListArray]="pinArray" (refreshClickedDeleteLabel)="refresh($event)" 
 (refreshClicked)="displayCard($event)"
     (updateCard)="displayCard($event)">
+    
 </app-note-card>
-
+<div *ngIf="loading" class="spinner">
+    <div class="dot1"></div>
+    <div class="dot2"></div>
+  </div>
 
 <div fxLayout="row"> 
         <div fxFlex="50%"></div>
@@ -22,6 +26,7 @@
 <app-note-card [notesListArray]="notes" (refreshClickedDeleteLabel)="refresh($event)" 
 (refreshClicked)="displayCard($event)"
     (updateCard)="displayCard($event)">
+   
 </app-note-card>
 <!--------------------Note card ends----------------------------->
 

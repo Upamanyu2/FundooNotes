@@ -6,6 +6,7 @@ import { SearchServiceService } from 'src/app/core/service/dataService/searchSer
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
 import { CollaboratorGetComponent } from '../collaborator-get/collaborator-get.component'
+import { Router } from '@angular/router';
 /*-------------------------------------------------------------------------------------------------------------------------------------- */
 
 @Component({ //Importing dependency injection of component
@@ -24,7 +25,8 @@ export class NoteCardComponent implements OnInit {// Exported class
   constructor(
     private dialog: MatDialog,
     private data: SearchServiceService,
-    private service: NotesServiceService
+    private service: NotesServiceService,
+    private router: Router
   ) { }
 
   /*-------------------------------------------------------------------------------------------------------------------------------------- */
@@ -115,7 +117,9 @@ export class NoteCardComponent implements OnInit {// Exported class
 
   }
 
-
+  public QnA(id){
+    this.router.navigate(['/home/notes/'+id+'/questionAnswers']);
+  }
 
   ngOnDestroy() {
     this.destroy$.next(true);

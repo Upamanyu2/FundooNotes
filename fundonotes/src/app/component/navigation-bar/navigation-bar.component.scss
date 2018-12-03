@@ -12,14 +12,24 @@
 }
 .sidenav {
   width: 250px;
-  margin-top: 5%;
+  margin-top: 4%;
   /* position: absolute; */
   position: fixed;
- 
- 
- 
- 
+  
 }
+@media only screen and (min-width:640px) {
+  .sidenav{
+    margin-top: 5%!important;
+  }
+  .sideNavBar{
+   margin-top: 6% !important;
+  }
+}
+
+
+
+
+
 
 /* .mat-toolbar.mat-primary {
   position: sticky; 
@@ -40,12 +50,41 @@
 .mat-drawer-backdrop.mat-drawer-shown {
   background-color: rgba(0,0,0,.0);
 }
-@media only screen and (max-width: 640px){
+@media only screen and (min-width: 300px) and  (max-width: 400px){
+  .sideNavBar{
+    margin-top: 15% !important;
+  }
+}
+@media only screen and (min-width: 400px) and  (max-width: 450px){
+  .sideNavBar{
+    margin-top: 14% !important;
+  }
+}
+
+@media only screen and (min-width: 640px) and  (max-width: 768px) {
+  .sideNavBar{
+    margin-top: 9% !important;
+  }
+}
+@media only screen and (min-width: 768px) and  (max-width: 900px) {
+  .sideNavBar{
+    margin-top: 8% !important;
+  }
+}
+@media only screen and (min-width: 1085px) and  (max-width: 1600px) {
+  .sideNavBar{
+    margin-top: 4% !important;
+  }
+  .sidenav{
+    margin-top: 4%!important;
+  }
+}
+@media only screen and (min-width: 450px) and (max-width: 640px){
   .mat-nav-list{
     padding-top:15% !important;
   }
   .sideNavBar{
-    margin-top: 15% !important;
+    margin-top: 10% !important;
   }
 }
 @media only screen and (max-width: 768px){
@@ -53,6 +92,7 @@
     padding-top:16% !important;
   }
 }
+
 .mat-drawer-content{
 
   position: relative;
@@ -70,7 +110,7 @@
   padding: 1% 1% 1% 0%;
 }
 .title{
-  padding:2%;
+  padding: 0% 2% 0% 2%;
   width: 120px;
   @include text-overflow-hide;
 }
@@ -115,7 +155,7 @@ font-size: 83%;
   margin-right: 0%;
 }
 .sideNavBar{
-  margin-top: 5%;
+  margin-top: 4%;
 }
 .mat-menu-content:not(:empty){
   padding: 8px 8px 8px 8px !important;

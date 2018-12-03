@@ -176,7 +176,12 @@
                         <app-more [Noteid]=data (DeleteClicked)="refresh($event)" [Delete]=data.isDeleted></app-more>
                     </div>
                     <!----------------------------------------------------------------------------->
-
+                    <div fxLayout="row wrap" (click)="QnA(data.id)" *ngIf="data.questionAndAnswerNotes.length!=0"  
+                    fxLayoutGap="80px">
+                     <mat-divider></mat-divider>
+                     <div class="question_Asked">Queston Asked</div>
+                     <div class="question">{{data.questionAndAnswerNotes[0].message}}?</div>
+                    </div>
 
 
 

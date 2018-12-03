@@ -16,6 +16,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private notes: Note[] = [];
   private pinArray: Note[] = [];
+  loading=false;
   /*----------------------------------------------------------------------------------------------------------- */
 
   constructor(private _service: NotesServiceService) { }
@@ -40,11 +41,13 @@ export class NotesComponentComponent implements OnInit {    //Exported class
   }
   /*-------------------------------------------------------------------------------------------------------------------------------------*/
   getNotes() {     //Function for getting all the notes
-
+    this.loading=true;
     this._service.getNotes()
       .pipe(takeUntil(this.destroy$))
       .subscribe(
+        
         data => {
+         
           this.notes = [];
           let myData: Note[] = data['data']['data'];
           for (var i = myData.length - 1; i >= 0; i--) {
@@ -55,7 +58,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
 
 
           }
-
+          this.loading=false;
         },
       );
   }
@@ -73,6 +76,7 @@ export class NotesComponentComponent implements OnInit {    //Exported class
             }
 
           }
+          this.loading=false;
         },
         error => {
 

@@ -54,9 +54,9 @@
       <div class="userNameDate">
         <span class="firstName">{{firstNameUser}}</span>
         <span class="lastName">{{lastNameUser}}</span>
-        <span class="date">{{date | date:"medium"}}</span>
+        <span class="date">{{date.createdDate | date:"medium"}}</span>
       </div>
-      <div fxLayout="row wrap">
+      <div fxLayout="row wrap" fxLayoutAlign="space-between center">
         <div class="quesAskedDiv">
           <div class="quesAsked">{{question}}
           </div>
@@ -117,10 +117,10 @@
               <span class="firstName">{{firstNameUser1}}
                 <span class="lastName">{{lastNameUser1}}</span>
               </span>
-              <span class="date">{{reply.user.modifiedDate | date:"medium"}}</span>
+              <span class="date">{{reply.createdDate | date:"medium"}}</span>
             </div>
-            <div fxLayout="row wrap">
-              <div>
+            <div fxLayout="row wrap" >
+              <div style="word-break:break-all">
                 {{reply.message}}
               </div>
               <div fxLayout="row" class="iconsFirstStageReply">
@@ -133,15 +133,25 @@
                   </i>
                   <span *ngIf="likeCount(reply.like)">{{count1}}</span>
                 </div>
-                <div fxFlex="60%" *ngIf="rateAverage(reply.rate)">
-                  <bar-rating [(rate)]="rate1" [max]="5" (rateChange)="rating1($event,reply.id)">
-                  </bar-rating>
+                <div fxFlex="60%" *ngIf="rateAverage(reply.rate)" fxLayout="row">
+                  <div fxFlex="95%">
+                    <bar-rating [(rate)]="rate1Value" [max]="5" (rateChange)="rating1($event,reply.id)">
+                        {{(rate1)}}
+                    </bar-rating>
+                  </div>
+                  <div fxFlex="5%">
+                    <i class="material-icons">
+                      keyboard_arrow_down
+                    </i>
+                  </div>
+
                 </div>
+
               </div>
             </div>
 
 
-<!--Reply div 2nd stage-->
+            <!--Reply div 2nd stage-->
             <div *ngIf="replyMessage1 && reply.id==replyId1" fxLayout="row">
               <div class="reply_Div1" fxFlex="50%" contenteditable="true" placeholder="Reply..." #replyText1>
 
@@ -153,36 +163,56 @@
               </div>
 
             </div>
-<!--Reply div 2nd stage-->
-<!---Message div of 2nd stage starts--->
-<div *ngIf="reply2ndStage(reply)">
-<div fxLayout="row" *ngFor="let reply1 of replyArray2ndStage" class="reply2ndStageDiv">
-    <div fxFlex="20%">
-      <button mat-mini-fab disabled></button>
-    </div>
-    <div fxFlex="60%" class="reply2ndStage">
-      <div class="userName2">
-       <span class="firstName">{{reply1.user.firstName}}<span class="lastName">{{reply1.user.lastName}}</span></span>
-      </div>
-        {{reply1.message}}
-    </div>
-    <div fxFlex="20%">
-  
-    </div>
-  
-  </div>
-</div>
-  <!---Message div of 2nd stage ends--->
-  
+            <!--Reply div 2nd stage-->
+            <!---Message div of 2nd stage starts--->
+            <div *ngIf="reply2ndStage(reply)">
+              <div fxLayout="row" *ngFor="let reply1 of replyArray2ndStage" class="reply2ndStageDiv">
+                <div fxFlex="8%">
+                  <button mat-mini-fab disabled [ngStyle]="{'background-image':'url(' +img1+reply1.user.imageUrl+ ')','background-size':'cover'}"></button>
+                </div>
+                <div fxFlex="92%" class="reply2ndStage">
+                  <div class="userName2">
+                    <span class="firstName">{{reply1.user.firstName}}
+                      <span class="lastName">{{reply1.user.lastName}}</span></span>
+                    <span class="date">{{reply1.createdDate | date:"medium"}}</span>
+                  </div>
+                  <div fxLayout="row wrap" >
+                    <div style="word-break:break-all; margin-left:25px">
+                      {{reply1.message}}
+                    </div>
+
+                    <div fxLayout="row">
+                      <div fxFlex="42%" class="iconsQA">
+                        <i class="material-icons likeIcon likeIcon1" (click)="likeFirstStage(reply1.id)">
+                          thumb_up_alt
+                        </i>
+                        <span *ngIf="likeCount(reply1.like)">{{count1}}</span>
+                      </div>
+                      <div fxFlex="58%" *ngIf="rateAverage(reply1.rate)" fxLayout="row">
+                        <bar-rating fxFlex="99%" [(rate)]="rate1Value" [max]="5" (rateChange)="rating1($event,reply1.id)">
+                            
+                        </bar-rating >
+                        <!-- <div fxFlex="1%">
+                            {{(rate1)}}
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>  
+            </div>
+            <!---Message div of 2nd stage ends--->
+
 
 
           </div>
-          
+
 
         </div>
-        
+
         <div fxFlex.lg="5%" fxFlex.md="7%" fxFlex.sm="10%" fxFLex.xs="20%"></div>
-        
+
       </div>
 
     </div>
